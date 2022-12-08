@@ -1,19 +1,30 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import UserStore from "./store/UserStore"
+import ProjectsStore from "./store/ProjectsStore";
+
+interface IState {
+    user: UserStore
+    projects: ProjectsStore
+}
+
+export const user = new UserStore()
+export const projects = new ProjectsStore()
+
+export const Context = createContext<IState>({
+    user,
+    projects
+})
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <Context.Provider value={{
+        user,
+        projects
+    }}>
+        <App/>
+    </Context.Provider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

@@ -1,0 +1,118 @@
+import {makeAutoObservable} from "mobx";
+import {IAllTasks, ICreatedTask, ITask} from "../models/response/TasksResponse";
+import {IUser} from "../models/IUser";
+import TasksService from "../services/TasksService";
+
+
+export default class TasksStore {
+
+    constructor() {
+        makeAutoObservable(this)
+    }
+
+    async fetchTask(projectId: number, taskId: number) {
+        try {
+            this.setIsLoading(true)
+            const response = await TasksService.fetchTask(projectId, taskId)
+            this.setTask(response)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
+        }
+    }
+
+    async refreshTask(projectId: number, taskId: number, body: Partial<ITask>) {
+        try {
+            this.setIsLoading(true)
+            const response = await TasksService.fetchTask(projectId, taskId)
+            this.setTask(response)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
+        }
+    }
+
+    async deleteTask(projectId: number, taskId: number) {
+        try {
+            this.setIsLoading(true)
+            await TasksService.deleteTask(projectId, taskId)
+            const newTasksList = this.tasksList().tasks.filter(task => task.id !== taskId)
+            this.setTasksList({
+                tasks: newTasksList,
+                total: newTasksList.length
+            })
+        } catch (e) {
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
+        }
+    }
+
+    async fetchAllTasks(projectId: number) {
+        try {
+            this.setIsLoading(true)
+            const response = await TasksService.fetchAllTasks(projectId)
+            this.setTasksList(response)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
+        }
+    }
+
+    async createTask(projectId: number, body: ICreatedTask) {
+        try {
+            this.setIsLoading(true)
+            const response = await TasksService.createTask(projectId, body)
+            const newTaskList = [...this.tasksList().tasks, response]
+            this.setTasksList({
+                tasks: newTaskList,
+                total: newTaskList.length
+            })
+        } catch (e) {
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
+        }
+    }
+
+    public task(): ITask {
+        return this._task;
+    }
+
+    private setTask(value: ITask) {
+        this._task = value;
+    }
+
+    public tasksList(): IAllTasks {
+        return this._tasksList;
+    }
+
+    private setTasksList(value: IAllTasks) {
+        this._tasksList = value;
+    }
+
+    public isLoading(): boolean {
+        return this._isLoading;
+    }
+
+    private setIsLoading(value: boolean) {
+        this._isLoading = value;
+    }
+
+    private _task: ITask = {
+        id: 0,
+        title: "",
+        description: "",
+        creator: {} as IUser
+    }
+    private _tasksList: IAllTasks = {
+        tasks: [],
+        total: 0
+    }
+    private _isLoading: boolean = false
+
+
+}
