@@ -1,5 +1,5 @@
 import {makeAutoObservable} from "mobx";
-import {IAllTasks, ICreatedTask, ITask} from "../models/response/TasksResponse";
+import {ITasksList, INewTask, ITask} from "../models/response/TasksResponse";
 import {IUser} from "../models/IUser";
 import TasksService from "../services/TasksService";
 
@@ -62,7 +62,7 @@ export default class TasksStore {
         }
     }
 
-    async createTask(projectId: number, body: ICreatedTask) {
+    async createTask(projectId: number, body: INewTask) {
         try {
             this.setIsLoading(true)
             const response = await TasksService.createTask(projectId, body)
@@ -86,11 +86,11 @@ export default class TasksStore {
         this._task = value;
     }
 
-    public tasksList(): IAllTasks {
+    public tasksList(): ITasksList {
         return this._tasksList;
     }
 
-    private setTasksList(value: IAllTasks) {
+    private setTasksList(value: ITasksList) {
         this._tasksList = value;
     }
 
@@ -108,7 +108,7 @@ export default class TasksStore {
         description: "",
         creator: {} as IUser
     }
-    private _tasksList: IAllTasks = {
+    private _tasksList: ITasksList = {
         tasks: [],
         total: 0
     }

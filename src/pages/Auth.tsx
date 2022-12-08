@@ -9,13 +9,13 @@ import ZhushGreenInput from '../assets/img/Marker-input-green.svg'
 import ZhushBlueInput from '../assets/img/Marker-input-blue.svg'
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
-import {IAllProjects} from "../models/response/ProjectsResponse";
+import {IProjectsList} from "../models/response/ProjectsResponse";
 import ProjectCard from "../components/ProjectCard";
 
 const Auth: FC = () => {
     const [login, setLogin] = useState<string>("")
     const [password, setPassword] = useState<string>("")
-    const [proj, setProj] = useState<IAllProjects>({projects: [], total: 0})
+    const [proj, setProj] = useState<IProjectsList>({projects: [], total: 0})
     const {user, projects} = useContext(Context)
 
     useEffect(() => {

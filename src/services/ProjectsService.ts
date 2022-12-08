@@ -1,5 +1,5 @@
 import Api from "../http";
-import {IAllProjects, IAllUsers, IProject, IProjectCard} from "../models/response/ProjectsResponse";
+import {IProjectsList, IAllUsers, IProject, IProjectCard} from "../models/response/ProjectsResponse";
 
 export default class ProjectsService {
 
@@ -23,8 +23,8 @@ export default class ProjectsService {
         return Api.post<IProject>(`/users/${userId}/projects/${projectId}`, {userId: memberId})
     }
 
-    static async fetchAllProjects(userId: number): Promise<IAllProjects> {
-        return Api.get<IAllProjects>(`/users/${userId}/projects/`)
+    static async fetchAllProjects(userId: number): Promise<IProjectsList> {
+        return Api.get<IProjectsList>(`/users/${userId}/projects/`)
     }
 
     static async createNewProject(userId: number, body: Partial<IProjectCard>): Promise<IProjectCard> {

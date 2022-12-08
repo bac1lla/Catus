@@ -1,5 +1,5 @@
 import Api from "../http";
-import {IAllTasks, ICreatedTask, ITask} from "../models/response/TasksResponse";
+import {ITasksList, INewTask, ITask} from "../models/response/TasksResponse";
 
 export default class TasksService {
 
@@ -15,11 +15,11 @@ export default class TasksService {
         return Api.delete(`/projects/${projectId}/tasks/${taskId}`)
     }
 
-    static async fetchAllTasks(projectId: number): Promise<IAllTasks> {
-        return Api.get<IAllTasks>(`/projects/${projectId}/tasks`)
+    static async fetchAllTasks(projectId: number): Promise<ITasksList> {
+        return Api.get<ITasksList>(`/projects/${projectId}/tasks`)
     }
 
-    static async createTask(projectId: number, body: ICreatedTask): Promise<ITask> {
+    static async createTask(projectId: number, body: INewTask): Promise<ITask> {
         return Api.post<ITask>(`/projects/${projectId}/tasks`, body)
     }
 

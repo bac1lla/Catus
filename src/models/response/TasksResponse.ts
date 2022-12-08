@@ -6,11 +6,11 @@ export interface ITask {
     description: string;
     creator: IUser;
 }
-export interface IAllTasks {
+export interface ITasksList {
     tasks: ITask[];
     total: number;
 }
-export interface ICreatedTask {
+export interface INewTask {
     title: string;
     description: string;
     type: string;

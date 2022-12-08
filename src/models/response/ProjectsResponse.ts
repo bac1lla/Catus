@@ -22,7 +22,7 @@ export interface IProjectCard {
     userCount: number;
 }
 
-export interface IAllProjects {
+export interface IProjectsList {
     projects: IProjectCard[];
     total: number;
 }

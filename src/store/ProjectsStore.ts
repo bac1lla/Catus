@@ -1,4 +1,4 @@
-import {IAllProjects, IAllUsers, IProject} from "../models/response/ProjectsResponse";
+import {IProjectsList, IAllUsers, IProject} from "../models/response/ProjectsResponse";
 import ProjectsService from "../services/ProjectsService";
 import {makeAutoObservable} from "mobx";
 
@@ -120,11 +120,11 @@ export default class ProjectsStore {
         this._project = project
     }
 
-    public projectsList(): IAllProjects {
+    public projectsList(): IProjectsList {
         return this._projectsList
     }
 
-    private setProjectsList(projectsList: IAllProjects) {
+    private setProjectsList(projectsList: IProjectsList) {
         this._projectsList = projectsList
     }
 
@@ -145,7 +145,7 @@ export default class ProjectsStore {
         creatorId: "",
         userCount: 0
     }
-    private _projectsList: IAllProjects = {
+    private _projectsList: IProjectsList = {
         projects: [],
         total: 0
     }
