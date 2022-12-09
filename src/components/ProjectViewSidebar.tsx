@@ -9,13 +9,15 @@ import {
     textColorPrimary,
     textColorSecondary
 } from "../styles/colors";
-import {LightText, TitleText} from "../styles/text";
-import {IGroupMember} from "../types/types";
+import {LightText, TitleText} from "../styles/fonts";
 import GroupMember from "./GroupMember";
 
 interface IProjectSidebarProps {
     name: string,
-    members: IGroupMember[]
+    members: {
+        name: string;
+        group: string;
+    }[]
 }
 
 const ProjectViewSidebar: FC<IProjectSidebarProps> = ({name, members}) => {

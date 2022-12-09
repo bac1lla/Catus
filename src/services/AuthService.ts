@@ -6,8 +6,8 @@ export default class AuthService {
         return Api.post<IUser>(`/login`, {email, password})
     }
 
-    static async registration(email: string, password: string): Promise<IUser> {
-        return Api.post<IUser>(`/login`, {email, password})
+    static async registration(email: string, password: string, name: string, role: string): Promise<IUser> {
+        return Api.post<IUser>(`/login`, {email, password, name, role})
     }
 
     static async logout(): Promise<void> {

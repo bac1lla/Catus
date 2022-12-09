@@ -1,12 +1,18 @@
 import React, {FC} from 'react';
 import {accentColor2, accentColor5, backgroundColor, menuColor} from "../styles/colors";
 import styled from "styled-components";
-import {HomeworkText, LittleText} from "../styles/text";
+import {HomeworkText, LittleText} from "../styles/fonts";
 import {Col, Row} from "../styles/styled-components";
 import CommentsIcon from "../assets/img/comments-icon.png"
-import {IGroupTask} from "../types/types";
 
-const GroupTask: FC<IGroupTask> = ({type, description, groupDeadline, comments}) => {
+interface IGroupTaskProps {
+    type: string
+    description: string
+    groupDeadline: string
+    comments: number
+}
+
+const GroupTask: FC<IGroupTaskProps> = ({type, description, groupDeadline, comments}) => {
     return (
         <GroupTaskStyled>
             <Col gap={6}>

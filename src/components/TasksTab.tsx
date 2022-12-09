@@ -1,14 +1,18 @@
 import React, {FC} from 'react';
 import styled from "styled-components";
-import {SecondaryTitleText} from "../styles/text";
+import {SecondaryTitleText} from "../styles/fonts";
 import {Col} from "../styles/styled-components";
 import {accentColor3, accentColor4, backgroundColor, textColorPrimary, textColorSecondary} from "../styles/colors";
-import {IGroupTask} from "../types/types";
 import GroupTask from "./GroupTask";
 
 interface ITasksTabProps {
     tabName: string,
-    tasks: IGroupTask[],
+    tasks: {
+        type: string
+        description: string
+        groupDeadline: string
+        comments: number
+    }[],
     editable?: boolean
 }
 

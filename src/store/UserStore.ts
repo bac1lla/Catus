@@ -12,9 +12,11 @@ export default class UserStore {
 
     async login(email: string, password: string) {
         try {
-            // const response = await AuthService.login(email, password)
+            const response = await AuthService.login(email, password)
+            this.setUser(response)
             // localStorage.setItem("token", response.data.accessToken)
             this.setAuth(true)
+            this.setRole("Student")
             // console.log(response.id)
             // this.setUser(response)
         } catch (e) {
@@ -38,6 +40,17 @@ export default class UserStore {
                     userCount: 0
                 }
             })
+        } catch (e) {
+            // console.log(e.response?.data?.message)
+        }
+    }
+
+    async registration(email: string, password: string, name: string, role: string) {
+        try {
+            const response = await AuthService.registration(email, password, name, role)
+            this.setUser(response)
+            this.setAuth(true)
+            this.setRole(role)
         } catch (e) {
             // console.log(e.response?.data?.message)
         }
@@ -160,6 +173,14 @@ export default class UserStore {
         this._isLoading = bool
     }
 
+    public role(): string {
+        return this._role
+    }
+
+    private setRole(role: string) {
+        this._role = role
+    }
+
     public isAuth(): boolean {
         return this._isAuth
     }
@@ -179,6 +200,7 @@ export default class UserStore {
         users: [],
         total: 0
     }
+    private _role: string = "student"
     private _isAuth: boolean = false
     private _isLoading: boolean = false
 }

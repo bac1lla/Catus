@@ -1,11 +1,15 @@
 import React, {FC} from 'react';
-import {IGroupMember} from "../types/types";
 import styled from "styled-components";
 import {accentColor2, backgroundColor, mainColor} from "../styles/colors";
-import {LittleText} from "../styles/text";
+import {LittleText} from "../styles/fonts";
 import {Row, Col} from "../styles/styled-components";
 
-const GroupMember: FC<IGroupMember> = ({name,group}) => {
+interface IGroupMemberProps{
+    name: string;
+    group: string;
+}
+
+const GroupMember: FC<IGroupMemberProps> = ({name,group}) => {
     return (
         <GroupMemberStyled>
             <GroupMemberIcon>{name[0]}</GroupMemberIcon>

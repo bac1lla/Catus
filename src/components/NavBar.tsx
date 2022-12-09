@@ -1,17 +1,29 @@
-import React, {FC} from 'react';
+import React, {FC, useContext} from 'react';
 import styled from "styled-components";
 import {mainColor, menuColor, textColorPrimary} from "../styles/colors";
-import {MainTitleText} from "../styles/text";
+import {MainTitleText} from "../styles/fonts";
 import {Row} from "../styles/styled-components";
 import Logo from "../assets/img/logo-nav.svg"
 import LogOut from "../assets/img/logOut-navBtn.svg"
 import Task from "../assets/img/task-navBtn.svg"
 import Profile from "../assets/img/profile-navBtn.svg"
 import {HEADER_HEIGHT, WRAPPER_WIDTH} from "../styles/consts";
+import {Context} from "../index";
+import {observer} from "mobx-react-lite";
+import {useNavigate} from 'react-router-dom';
+import {LOGIN_ROUTE} from "../utils/consts";
 
 // state manager to actual project name
 
 const NavBar: FC = () => {
+    const {user} = useContext(Context)
+    const navigate = useNavigate()
+
+    async function logout() {
+        await user.logout()
+        navigate(LOGIN_ROUTE)
+    }
+
     return (
         <Menu>
             <Wrapper>
@@ -22,14 +34,16 @@ const NavBar: FC = () => {
                 <MenuNav>
                     <MenuButton><MenuButtonIcon src={Profile} alt={""}/></MenuButton>
                     <MenuButton><MenuButtonIcon src={Task} alt={""}/></MenuButton>
-                    <MenuButton><MenuButtonIcon src={LogOut} alt={""}/></MenuButton>
+                    <MenuButton
+                        onClick={() => logout()}
+                    ><MenuButtonIcon src={LogOut} alt={""}/></MenuButton>
                 </MenuNav>
             </Wrapper>
         </Menu>
     );
 };
 
-export default NavBar;
+export default observer(NavBar);
 
 const Menu = styled.div`
   background-color: ${mainColor};

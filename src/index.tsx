@@ -1,30 +1,15 @@
 import React, {createContext} from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import UserStore from "./store/UserStore"
-import ProjectsStore from "./store/ProjectsStore";
+import state, {IState} from "./store";
 
-interface IState {
-    user: UserStore
-    projects: ProjectsStore
-}
-
-export const user = new UserStore()
-export const projects = new ProjectsStore()
-
-export const Context = createContext<IState>({
-    user,
-    projects
-})
+export const Context = createContext<IState>(state)
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <Context.Provider value={{
-        user,
-        projects
-    }}>
+    <Context.Provider value={state}>
         <App/>
     </Context.Provider>
 );

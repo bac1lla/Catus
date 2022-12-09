@@ -3,6 +3,7 @@ import AppRouter from "./components/AppRouter";
 import {GlobalStyles} from "./styles/GlobalStyles";
 
 function App() {
+
     return (
         <BrowserRouter>
             <GlobalStyles/>

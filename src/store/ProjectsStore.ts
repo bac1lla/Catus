@@ -10,14 +10,10 @@ export default class ProjectsStore {
 
     async fetchAllProjects(userId: number) {
         try {
-            this.setIsLoading(true)
             const response = await ProjectsService.fetchAllProjects(userId)
-            // console.log("response----------",response)
             this.setProjectsList(response)
         } catch (e) {
             console.log(e)
-        } finally {
-            this.setIsLoading(false)
         }
     }
 
@@ -39,7 +35,6 @@ export default class ProjectsStore {
             this.setIsLoading(true)
             await ProjectsService.deleteProject(userId, projectId)
             const newProjectsList = this.projectsList().projects.filter(project => project.id !== projectId)
-            console.log(newProjectsList)
             this.setProjectsList({
                 projects: newProjectsList,
                 total: newProjectsList.length
@@ -108,7 +103,7 @@ export default class ProjectsStore {
         return this._isLoading;
     }
 
-    private setIsLoading(value: boolean) {
+    public setIsLoading(value: boolean) {
         this._isLoading = value;
     }
 
@@ -153,5 +148,5 @@ export default class ProjectsStore {
         users: [],
         total: 0
     }
-    private _isLoading: boolean = false
+    _isLoading: boolean = false
 }

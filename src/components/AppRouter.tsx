@@ -1,19 +1,25 @@
-import React from 'react';
+import React, {FC, useContext} from 'react';
 import {Routes, Route} from 'react-router-dom';
-import {routes} from "../routes";
-import Auth from "../pages/Auth";
+import {authRoutes, publicRoutes} from "../routes";
+import {Context} from "../index";
+import NotFound from "../pages/NotFound";
+import {observer} from "mobx-react-lite";
 
-const AppRouter = () => {
+const AppRouter: FC = () => {
+
+    const {user} = useContext(Context)
+
     return (
         <Routes>
-            {
-                routes.map(({path, Component}) =>
-                    <Route key={path} path={path} element={Component}/>
-                )
-            }
-            <Route path="*" element={<Auth/>}/>
+            {user.isAuth() && authRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} element={Component}/>
+            )}
+            {publicRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} element={Component}/>
+            )}
+            <Route path="*" element={<NotFound/>}/>
         </Routes>
     );
 };
 
-export default AppRouter;
+export default observer(AppRouter);

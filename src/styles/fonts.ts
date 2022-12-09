@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {SIZE} from "./consts";
 
 export const MainText = styled.span`
   font-weight: 400;
@@ -7,10 +8,33 @@ export const MainText = styled.span`
 export const LightText = styled.span`
   font-weight: 300;
   font-size: 25px;
+
+  @media (max-width: ${SIZE.laptop}) {
+    font-size: 20px;
+  }
+  @media (max-width: ${SIZE.mobileL}) {
+    font-size: 18px;
+  }
+  @media (max-width: ${SIZE.mobileS}) {
+    font-size: 14px;
+  }
 `
 export const HeaderText = styled.span`
   font-weight: 300;
-  font-size: 70px;
+  font-size: 60px;
+  
+  @media (max-width: ${SIZE.laptop}) {
+    font-size: 55px;
+  }
+  @media (max-width: ${SIZE.tablet}) {
+    font-size: 35px;
+  }
+  @media (max-width: ${SIZE.mobileL}) {
+    font-size: 24px;
+  }
+  @media (max-width: ${SIZE.mobileS}) {
+    font-size: 20px;
+  }
 `
 export const TextInfo = styled.span`
   font-weight: 300;
@@ -22,7 +46,21 @@ export const LittleText = styled.span`
 `
 export const MainTitleText = styled.span`
   font-weight: 400;
-  font-size: 70px;
+  font-size: 60px;
+
+  @media (max-width: ${SIZE.laptop}) {
+    font-size: 55px;
+  }
+  @media (max-width: ${SIZE.tablet}) {
+    font-size: 35px;
+  }
+  @media (max-width: ${SIZE.mobileL}) {
+    font-size: 24px;
+  }
+  @media (max-width: ${SIZE.mobileS}) {
+    font-size: 20px;
+  }
+  
 `
 export const SecondaryTitleText = styled.span`
   font-weight: 400;
