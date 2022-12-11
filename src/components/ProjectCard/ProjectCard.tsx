@@ -21,6 +21,12 @@ const ProjectCard: FC<IProjectCardProps> = ({project}) => {
         navigate(PROJECT_ROUTE + `/${project.id}`)
     }
 
+    const deleteProject = async (e: any) => {
+        e.stopPropagation()
+        //переписать на компонент
+        window.confirm("Вы уверены что хотитте удалить проект?") && await projects.deleteProject(user.user().id, project.id)
+    }
+
     return (
         <Card.Wrapper
             onClick={(e) => openProject()}
@@ -35,7 +41,7 @@ const ProjectCard: FC<IProjectCardProps> = ({project}) => {
                     </Card.Row.Row>
                     <Card.Trash
                         src={TrashIcon}
-                        onClick={() => projects.deleteProject(user.user().id, project.id)}
+                        onClick={(e) => deleteProject(e)}
                     />
                 </Row>
                 <Card.Row.Row>

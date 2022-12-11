@@ -5,10 +5,12 @@ import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import ProjectsPage from './style';
+import Modal from "../../components/Modal/Modal";
 
 const Projects: FC = () => {
     const {user, projects} = useContext(Context)
     const [show, toggleShow] = useState<boolean>(false)
+    const [showModal, setShow] = useState<boolean>(false)
 
     useEffect(() => {
         projects.fetchAllProjects(user.user().id)
