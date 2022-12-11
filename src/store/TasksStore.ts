@@ -65,12 +65,10 @@ export default class TasksStore {
     async createTask(projectId: number, body: INewTask) {
         try {
             this.setIsLoading(true)
-            const response = await TasksService.createTask(projectId, body)
-            const newTaskList = [...this.tasksList().tasks, response]
-            this.setTasksList({
-                tasks: newTaskList,
-                total: newTaskList.length
-            })
+            const newTask = await TasksService.createTask(projectId, body)
+            this.setTask(newTask)
+            const newTaskList = await TasksService.fetchAllTasks(projectId)
+            this.setTasksList(newTaskList)
         } catch (e) {
             console.log(e)
         } finally {

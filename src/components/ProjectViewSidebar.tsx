@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, {FC, useContext, useEffect} from 'react';
 import styled from "styled-components";
-import {Col, Container} from "../styles/styled-components";
+import {Col} from "../styles/styled-components";
 import {
     accentColor2, accentColor4,
     backgroundColor,
@@ -11,26 +11,32 @@ import {
 } from "../styles/colors";
 import {LightText, TitleText} from "../styles/fonts";
 import GroupMember from "./GroupMember";
+import {Context} from "../index";
+import {observer} from "mobx-react-lite";
 
-interface IProjectSidebarProps {
-    name: string,
-    members: {
-        name: string;
-        group: string;
-    }[]
-}
+const ProjectViewSidebar: FC = () => {
 
-const ProjectViewSidebar: FC<IProjectSidebarProps> = ({name, members}) => {
+    const {projects, user} = useContext(Context)
+
+    const getMembers = async () => {
+        await projects.fetchAllUsersInProject(user.user().id, projects.project().id)
+        // console.log(projects.allUsers())
+    }
+
+    useEffect(() => {
+        getMembers()
+    }, [])
+
     return (
         <ProjectSidebarStyled gap={20}>
-            <SidebarImage>{name}</SidebarImage>
+            <SidebarImage>{projects.project().title}</SidebarImage>
                 <MembersHeader>
                     <MembersHeaderTitle>Members:</MembersHeaderTitle>
-                    <MembersCount>{members.length}</MembersCount>
+                    <MembersCount>{projects.allUsers().total}</MembersCount>
                 </MembersHeader>
             <Members>
                 {
-                    members.map((member) => <GroupMember {...member} />)
+                    projects.allUsers().users.map(user => <GroupMember key={user.id} group={user.group.name} name={user.name} />)
                 }
             </Members>
                 <MembersAddBtn>ADD</MembersAddBtn>
@@ -38,14 +44,15 @@ const ProjectViewSidebar: FC<IProjectSidebarProps> = ({name, members}) => {
     );
 };
 
-export default ProjectViewSidebar;
+export default observer(ProjectViewSidebar);
 
 const ProjectSidebarStyled = styled(Col)`
   width: 260px;
   padding: 20px;
   background-color: ${mainColor};
-  max-height: 100%;
+  height: 100%;
   border-radius: 20px;
+  justify-content: space-around;
 `
 const SidebarImage = styled(TitleText)`
   min-width: 215px;
@@ -59,16 +66,16 @@ const SidebarImage = styled(TitleText)`
 `
 const Members = styled(Col)`
   width: 215px;
-  height: 100px;
+  //height: 100px;
   overflow-y: scroll;
   //position: relative;
   gap: 20px;
-  padding: 380px 15px 20px 15px;
+  padding: 20px 15px;
   align-items: center;
-  justify-content: center;
+  //justify-content: center;
   background-color: ${menuColor};
   border-radius: 20px;
-  max-height: 430px;
+  max-height: 70%;
 `
 const MembersHeader = styled.div`
   background-color: ${textColorPrimary};
@@ -97,6 +104,7 @@ const MembersCount = styled(LightText)`
 `
 const MembersAddBtn = styled.button`
   height: 40px;
+  flex-shrink: 0;
   width: 100%;
   display: flex;
   justify-content: center;

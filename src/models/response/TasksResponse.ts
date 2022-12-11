@@ -6,10 +6,21 @@ export interface ITask {
     description: string;
     creator: IUser;
 }
+
+export interface ITaskCard {
+    id: number,
+    title: string,
+    type: string,
+    dueDate: string,
+    status: string,
+    commentCount: number
+}
+
 export interface ITasksList {
-    tasks: ITask[];
+    tasks: ITaskCard[];
     total: number;
 }
+
 export interface INewTask {
     title: string;
     description: string;

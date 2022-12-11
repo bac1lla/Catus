@@ -20,19 +20,20 @@ const AuthStyled = styled.div`
   @media (min-width: ${SIZE.laptop}) {
     padding: 150px 50px;
   }
-
   @media (max-width: ${SIZE.laptop}) {
     padding: 100px 50px;
   }
-  
   @media (max-width: ${SIZE.tablet}) {
-    padding: 100px 30px;
+    padding: 150px 30px;
   }
   @media (max-width: ${SIZE.mobileL}) {
     padding: 70px 30px;
   }
   @media (max-width: ${SIZE.mobileM}) {
     padding: 120px 30px;
+  }
+  @media (max-width: ${SIZE.mobileS}) {
+    padding: 150px 30px;
   }
 `
 
@@ -55,9 +56,13 @@ const AuthTextWrapper = styled.div<IImgProps>`
   justify-content: center;
 
   @media (max-width: ${SIZE.tablet}) {
-    
     height: 120px;
   }
+  @media (max-width: ${SIZE.mobileM}) {
+    height: 70px;
+    width: 70%;
+  }
+  
 `
 
 const AuthTextWrapperGreen = styled(AuthTextWrapper)`
@@ -88,6 +93,10 @@ const AuthInputWrapper = styled.div<IImgProps>`
   justify-content: space-between;
   height: 56px;
   padding: 16px 44px;
+  @media (max-width: ${SIZE.mobileM}) {
+    height: 30px;
+    //width: 70%;
+  }
 `
 
 const AuthInputWrapperGreen = styled(AuthInputWrapper)`

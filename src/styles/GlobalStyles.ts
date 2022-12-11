@@ -1,5 +1,4 @@
 import {createGlobalStyle} from "styled-components";
-import {fadeIn} from "./animations";
 
 export const GlobalStyles = createGlobalStyle`
 
@@ -41,6 +40,4 @@ export const GlobalStyles = createGlobalStyle`
   #root {
     height: 100vh;
   }
-  
-  ${fadeIn}
 `

@@ -42,7 +42,7 @@ export const TextInfo = styled.span`
 `
 export const LittleText = styled.span`
   font-weight: 300;
-  font-size: 8px;
+  font-size: 12px;
 `
 export const MainTitleText = styled.span`
   font-weight: 400;
@@ -60,7 +60,6 @@ export const MainTitleText = styled.span`
   @media (max-width: ${SIZE.mobileS}) {
     font-size: 20px;
   }
-  
 `
 export const SecondaryTitleText = styled.span`
   font-weight: 400;

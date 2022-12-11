@@ -62,13 +62,13 @@ export default class ProjectsStore {
         try {
             this.setIsLoading(true)
             const response = await ProjectsService.getAllUsersInProject(userId, projectId)
+            console.log(response)
             this.setAllUsers(response)
         } catch (e) {
             console.log(e)
         } finally {
             this.setIsLoading(false)
         }
-        return this._allUsers
     }
 
     async addMember(userId: number, projectId: number, memberId: number) {

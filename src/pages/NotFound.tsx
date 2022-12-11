@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
-import {LOGIN_ROUTE} from "../utils/consts";
+import {LOGIN_ROUTE} from "../routes/consts";
 
 const NotFound = () => {
 

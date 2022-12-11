@@ -16,7 +16,7 @@ export default class ProjectsService {
     }
 
     static async getAllUsersInProject(userId: number, projectId: number): Promise<IAllUsers> {
-        return Api.get<IAllUsers>(`/users/${userId}/projects/${projectId}`)
+        return Api.get<IAllUsers>(`/users/${userId}/projects/${projectId}/users`)
     }
 
     static async addMember(userId: number, projectId: number, memberId: number): Promise<IProject> {

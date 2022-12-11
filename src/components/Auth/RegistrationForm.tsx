@@ -2,7 +2,7 @@ import React, {FC, useState} from 'react';
 import UserStore from "../../store/UserStore";
 import Auth from "./style";
 import {useNavigate} from "react-router-dom";
-import {LOGIN_ROUTE, PROJECTS_ROUTE} from "../../utils/consts";
+import {LOGIN_ROUTE, PROJECTS_ROUTE} from "../../routes/consts";
 
 interface IRegistrationFormProps {
     user: UserStore

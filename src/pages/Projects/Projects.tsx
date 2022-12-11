@@ -1,12 +1,9 @@
 import React, {FC, useContext, useEffect, useState} from 'react';
 import ProjectSidebar from "../../components/ProjectSidebar/ProjectSidebar";
-import styled from "styled-components";
 import {MainTitleText} from "../../styles/fonts";
-import {mainColor} from "../../styles/colors";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
-import {SIZE} from "../../styles/consts";
 import ProjectsPage from './style';
 
 const Projects: FC = () => {
@@ -26,7 +23,11 @@ const Projects: FC = () => {
                     <MainTitleText>Your projects</MainTitleText>
                 </ProjectsPage.Title>
                 {
-                    projects.projectsList().projects.map(project => <ProjectCard key={project.id} project={project}/>)
+                    projects.projectsList().projects.map(project =>
+                        <ProjectCard
+                            key={project.id}
+                            project={project}
+                        />)
                 }
             </ProjectsPage.Projects>
         </ProjectsPage.Wrapper>

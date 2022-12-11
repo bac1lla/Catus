@@ -4,39 +4,40 @@ import {SecondaryTitleText} from "../styles/fonts";
 import {Col} from "../styles/styled-components";
 import {accentColor3, accentColor4, backgroundColor, textColorPrimary, textColorSecondary} from "../styles/colors";
 import GroupTask from "./GroupTask";
+import {ITaskCard} from "../models/response/TasksResponse";
 
 interface ITasksTabProps {
     tabName: string,
-    tasks: {
-        type: string
-        description: string
-        groupDeadline: string
-        comments: number
-    }[],
+    tasks: ITaskCard[],
+    color: string,
     editable?: boolean
 }
 
-const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true}) => {
+const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color}) => {
     return (
-        <TasksTabStyled gap={20}>
-            <TabName><SecondaryTitleText>{tabName}</SecondaryTitleText></TabName>
+        <TasksTabStyled>
+            <TabName color={color}><SecondaryTitleText>{tabName}</SecondaryTitleText></TabName>
+            <TasksWrapper>
+
             {
                 tasks.map(
                     ({
                          type,
-                         groupDeadline,
-                         description,
-                         comments
+                         commentCount,
+                         title,
+                         id,
+                         dueDate
                      }) =>
                         <GroupTask
-                            key={comments}
+                            key={id}
                             type={type}
-                            groupDeadline={groupDeadline}
-                            description={description}
-                            comments={comments}/>)
+                            groupDeadline={dueDate}
+                            description={title}
+                            comments={commentCount}/>)
             }
+            </TasksWrapper>
             {
-                editable ? <AddGroupTaskBtn>Add</AddGroupTaskBtn> : <></>
+                editable && <AddGroupTaskBtn>Add</AddGroupTaskBtn>
             }
 
         </TasksTabStyled>
@@ -50,17 +51,27 @@ const TasksTabStyled = styled(Col)`
   background-color: ${textColorSecondary};
   border-radius: 40px;
   width: 260px;
-  height: 800px;
+  height: 100%;
+  gap: 20px;
 `
-
-const TabName = styled.div`
+const TasksWrapper = styled(Col)`
+  border-radius: 20px;
+  gap: 20px;
+  overflow-y: scroll;
+  height: 100%;
+  
+`
+interface ITabName {
+    color?: string
+}
+const TabName = styled.div<ITabName>`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 42px;
   color: ${backgroundColor};
-  background-color: ${accentColor4};
+  background-color: ${({color}) => color ? color : accentColor4};
   border-radius: 40px;
 `
 const AddGroupTaskBtn = styled.div`

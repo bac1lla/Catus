@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 import UserStore from "../../store/UserStore";
 import {useNavigate} from "react-router-dom";
-import {PROJECTS_ROUTE, REGISTRATION_ROUTE} from "../../utils/consts";
+import {PROJECTS_ROUTE, REGISTRATION_ROUTE} from "../../routes/consts";
 import Auth from './style';
 
 interface ILoginFormProps {

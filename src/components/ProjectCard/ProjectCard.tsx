@@ -4,6 +4,8 @@ import TrashIcon from "../../assets/img/trashIcon.png"
 import {IProjectCard} from "../../models/response/ProjectsResponse";
 import {Context} from "../../index";
 import Card from './style';
+import {useNavigate} from "react-router-dom";
+import {PROJECT_ROUTE} from "../../routes/consts";
 
 interface IProjectCardProps {
     project: IProjectCard
@@ -12,9 +14,17 @@ interface IProjectCardProps {
 const ProjectCard: FC<IProjectCardProps> = ({project}) => {
 
     const {user, projects} = useContext(Context)
+    const navigate = useNavigate()
+
+    const openProject = async () => {
+        await projects.fetchProjectById(user.user().id, project.id)
+        navigate(PROJECT_ROUTE + `/${project.id}`)
+    }
 
     return (
-        <Card.Wrapper>
+        <Card.Wrapper
+            onClick={(e) => openProject()}
+        >
             <Card.Image/>
             <Card.Info>
                 <Row>
@@ -26,7 +36,6 @@ const ProjectCard: FC<IProjectCardProps> = ({project}) => {
                     <Card.Trash
                         src={TrashIcon}
                         onClick={() => projects.deleteProject(user.user().id, project.id)}
-                        // onClick={() => projects.deleteProject(1, project.id)}
                     />
                 </Row>
                 <Card.Row.Row>
