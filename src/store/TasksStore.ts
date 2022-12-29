@@ -104,7 +104,8 @@ export default class TasksStore {
         id: 0,
         title: "",
         description: "",
-        creator: {} as IUser
+        creator: {} as IUser,
+        dueDate: ""
     }
     private _tasksList: ITasksList = {
         tasks: [],

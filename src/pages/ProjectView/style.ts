@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {HEADER_HEIGHT, WRAPPER_WIDTH} from "../../styles/consts";
-import {Row} from "../../styles/styled-components";
+import {Line} from "../../styles/styled-components";
 import {backgroundColor} from "../../styles/colors";
 
 const ProjectWrapper = styled.div`
@@ -9,7 +9,7 @@ const ProjectWrapper = styled.div`
   margin: auto;
   width: 90%;
 `
-const ProjectView = styled(Row)`
+const ProjectView = styled(Line)`
   padding: 30px;
   //gap: 20px;
   background-color: ${backgroundColor};

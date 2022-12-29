@@ -7,6 +7,8 @@ import TasksTab from "../../components/TasksTab";
 import ProjectViewSidebar from "../../components/ProjectViewSidebar";
 import {observer} from "mobx-react-lite";
 import {accentColor2} from "../../styles/colors";
+import Modal from "../../components/Modal/Modal";
+import TaskDetail from "../../components/Modal/TaskDetail";
 
 interface ISeparatedTasks {
     [key: string]: ITaskCard[];
@@ -31,6 +33,7 @@ const ProjectView: FC = () => {
 
     const {projects, tasks} = useContext(Context)
     const [separatedTasks, setSeparatedTasks] = useState<ISeparatedTasks>({})
+    const [showModal, setShowModal] = useState(false)
 
     useEffect(() => {
         getTasks()
@@ -52,19 +55,26 @@ const ProjectView: FC = () => {
         return tabsArr
     }
 
+    const createTask = () => {
+
+    }
+
+
+
     return (
         <>
             <NavBar/>
             <Project.Wrapper>
                 <Project.ProjectView>
-                    <ProjectViewSidebar />
-                    <div style={{height: "100%", display: "flex", gap: "20px", overflowX: "scroll"}}>
-                    {
-                        renderTabs(separatedTasks)
-                    }
+                    <ProjectViewSidebar/>
+                    <div style={{height: "100%", display: "flex", gap: "20px", overflowX: "auto"}}>
+                        {
+                            renderTabs(separatedTasks)
+                        }
                     </div>
                 </Project.ProjectView>
             </Project.Wrapper>
+
         </>
     );
 };

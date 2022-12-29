@@ -1,27 +1,33 @@
-import React, {Dispatch, FC, ReactNode, SetStateAction} from 'react';
-import "./Modal.css";
+import React, {Dispatch, FC, ReactNode, SetStateAction, useEffect} from 'react';
+import ModalStyled from "./style";
 
 interface Modal {
     setShow: Dispatch<SetStateAction<boolean>>,
-    title: string,
-    children: ReactNode
+    children: ReactNode,
+    show: boolean
 }
 
-const Modal: FC<Modal> = ({setShow, title, children}) => {
+const Modal: FC<Modal> = ({show, setShow, children}) => {
+
+    const closeOnEscapeKeyDown = (e: any) => {
+        if ((e.charCode || e.keyCode) === 27) {
+            setShow(false)
+        }
+    };
+
+    useEffect(() => {
+        document.body.addEventListener("keydown", closeOnEscapeKeyDown);
+        return function cleanup() {
+            document.body.removeEventListener("keydown", closeOnEscapeKeyDown);
+        };
+    }, []);
+
     return (
-        <div className="modal" onClick={() => setShow(false)}>
-            <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <div className="modal-header">
-                    <h4 className="modal-title">{title}</h4>
-                </div>
-                <div className="modal-body">{children}</div>
-                <div className="modal-footer">
-                    <button onClick={() => setShow(false)} className="button">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
+        <ModalStyled onClick={() => setShow(false)} show={show}>
+            <ModalStyled.Content onClick={e => e.stopPropagation()}>
+                <ModalStyled.Body>{children}</ModalStyled.Body>
+            </ModalStyled.Content>
+        </ModalStyled>
     );
 };
 

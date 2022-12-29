@@ -3,21 +3,15 @@ import {SIZE} from "../../styles/consts";
 import {mainColor} from "../../styles/colors";
 
 const ProjectsWrapper = styled.div`
-  display: flex;
+  //display: flex;
+  height: 100%;
+  overflow-y: scroll;
 `
 const ProjectsStyled = styled.div`
-  height: 100vh;
-  padding: 50px;
-  overflow-y: scroll;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
-  align-items: flex-start;
-  @media (max-width: ${SIZE.laptop}) {
-    padding: 30px;
-    gap: 10px;
-  }
+  //height: 100vh;
+  //padding: 50px;
+  //overflow: hidden;
+  
 `
 const ProjectsTitle = styled.div`
   display: flex;
@@ -48,12 +42,27 @@ const BurgerBtn = styled.div<IBurgerBtn>`
     width: 40px;
   }
 `
+const List = styled.div`
+  //overflow-y: scroll;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-start;
+  @media (max-width: ${SIZE.laptop}) {
+    //padding: 30px;
+    gap: 10px;
+  }
+  
+`
 
 const ProjectsPage = {
     Title: ProjectsTitle,
     Wrapper: ProjectsWrapper,
     Projects: ProjectsStyled,
     BurgerBtn: BurgerBtn,
+    List
 }
 
 export default ProjectsPage

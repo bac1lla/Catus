@@ -4,6 +4,7 @@ export interface ITask {
     id: number;
     title: string;
     description: string;
+    dueDate: string;
     creator: IUser;
 }
 
@@ -13,7 +14,8 @@ export interface ITaskCard {
     type: string,
     dueDate: string,
     status: string,
-    commentCount: number
+    commentCount: number,
+    description: string;
 }
 
 export interface ITasksList {

@@ -75,7 +75,8 @@ export default class ProjectsStore {
         try {
             this.setIsLoading(true)
             const response = await ProjectsService.addMember(userId, projectId, memberId)
-            this.setProject(response)
+            const newUsersList = [...this.allUsers().users, ...response.users]
+            this.setAllUsers({users: newUsersList, total: newUsersList.length})
         } catch (e) {
             console.log(e)
         } finally {

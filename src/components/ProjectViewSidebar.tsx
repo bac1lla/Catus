@@ -1,6 +1,6 @@
-import React, {FC, useContext, useEffect} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
-import {Col} from "../styles/styled-components";
+import {Column} from "../styles/styled-components";
 import {
     accentColor2, accentColor4,
     backgroundColor,
@@ -10,43 +10,56 @@ import {
     textColorSecondary
 } from "../styles/colors";
 import {LightText, TitleText} from "../styles/fonts";
-import GroupMember from "./GroupMember";
+import GroupMember from "./GroupMember/GroupMember";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
+import Modal from "./Modal/Modal";
+import AddStudents from "./AddStudents/AddStudents";
+import {IUser} from "../models/IUser";
 
 const ProjectViewSidebar: FC = () => {
 
+    const [showAddUsers, setShowAddUsers] = useState<boolean>(false)
     const {projects, user} = useContext(Context)
 
-    const getMembers = async () => {
-        await projects.fetchAllUsersInProject(user.user().id, projects.project().id)
-        // console.log(projects.allUsers())
-    }
-
     useEffect(() => {
-        getMembers()
+        projects.fetchAllUsersInProject(user.user().id, projects.project().id)
     }, [])
+
+    const addUsers = async (users: Set<IUser>) => {
+        // console.log(users)
+        users.forEach((userSet) => {
+            projects.addMember(user.user().id, projects.project().id, userSet.id)
+        })
+        setShowAddUsers(false)
+        // for(let i = 0; i < users.size; i++) {
+        // }
+    }
 
     return (
         <ProjectSidebarStyled gap={20}>
             <SidebarImage>{projects.project().title}</SidebarImage>
-                <MembersHeader>
-                    <MembersHeaderTitle>Members:</MembersHeaderTitle>
-                    <MembersCount>{projects.allUsers().total}</MembersCount>
-                </MembersHeader>
+            <MembersHeader>
+                <MembersHeaderTitle>Members:</MembersHeaderTitle>
+                <MembersCount>{projects.allUsers().total}</MembersCount>
+            </MembersHeader>
             <Members>
                 {
-                    projects.allUsers().users.map(user => <GroupMember key={user.id} group={user.group.name} name={user.name} />)
+                    projects.allUsers().users.map(user =>
+                        <GroupMember key={user.id} group={user.group.name} name={user.name}/>)
                 }
             </Members>
-                <MembersAddBtn>ADD</MembersAddBtn>
+            <MembersAddBtn onClick={() => setShowAddUsers(true)}>ADD</MembersAddBtn>
+            <Modal setShow={setShowAddUsers} show={showAddUsers}>
+                <AddStudents setShow={setShowAddUsers} onConfirm={addUsers} />
+            </Modal>
         </ProjectSidebarStyled>
     );
 };
 
 export default observer(ProjectViewSidebar);
 
-const ProjectSidebarStyled = styled(Col)`
+const ProjectSidebarStyled = styled(Column)`
   width: 260px;
   padding: 20px;
   background-color: ${mainColor};
@@ -64,7 +77,7 @@ const SidebarImage = styled(TitleText)`
   justify-content: center;
   border-radius: 40px;
 `
-const Members = styled(Col)`
+const Members = styled(Column)`
   width: 215px;
   //height: 100px;
   overflow-y: scroll;
@@ -113,6 +126,6 @@ const MembersAddBtn = styled.button`
   background-color: ${accentColor4};
   color: ${backgroundColor};
   border: 2px solid ${textColorPrimary};
-  
+
 `
 

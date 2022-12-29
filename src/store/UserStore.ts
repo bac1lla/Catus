@@ -16,7 +16,7 @@ export default class UserStore {
             this.setUser(response)
             // localStorage.setItem("token", response.data.accessToken)
             this.setAuth(true)
-            this.setRole("Student")
+            // this.setRole("Student")
             // console.log(response.id)
             // this.setUser(response)
         } catch (e) {
@@ -27,7 +27,7 @@ export default class UserStore {
     async logout() {
         try {
             await AuthService.logout()
-            // localStorage.removeItem("token")
+            localStorage.removeItem("token")
             this.setAuth(false)
             this.setUser({
                 id: 0,
@@ -51,6 +51,7 @@ export default class UserStore {
             this.setUser(response)
             this.setAuth(true)
             this.setRole(role)
+            localStorage.setItem('token', Math.random() + "")
         } catch (e) {
             // console.log(e.response?.data?.message)
         }
@@ -98,6 +99,7 @@ export default class UserStore {
         try {
             this.setIsLoading(true)
             await UsersService.deleteUser(userId)
+            localStorage.removeItem("token")
             this.setAuth(false)
             this.setUser({
                 id: 0,
@@ -141,6 +143,7 @@ export default class UserStore {
         try {
             this.setIsLoading(true)
             const response = await UsersService.createUser(user)
+            localStorage.setItem('token', Math.random() + "")
             this.setUser(response)
         } catch (e) {
             console.log(e)
@@ -182,6 +185,10 @@ export default class UserStore {
     }
 
     public isAuth(): boolean {
+        if (localStorage.token) {
+            this.setAuth(true)
+        } else this.setAuth(false)
+
         return this._isAuth
     }
 
@@ -200,7 +207,7 @@ export default class UserStore {
         users: [],
         total: 0
     }
-    private _role: string = "student"
+    private _role: string = "Teacher"
     private _isAuth: boolean = false
     private _isLoading: boolean = false
 }

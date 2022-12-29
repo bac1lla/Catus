@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Col} from "../../styles/styled-components";
+import {Column} from "../../styles/styled-components";
 import {
     accentColor1,
     accentColor2,
@@ -15,18 +15,19 @@ interface IProjectSidebarStyled {
     show: boolean
 }
 
-const SidebarStyled = styled(Col)<IProjectSidebarStyled>`
+const SidebarStyled = styled(Column)<IProjectSidebarStyled>`
   background-color: ${mainColor};
   align-items: center;
   padding: 30px;
-  gap: 20px;
-  justify-content: space-between;
+  gap: 60px;
   height: 100vh;
   min-height: 100vh;
   width: 427px;
   flex-shrink: 0;
 
   @media (max-width: ${SIZE.laptop}) {
+  justify-content: space-between;
+    gap: 20px;
     width: 300px;
   }
 
@@ -71,7 +72,7 @@ const PersonWrapper = styled.div`
   flex-direction: column;
   padding: 58px 30px;
 `
-const Person = styled(Col)`
+const Person = styled(Column)`
   gap: 15px;
   height: 230px;
   width: 100%;

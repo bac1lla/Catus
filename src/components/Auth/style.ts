@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Col} from "../../styles/styled-components";
+import {Column} from "../../styles/styled-components";
 import {LightText, LittleText, MainTitleText, TextInfo} from "../../styles/fonts";
 import {SIZE} from "../../styles/consts";
 import ZhushPurple from "../../assets/img/MarkerZhush-purple.svg";
@@ -73,7 +73,7 @@ const AuthTextWrapperPurple = styled(AuthTextWrapper)`
   background-image: url(${ZhushPurple});
 `
 
-const AuthForm = styled(Col)`
+const AuthForm = styled(Column)`
   gap: 20px;
   width: 100%;
   @media (max-width: ${SIZE.mobileL}) {

@@ -1,8 +1,9 @@
 import {FC, ReactComponentElement} from "react";
-import {LOGIN_ROUTE, PROJECT_ROUTE, PROJECTS_ROUTE, REGISTRATION_ROUTE} from "./consts";
+import {GROUPS_ROUTE, LOGIN_ROUTE, PROJECT_ROUTE, PROJECTS_ROUTE, REGISTRATION_ROUTE} from "./consts";
 import Auth from "../pages/Auth/Auth";
 import ProjectView from "../pages/ProjectView/ProjectView";
-import Projects from "../pages/Projects/Projects";
+import Projects from "../components/Projects/Projects";
+import MainPage from "../pages/MainPage/MainPage";
 
 interface IRoute {
     path: string,
@@ -16,7 +17,11 @@ export const authRoutes: IRoute[] = [
     },
     {
         path: PROJECTS_ROUTE,
-        Component: <Projects />
+        Component: <MainPage />
+    },
+    {
+        path: GROUPS_ROUTE,
+        Component: <MainPage />
     }
 ]
 

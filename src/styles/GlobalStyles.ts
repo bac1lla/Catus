@@ -35,9 +35,36 @@ export const GlobalStyles = createGlobalStyle`
     margin: 0;
     font-family: Roboto, sans-serif;
     font-weight: 400;
+    
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgb(179, 177, 177);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgb(136, 136, 136);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgb(100, 100, 100);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background: rgb(68, 68, 68);
+      border-radius: 10px;
+    }
   }
   
   #root {
     height: 100vh;
   }
+
+  
+  
 `

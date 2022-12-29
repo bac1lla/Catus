@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {accentColor4, backgroundColor, textColorPrimary, textColorSecondary} from "../../styles/colors";
 import {SIZE} from "../../styles/consts";
 import {MainText} from "../../styles/fonts";
-import {Col} from "../../styles/styled-components";
+import {Column} from "../../styles/styled-components";
 
 const ProjectCardStyled = styled.div`
   display: flex;
@@ -71,7 +71,7 @@ const ProjectCardTrashIcon = styled.img`
   width: 32px;
   height: 27px;
 `
-const ProjectCardInfo = styled(Col)`
+const ProjectCardInfo = styled(Column)`
   gap: 10px;
   width: 100%;
 `

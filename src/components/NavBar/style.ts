@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {mainColor, textColorPrimary} from "../../styles/colors";
 import {HEADER_HEIGHT, WRAPPER_WIDTH} from "../../styles/consts";
 import {MainTitleText} from "../../styles/fonts";
-import {Row} from "../../styles/styled-components";
+import {Line} from "../../styles/styled-components";
 
 const Wrapper = styled.div`
   background-color: ${mainColor};
@@ -28,7 +28,7 @@ const MenuLogo = styled.img`
   width: 77px;
   height: 73px;
 `
-const MenuNav = styled(Row)`
+const MenuNav = styled(Line)`
   gap: 20px;
 `
 interface IMenuButton {

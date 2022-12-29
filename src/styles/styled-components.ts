@@ -7,19 +7,19 @@ export const Container = styled.div`
   height: 100vh;
 `
 
-interface ICol {
+interface IColumn {
     gap?: number
 }
-export const Col = styled.div<ICol>`
+export const Column = styled.div<IColumn>`
   display: flex;
   flex-direction: column;
   gap: ${({gap}) => gap || "unset"}px;
 `
-interface IRow {
+interface ILine {
     justifyContent?: string
     gap?: number
 }
-export const Row = styled.div<IRow>`
+export const Line = styled.div<ILine>`
   display: flex;
   justify-content: ${({justifyContent}) => justifyContent || "unset" };
   align-items: center;
