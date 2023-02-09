@@ -14,7 +14,7 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({user}) => {
     const [name, setName] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [passwordCheck, setPasswordCheck] = useState<string>("")
-    const [role, setRole] = useState<string>("Student")
+    const [role, setRole] = useState<string>("STUDENT")
     const navigate = useNavigate()
 
     async function registration() {
@@ -64,10 +64,10 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({user}) => {
                 </Auth.Input.Wrapper.Blue>
                 <Auth.Input.Wrapper.Transparent>
                     <Auth.Input.Text>Role:</Auth.Input.Text>
-                    <Auth.CheckRole checked={role === "Student"}
-                                    onClick={() => setRole("Student")}>Student</Auth.CheckRole>
-                    <Auth.CheckRole checked={role === "Teacher"}
-                                    onClick={() => setRole("Teacher")}>Teacher</Auth.CheckRole>
+                    <Auth.CheckRole checked={role === "STUDENT"}
+                                    onClick={() => setRole("STUDENT")}>Student</Auth.CheckRole>
+                    <Auth.CheckRole checked={role === "ADMIN"}
+                                    onClick={() => setRole("ADMIN")}>Teacher</Auth.CheckRole>
                 </Auth.Input.Wrapper.Transparent>
             </Auth.Form>
             <Auth.TitleWrapper.Green>

@@ -25,7 +25,7 @@ export default class TasksStore {
     async refreshTask(projectId: number, taskId: number, body: Partial<ITask>) {
         try {
             this.setIsLoading(true)
-            const response = await TasksService.fetchTask(projectId, taskId)
+            const response = await TasksService.refreshTask(projectId, taskId, body)
             this.setTask(response)
         } catch (e) {
             console.log(e)
@@ -38,6 +38,7 @@ export default class TasksStore {
         try {
             this.setIsLoading(true)
             await TasksService.deleteTask(projectId, taskId)
+            this.setTask({} as ITask)
             const newTasksList = this.tasksList().tasks.filter(task => task.id !== taskId)
             this.setTasksList({
                 tasks: newTasksList,
@@ -50,11 +51,12 @@ export default class TasksStore {
         }
     }
 
-    async fetchAllTasks(projectId: number) {
+    async fetchAllTasks(projectId: number): Promise<number | undefined> {
         try {
             this.setIsLoading(true)
             const response = await TasksService.fetchAllTasks(projectId)
             this.setTasksList(response)
+            return response.total
         } catch (e) {
             console.log(e)
         } finally {
@@ -105,7 +107,8 @@ export default class TasksStore {
         title: "",
         description: "",
         creator: {} as IUser,
-        dueDate: ""
+        dueDate: "",
+        type: ""
     }
     private _tasksList: ITasksList = {
         tasks: [],

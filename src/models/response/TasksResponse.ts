@@ -4,8 +4,10 @@ export interface ITask {
     id: number;
     title: string;
     description: string;
-    dueDate: string;
+    dueDate: string | number[];
     creator: IUser;
+    type: string,
+    status?: string
 }
 
 export interface ITaskCard {
@@ -27,5 +29,6 @@ export interface INewTask {
     title: string;
     description: string;
     type: string;
-    dueDate: string;
+    dueDate: string | number[];
+    status: string
 }

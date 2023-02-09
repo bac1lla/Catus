@@ -11,6 +11,7 @@ export default class ProjectsStore {
     async fetchAllProjects(userId: number) {
         try {
             const response = await ProjectsService.fetchAllProjects(userId)
+            console.log(response)
             this.setProjectsList(response)
         } catch (e) {
             console.log(e)
@@ -74,9 +75,11 @@ export default class ProjectsStore {
     async addMember(userId: number, projectId: number, memberId: number) {
         try {
             this.setIsLoading(true)
-            const response = await ProjectsService.addMember(userId, projectId, memberId)
-            const newUsersList = [...this.allUsers().users, ...response.users]
-            this.setAllUsers({users: newUsersList, total: newUsersList.length})
+            await ProjectsService.addMember(userId, projectId, memberId)
+            // console.log("response", response);
+            // const newUsersList = [...this.allUsers().users, response]
+            // this.setAllUsers({users: newUsersList, total: newUsersList.length})
+            await this.fetchAllUsersInProject(userId, projectId)
         } catch (e) {
             console.log(e)
         } finally {
@@ -93,6 +96,18 @@ export default class ProjectsStore {
                 projects: newProjectsList,
                 total: newProjectsList.length
             })
+        } catch (e) {
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
+        }
+    }
+
+    async exitFromProject(userId: number, projectId: number) {
+        try {
+            this.setIsLoading(true)
+            await ProjectsService.exitFromProject(userId, projectId)
+            await this.fetchAllProjects(userId)
         } catch (e) {
             console.log(e)
         } finally {

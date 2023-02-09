@@ -13,6 +13,7 @@ export default class GroupsStore {
         try {
             this.setIsLoading(true)
             const response = await GroupsService.fetchGroup(groupId)
+            console.log(response);
             this.setGroup(response)
         } catch (e) {
             console.log(e)

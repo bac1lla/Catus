@@ -16,19 +16,24 @@ import {observer} from "mobx-react-lite";
 import Modal from "./Modal/Modal";
 import AddStudents from "./AddStudents/AddStudents";
 import {IUser} from "../models/IUser";
+import {useParams} from "react-router";
 
 const ProjectViewSidebar: FC = () => {
 
     const [showAddUsers, setShowAddUsers] = useState<boolean>(false)
     const {projects, user} = useContext(Context)
+    const params = useParams()
 
     useEffect(() => {
-        projects.fetchAllUsersInProject(user.user().id, projects.project().id)
-    }, [])
+        // user.fetchUser(Number(localStorage.getItem("id")))
+        projects.fetchAllUsersInProject(user.user().id, Number(params.id))
+
+    }, [projects.projectsList()])
 
     const addUsers = async (users: Set<IUser>) => {
         // console.log(users)
         users.forEach((userSet) => {
+            console.log(userSet)
             projects.addMember(user.user().id, projects.project().id, userSet.id)
         })
         setShowAddUsers(false)
@@ -46,12 +51,18 @@ const ProjectViewSidebar: FC = () => {
             <Members>
                 {
                     projects.allUsers().users.map(user =>
-                        <GroupMember key={user.id} group={user.group.name} name={user.name}/>)
+                        // <GroupMember key={user.id} group={user.group.name} name={user.name}/>)
+                        <GroupMember key={user.id} groupID={user.groupID + ""} name={user.name}/>)
                 }
             </Members>
-            <MembersAddBtn onClick={() => setShowAddUsers(true)}>ADD</MembersAddBtn>
+            {
+                ((user.user().role === "STUDENT") || (user.user().role === "ADMIN")) ?
+                    <MembersAddBtn onClick={() => setShowAddUsers(true)}>ADD</MembersAddBtn>
+                    :
+                    <></>
+            }
             <Modal setShow={setShowAddUsers} show={showAddUsers}>
-                <AddStudents setShow={setShowAddUsers} onConfirm={addUsers} />
+                <AddStudents setShow={setShowAddUsers} onConfirm={addUsers}/>
             </Modal>
         </ProjectSidebarStyled>
     );

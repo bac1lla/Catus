@@ -20,30 +20,31 @@ const Projects: FC<IProjectsProps> = ({showSidebar, toggleShowSidebar}) => {
     const {user, projects} = useContext(Context)
 
     const [showModal, setShowModal] = useState<boolean>(false)
-    const [actualProject, setActualProject] = useState<IProjectCard>({} as IProjectCard)
+    const [actualProject, setActualProject] = useState<number>(0)
     const navigate = useNavigate()
 
     useEffect(() => {
         projects.fetchAllProjects(user.user().id)
     }, [])
 
-    const deleteProject = async (e: any, project: IProjectCard) => {
+    const deleteProject = async (projectId: number) => {
         // e.stopPropagation()
-
-        await projects.deleteProject(user.user().id, actualProject.id)
+        console.log(actualProject)
+        await projects.deleteProject(user.user().id, actualProject)
         setShowModal(false)
     }
 
-    const openProject = async (e: any, project: IProjectCard) => {
+    const openProject = async (project: IProjectCard) => {
+        console.log("open")
         await projects.fetchProjectById(user.user().id, project.id)
         navigate(PROJECT_ROUTE + `/${project.id}`)
     }
 
-    const openModal = (e: any, project: IProjectCard): void => {
+    const openModal = (e: any, projectId: number): void => {
         e.stopPropagation()
-        setActualProject(project)
+        setActualProject(projectId)
         setShowModal(true)
-        console.log(1)
+        // console.log(1)
     }
 
     return (
@@ -57,10 +58,10 @@ const Projects: FC<IProjectsProps> = ({showSidebar, toggleShowSidebar}) => {
                 {
                     projects.projectsList().projects.map(project =>
                         <ProjectCard
-                            openProject={openProject}
+                            openProject={() => openProject(project)}
                             key={project.id}
                             project={project}
-                            deleteProject={openModal}
+                            deleteProject={(e: any) => openModal(e, project.id)}
                         />)
                 }
                 </ProjectsPage.List>
@@ -68,7 +69,7 @@ const Projects: FC<IProjectsProps> = ({showSidebar, toggleShowSidebar}) => {
             <Modal setShow={setShowModal} show={showModal}>
                 <Confirm
                     setShow={setShowModal}
-                    title={`Are you shure you want to delete project “${actualProject.title}”? You may not restore any its data later.`}
+                    title={`Are you shure you want to delete project “${projects.projectsList().projects.filter(project => project.id === actualProject)[0]?.title}”? You may not restore any its data later.`}
                     onConfirm={deleteProject}
                 />
             </Modal>

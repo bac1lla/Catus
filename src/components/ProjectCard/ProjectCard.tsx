@@ -1,8 +1,10 @@
-import React, {FC, useContext} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import {Line} from "../../styles/styled-components";
 import TrashIcon from "../../assets/img/trashIcon.png"
 import {IProjectCard} from "../../models/response/ProjectsResponse";
 import Card from './style';
+import {Context} from "../../index";
+import {observer} from "mobx-react-lite";
 
 interface IProjectCardProps {
     project: IProjectCard;
@@ -12,11 +14,25 @@ interface IProjectCardProps {
 
 const ProjectCard: FC<IProjectCardProps> = ({project, openProject, deleteProject}) => {
 
+    const {user, tasks} = useContext(Context)
+    const [countTasks, setCountTasks] = useState<number | undefined>(Number(tasks.fetchAllTasks(project.id)))
+
+    useEffect(() => {
+        // tasks.fetchAllTasks(project.id)
+        fetchTasks()
+        // setCountTasks()
+    }, [project])
+
+    let fetchTasks = async () => {
+        let response = await tasks.fetchAllTasks(project.id)
+        setCountTasks(response)
+    }
+
     return (
         <Card.Wrapper
-            onClick={(e) => openProject(e, project)}
+            onClick={() => openProject(project)}
         >
-            <Card.Image />
+            <Card.Image/>
             <Card.Info>
                 <Line>
                     <Card.Row.Row>
@@ -24,16 +40,23 @@ const ProjectCard: FC<IProjectCardProps> = ({project, openProject, deleteProject
                             {project.title}
                         </Card.Row.Text>
                     </Card.Row.Row>
-                    <Card.Trash
-                        src={TrashIcon}
-                        onClick={(e) => deleteProject(e, project)}
-                    />
+                    {
+                        ((user.user().role === "USER") || (user.user().role === "ADMIN")) ?
+                            <Card.Trash
+                                src={TrashIcon}
+                                onClick={(e) => deleteProject(e, project)}
+                            />
+                            :
+                            <>  </>
+
+                    }
                 </Line>
                 <Card.Row.Row>
                     <Card.Row.Wrapper>
                         <Card.Row.Text>Tasks</Card.Row.Text>
                         <Card.Row.Value><Card.Row.Info>
-                            {project.description}
+                            {/*{tasks.tasksList().total}*/}
+                            {countTasks}
                         </Card.Row.Info></Card.Row.Value>
                     </Card.Row.Wrapper>
                 </Card.Row.Row>
@@ -58,5 +81,5 @@ const ProjectCard: FC<IProjectCardProps> = ({project, openProject, deleteProject
     );
 };
 
-export default ProjectCard;
+export default observer(ProjectCard);
 

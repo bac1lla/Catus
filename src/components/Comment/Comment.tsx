@@ -7,6 +7,7 @@ interface IComment{
 }
 
 const Comment: FC<IComment> = ({comment}) => {
+
     return (
         <div>
 

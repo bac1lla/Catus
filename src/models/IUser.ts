@@ -3,7 +3,8 @@ export interface IUser {
     login: string,
     name: string,
     title: string,
-    group: IUserGroup
+    groupID: number,
+    role: string
 }
 
 export interface IUserRequest {
@@ -11,7 +12,7 @@ export interface IUserRequest {
     login: string;
     password: string;
     title: string;
-    groupId?: string;
+    groupId?: number;
 }
 
 export interface IUserGroup {

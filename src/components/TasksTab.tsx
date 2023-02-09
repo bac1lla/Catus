@@ -10,6 +10,7 @@ import TaskDetail from "./Modal/TaskDetail";
 import TaskCreate from './TaskCreate/TaskCreate';
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
+import {useParams} from "react-router";
 
 interface ITasksTabProps {
     tabName: string,
@@ -21,17 +22,28 @@ interface ITasksTabProps {
 const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color}) => {
     const [showTaskCreate, setShowTaskCreate] = useState<boolean>(false)
     const [showTaskDetail, setShowTaskDetail] = useState<boolean>(false)
+
     const [currentTask, setCurrentTask] = useState<ITaskCard>({} as ITaskCard)
     const Store = useContext(Context)
+    const params = useParams()
 
     const getTask = async (task: ITaskCard) => {
+        await Store.tasks.fetchTask(Number(params.id), task.id)
         setCurrentTask(task)
-        await Store.tasks.fetchTask(Store.projects.project().id, task.id)
         setShowTaskDetail(true)
     }
 
-    const onSave = () => {
+    const onSave = (newTask: boolean) => {
+        if (newTask) {
+            console.log("createNewTask")
+        } else {
+            console.log("editTask")
+        }
+    }
 
+    const createTask = () => {
+        setCurrentTask({} as ITaskCard)
+        setShowTaskDetail(true)
     }
 
 
@@ -40,18 +52,18 @@ const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color})
             <TabName color={color}><SecondaryTitleText>{tabName}</SecondaryTitleText></TabName>
             <TasksWrapper>
             {
-                tasks.map(
+                tasks ? tasks.map(
                     (task) =>
                         <GroupTask
                             key={task.id}
                             task={task}
                             setTask={setCurrentTask}
                             getTask={getTask}
-                        />)
+                        />) : "None"
             }
             </TasksWrapper>
             {
-                editable && <AddGroupTaskBtn>Add</AddGroupTaskBtn>
+                editable && <AddGroupTaskBtn onClick={createTask}>Add</AddGroupTaskBtn>
             }
             {/*<Modal show={showTaskCreate} setShow={setShowTaskCreate}>*/}
             {/*    <TaskCreate*/}
@@ -64,6 +76,8 @@ const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color})
                     setShow={setShowTaskDetail}
                     task={currentTask}
                     onSave={onSave}
+                    status={tabName}
+                    id={currentTask.id}
                 />
             </Modal>
 

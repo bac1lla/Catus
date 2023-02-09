@@ -1,5 +1,6 @@
 import React, {Dispatch, FC, ReactNode, SetStateAction, useEffect} from 'react';
 import ModalStyled from "./style";
+import {observer} from "mobx-react-lite";
 
 interface Modal {
     setShow: Dispatch<SetStateAction<boolean>>,
@@ -31,5 +32,5 @@ const Modal: FC<Modal> = ({show, setShow, children}) => {
     );
 };
 
-export default Modal;
+export default observer(Modal);
 

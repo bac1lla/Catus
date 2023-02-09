@@ -3,6 +3,8 @@ import AuthService from "../services/AuthService";
 import {IUser, IUserGroup, IUserRequest} from "../models/IUser";
 import {IAllUsers} from "../models/response/ProjectsResponse";
 import UsersService from "../services/UsersService";
+import axios from "axios";
+import {API_URL} from "../http";
 
 export default class UserStore {
 
@@ -10,71 +12,87 @@ export default class UserStore {
         makeAutoObservable(this)
     }
 
-    async login(email: string, password: string) {
+    async login(login: string, password: string) {
         try {
-            const response = await AuthService.login(email, password)
-            this.setUser(response)
-            // localStorage.setItem("token", response.data.accessToken)
+            this.setIsLoading(true)
+            // const response = await AuthService.login(email, password)
+            const response = await AuthService.login(login, password)
+            console.log(response)
+            localStorage.setItem("token", response.token)
+            localStorage.setItem("id", response.user.id + "")
             this.setAuth(true)
+            console.log("user", response.user)
+            this.setUser(response.user)
+            // console.log(response.user);
             // this.setRole("Student")
-            // console.log(response.id)
             // this.setUser(response)
         } catch (e) {
-            // console.log(e.response?.data?.message)
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
         }
     }
 
     async logout() {
         try {
-            await AuthService.logout()
+            this.setIsLoading(true)
             localStorage.removeItem("token")
+            localStorage.removeItem("id")
             this.setAuth(false)
             this.setUser({
                 id: 0,
                 login: "",
                 name: "",
                 title: "",
-                group: {
-                    id: 0,
-                    name: "",
-                    userCount: 0
-                }
+                groupID: 0,
+                role: ""
             })
+            await AuthService.logout()
         } catch (e) {
+            // console.log(e)
             // console.log(e.response?.data?.message)
+        } finally {
+            this.setIsLoading(false)
         }
     }
 
-    async registration(email: string, password: string, name: string, role: string) {
+    async registration(login: string, password: string, name: string, role: string) {
         try {
-            const response = await AuthService.registration(email, password, name, role)
-            this.setUser(response)
+            this.setIsLoading(true)
+            const response = await AuthService.registration(login, password, name, role.toUpperCase())
+            localStorage.setItem('token', response.token)
+            localStorage.setItem("id", response.user.id + "")
+            console.log(response)
             this.setAuth(true)
-            this.setRole(role)
-            localStorage.setItem('token', Math.random() + "")
+            this.setUser(response.user)
+            // this.setRole(role)
         } catch (e) {
+            console.log(e)
             // console.log(e.response?.data?.message)
+        } finally {
+            this.setIsLoading(false)
         }
     }
 
     async checkAuth() {
-        this.setIsLoading(true)
         try {
-            // const response = await AuthService.che
-            // localStorage.setItem("token", response.data.accessToken)
+            this.setIsLoading(true)
+            const response = await axios.get(`${API_URL}/token/refresh`, {headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}})
+            localStorage.setItem("token", response.data.token)
+            this.setUser(response.data.user)
             this.setAuth(true)
-            // this.setUser(response)
         } catch (e) {
-            // console.log(e.response?.data?.message)
+            console.log(e)
         } finally {
             this.setIsLoading(false)
         }
     }
 
-    async fetchUser(userId: string) {
+    async fetchUser(userId: number) {
         try {
             this.setIsLoading(true)
             const response = await UsersService.fetchUser(userId)
+            console.log(response)
             this.setUser(response)
         } catch (e) {
             console.log(e)
@@ -83,11 +101,11 @@ export default class UserStore {
         }
     }
 
-    async refreshUser(userId: string, body: Partial<IUserRequest>) {
+    async refreshUser(userId: number, body: Partial<IUserRequest>) {
         try {
             this.setIsLoading(true)
-            const response = await UsersService.refreshUser(userId, body)
-            this.setUser(response)
+            await UsersService.refreshUser(userId, body)
+            await this.fetchAllUsers()
         } catch (e) {
             console.log(e)
         } finally {
@@ -95,7 +113,7 @@ export default class UserStore {
         }
     }
 
-    async deleteUser(userId: string) {
+    async deleteUser(userId: number) {
         try {
             this.setIsLoading(true)
             await UsersService.deleteUser(userId)
@@ -106,7 +124,8 @@ export default class UserStore {
                 login: "",
                 name: "",
                 title: "",
-                group: {} as IUserGroup
+                groupID: 0,
+                role: ""
             })
         } catch (e) {
             console.log(e)
@@ -115,7 +134,7 @@ export default class UserStore {
         }
     }
 
-    async changeUser(userId: string, body: Partial<IUserRequest>) {
+    async changeUser(userId: number, body: Partial<IUserRequest>) {
         try {
             this.setIsLoading(true)
             const response = await UsersService.changeUser(userId, body)
@@ -131,6 +150,7 @@ export default class UserStore {
         try {
             this.setIsLoading(true)
             const response = await UsersService.fetchAllUsers()
+            console.log(response);
             this.setUsersList(response)
         } catch (e) {
             console.log(e)
@@ -143,7 +163,7 @@ export default class UserStore {
         try {
             this.setIsLoading(true)
             const response = await UsersService.createUser(user)
-            localStorage.setItem('token', Math.random() + "")
+            // localStorage.setItem('token', Math.random() + "")
             this.setUser(response)
         } catch (e) {
             console.log(e)
@@ -185,9 +205,9 @@ export default class UserStore {
     }
 
     public isAuth(): boolean {
-        if (localStorage.token) {
-            this.setAuth(true)
-        } else this.setAuth(false)
+        // if (localStorage.token) {
+        //     this.setAuth(true)
+        // } else this.setAuth(false)
 
         return this._isAuth
     }
@@ -201,7 +221,8 @@ export default class UserStore {
         login: "",
         name: "",
         title: "",
-        group: {} as IUserGroup
+        groupID: 0,
+        role: ""
     }
     private _usersList: IAllUsers = {
         users: [],

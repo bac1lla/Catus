@@ -1,26 +1,32 @@
 import Api from "../http";
 import {ITasksList, INewTask, ITask} from "../models/response/TasksResponse";
+import $api from "../http";
 
 export default class TasksService {
 
     static async fetchTask(projectId: number, taskId: number): Promise<ITask> {
-        return Api.get<ITask>(`/projects/${projectId}/tasks/${taskId}`)
+        return $api.get<ITask>(`/projects/${projectId}/tasks/${taskId}`)
+            .then(response => response.data)
     }
 
     static async refreshTask(projectId: number, taskId: number, body: Partial<ITask>): Promise<ITask> {
-        return Api.put<ITask>(`/projects/${projectId}/tasks/${taskId}`, body)
+        return $api.put<ITask>(`/projects/${projectId}/tasks/${taskId}`, body)
+            .then(response => response.data)
     }
 
     static async deleteTask(projectId: number, taskId: number): Promise<void> {
-        return Api.delete(`/projects/${projectId}/tasks/${taskId}`)
+        return $api.delete(`/projects/${projectId}/tasks/${taskId}`)
+            .then(response => response.data)
     }
 
     static async fetchAllTasks(projectId: number): Promise<ITasksList> {
-        return Api.get<ITasksList>(`/projects/${projectId}/tasks`)
+        return $api.get<ITasksList>(`/projects/${projectId}/tasks`)
+            .then(response => response.data)
     }
 
     static async createTask(projectId: number, body: INewTask): Promise<ITask> {
-        return Api.post<ITask>(`/projects/${projectId}/tasks`, body)
+        return $api.post<ITask>(`/projects/${projectId}/tasks`, body)
+            .then(response => response.data)
     }
 
 

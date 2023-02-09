@@ -23,14 +23,14 @@ const GroupsList: FC<IGroupList> = ({showSidebar, toggleShowSidebar}) => {
 
     useEffect(() => {
         groups.fetchGroupsList()
-    }, [])
+        // groups.fetchGroup(currentGroup.id)
+    }, [groups.group()])
 
     const getGroup = async (group: IGroupMin) => {
         await groups.fetchGroup(group.id)
         setCurrentGroup(groups.group())
         setShowGroup(true)
     }
-
 
     return (
         <Groups>

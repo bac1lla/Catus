@@ -1,31 +1,38 @@
 import {IUser, IUserRequest} from "../models/IUser";
 import Api from "../http";
 import {IAllUsers} from "../models/response/ProjectsResponse";
+import $api from "../http";
 
 export default class UsersService {
 
-    static async fetchUser(userId: string): Promise<IUser> {
-        return Api.get<IUser>(`/users/${userId}`)
+    static async fetchUser(userId: number): Promise<IUser> {
+        return $api.get<IUser>(`/users/${userId}`)
+            .then(response => response.data)
     }
 
-    static async refreshUser(userId: string, body: Partial<IUserRequest>): Promise<IUser> {
-        return Api.put<IUser>(`/users/${userId}`, body)
+    static async refreshUser(userId: number, body: Partial<IUserRequest>): Promise<IUser> {
+        return $api.patch<IUser>(`/users/${userId}/groups`, body)
+            .then(response => response.data)
     }
 
-    static async deleteUser(userId: string): Promise<void> {
-        return Api.delete(`/users/${userId}`)
+    static async deleteUser(userId: number): Promise<void> {
+        return $api.delete(`/users/${userId}`)
+            .then(response => response.data)
     }
 
-    static async changeUser(userId: string, body: Partial<IUserRequest>): Promise<IUser> {
-        return Api.patch(`/users/${userId}`, body)
+    static async changeUser(userId: number, body: Partial<IUserRequest>): Promise<IUser> {
+        return $api.put(`/users/${userId}`, body)
+            .then(response => response.data)
     }
 
     static async fetchAllUsers(): Promise<IAllUsers> {
-        return Api.get<IAllUsers>(`/users`)
+        return $api.get<IAllUsers>(`/users`)
+            .then(response => response.data)
     }
 
     static async createUser(user: IUserRequest): Promise<IUser> {
-        return Api.post<IUser>(`users`, user)
+        return $api.post<IUser>(`users`, user)
+            .then(response => response.data)
     }
 
 }

@@ -10,15 +10,18 @@ interface IGroupTaskProps {
 }
 
 const GroupTask: FC<IGroupTaskProps> = ({task, getTask, setTask}) => {
+    // console.log(typeof task.dueDate)
     return (
         <Task
-            onClick={() => {getTask(task);setTask(task)}}
+            onClick={() => {setTask(task);getTask(task);}}
         >
             <Task.Col>
                 <Task.Name>{task.type}</Task.Name>
                 <Task.Description>{task.title}</Task.Description>
                 <Task.Row>
-                    <Task.Deadline>{task.dueDate}</Task.Deadline>
+                    {/*<Task.Deadline>{`${Array.from(task.dueDate)[0]}`}</Task.Deadline>*/}
+                    <Task.Deadline>{`${task.dueDate[2]}-${task.dueDate[1]}-${task.dueDate[0]}`}</Task.Deadline>
+                    {/*<Task.Deadline>{`${task.dueDate[0]}`}</Task.Deadline>*/}
                     <Task.Comment>
                         {task.commentCount}
                         <img src={CommentsIcon} alt=""/>

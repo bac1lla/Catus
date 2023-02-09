@@ -23,46 +23,77 @@ interface IAddStudentsProps {
 const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow}) => {
 
     const [searchName, setSearchName] = useState<string>("")
-    const [searchGroup, setSearchGroup] = useState<string>("")
+    // const [searchGroup, setSearchGroup] = useState<string>("")
     const [chosenStudents, setChosenStudents] = useState<Set<IUser>>(new Set<IUser>())
-    const {user} = useContext(Context)
+    const {user, groups} = useContext(Context)
 
     useEffect(() => {
         user.fetchAllUsers()
-    },[])
+        // groups.fetchGroup(user.user().groupID)
+    }, [])
 
-    const setUsers = (newUser: IUser) => {
-        if (chosenStudents.has(newUser)) {
-            chosenStudents.delete(newUser)
-            setChosenStudents(chosenStudents)
-        } else {
-            setChosenStudents(chosenStudents.add(newUser))
-        }
-    }
+    // useEffect(() => {
+    //     user.fetchAllUsers()
+    // }, [chosenStudents])
 
-    const mapUsers = (users: IUser[])=> {
-        return users.map(user => <GroupUserCard user={user} onClick={setUsers}/>)
+
+    // const setUsers = (newUser: IUser) => {
+    //     if (chosenStudents.has(newUser)) {
+    //         chosenStudents.delete(newUser)
+    //         setChosenStudents(chosenStudents)
+    //     } else {
+    //         setChosenStudents(chosenStudents.add(newUser))
+    //     }
+    // }
+
+    // const deleteUser = (newUser: IUser) => {
+    //     user.refreshUser(newUser.id, {groupId: undefined})
+    // }
+
+    const mapUsers = (users: IUser[]) => {
+        return users.map(user => <GroupUserCard user={user} onClick={() => addUser(user)} chosenStudents={chosenStudents}/>)
+        // return users.map(user => <GroupUserCard user={user} onClick={setUsers}/>)
     }
 
     const filterUsersByName = (users: IUser[]): IUser[] => {
         return users.filter(user => (user.name.toLowerCase()).indexOf(searchName.toLowerCase().trim()) > -1)
     }
+    //
+    // const filterUsersByGroup = (users: IUser[]): IUser[] => {
+    //
+    //     return users.filter(user => {
+    //         let check = false
+    //         groups.fetchGroup(user.groupID)
+    //             .then(() => {
+    //                 check = ((groups.group().name.toLowerCase()).indexOf(searchGroup.toLowerCase().trim()) > -1)
+    //             })
+    //     })
+    // }
 
-    const filterUsersByGroup = (users: IUser[]): IUser[] => {
-        return users.filter(user => (user.group.name.toLowerCase()).indexOf(searchGroup.toLowerCase().trim()) > -1)
+
+    // console.log(groups.group())
+
+    const addUser = (user: IUser) => {
+
+        setChosenStudents(prev => {
+            // @ts-ignore
+            return new Set([...prev, user]);
+        })
+
     }
-
     const studentsWithSearch = (): React.ReactNode => {
 
-        if (searchName && searchGroup) {
-            return mapUsers(filterUsersByGroup(filterUsersByName(user.usersList().users)))
-        } else if (searchName) {
+       if (searchName) {
             return mapUsers(filterUsersByName(user.usersList().users))
-        } else if (searchGroup) {
-            return mapUsers(filterUsersByGroup(user.usersList().users))
         } else {
             return mapUsers(user.usersList().users)
         }
+    }
+
+    const hide = () => {
+        onConfirm(chosenStudents);
+        setChosenStudents(new Set())
+        setShow(false)
     }
 
     return (
@@ -71,29 +102,33 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow}) => {
             <Row>
                 <Search>
                     <Label>Name</Label>
-                    <Input value={searchName} onChange={(e) => setSearchName(e.target.value)} />
+                    <Input value={searchName} onChange={(e) => setSearchName(e.target.value)}/>
                 </Search>
-                <Search>
-                    <Label>Group</Label>
-                    <Input value={searchGroup} onChange={(e) => setSearchGroup(e.target.value)} />
-                </Search>
+                {/*<Search>*/}
+                {/*    <Label>Group</Label>*/}
+                {/*    <Input value={searchGroup} onChange={(e) => setSearchGroup(e.target.value)}/>*/}
+                {/*</Search>*/}
             </Row>
             <List>
                 {
                     studentsWithSearch()
-                    // user.usersList().users.map(user => <GroupUserCard user={user} onClick={addUser} />)
+                    // groups.group().users.map(user => <GroupUserCard user={user} /*onClick={addUser}*/ />)
+                    // user.usersList().users.map(user => <GroupUserCard user={user} onClick={() => addUser(user)} />)
                 }
             </List>
             <Row>
                 <Btn
-                    variant ={"green"}
-                    onClick={() => onConfirm(chosenStudents)}
+                    variant={"green"}
+                    onClick={() => {
+                        hide()
+                        // console.log(chosenStudents)
+                    }}
                 >
                     Confirm
                 </Btn>
                 <Btn
-                    variant ={"blue"}
-                    onClick={() => setShow(false)}
+                    variant={"blue"}
+                    onClick={hide}
                 >
                     Cancel
                 </Btn>
@@ -114,19 +149,58 @@ const Wrapper = styled.div`
   gap: 30px;
   justify-content: center;
   max-width: 900px;
+  width: 900px;
+
+  @media (max-width: 1300px) {
+    max-width: 800px;
+    width: 800px;
+  }
+
+  @media (max-width: 700px) {
+    max-width: 600px;
+    width: 600px;
+  }
+
+  @media (max-width: 576px) {
+    max-width: 95%;
+  }
 `
+
 const Row = styled(Line)`
   width: 100%;
   justify-content: center;
   gap: 50px;
+
+  @media (max-width: 1300px) {
+    gap: 30px;
+  }
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  @media (max-width: 576px) {
+    width: 95%;
+  }
 `
 const Label = styled(LightText)`
 
+  @media (max-width: 576px) {
+    font-size: 14px;
+  }
 `
 const Search = styled(Column)`
   justify-content: center;
   align-items: center;
 
+  @media (max-width: 1300px) {
+    width: 70%;
+  }
+
+  @media (max-width: 700px) {
+    width: 95%;
+  }
 `
 const Input = styled.input`
   border: 1px solid ${textColorPrimary};
@@ -136,6 +210,15 @@ const Input = styled.input`
   outline: none;
   width: 400px;
   max-width: 400px;
+
+  @media (max-width: 1300px) {
+    width: 350px;
+    max-width: 350px;
+  }
+
+  @media (max-width: 700px) {
+    width: 95%;
+  }
 `
 
 interface IBtn {
@@ -149,6 +232,14 @@ const Btn = styled.button<IBtn>`
   color: ${backgroundColor};
   border-radius: 15px;
   background-color: ${({variant}) => variant === "blue" ? accentColor3 : (variant === "red" ? accentColor5 : accentColor4)};
+
+  @media (max-width: 1300px) {
+    width: 150px;
+  }
+
+  @media (max-width: 700px) {
+    width: 95%;
+  }
 `
 
 const List = styled.div`
@@ -164,4 +255,19 @@ const List = styled.div`
   align-items: center;
   justify-content: center;
   overflow-y: auto;
+
+  @media (max-width: 1300px) {
+    height: 350px;
+    padding: 30px;
+  }
+
+  @media (max-width: 700px) {
+    height: 300px;
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  @media (max-width: 576px) {
+    height: 250px;
+  }
 `

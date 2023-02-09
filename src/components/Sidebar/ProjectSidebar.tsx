@@ -8,6 +8,7 @@ import {GROUPS_ROUTE, PROJECTS_ROUTE} from "../../routes/consts";
 import {useLocation, useNavigate} from "react-router-dom";
 import CreateProject from "../CreateProject/CreateProject";
 import {observer} from "mobx-react-lite";
+import ChangeUser from "../Modal/ChangeUser";
 
 interface IProjectSidebarProps {
     show: boolean
@@ -19,6 +20,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
     const {user, projects, groups} = useContext(Context)
     const [showCreateGroupModal, setShowCreateGroupModal] = useState<boolean>(false)
     const [showCreateProjectModal, setShowCreateProjectModal] = useState<boolean>(false)
+    const [showCreateUserModal, setShowCreateUserModal] = useState<boolean>(false)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -41,11 +43,17 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
         setShowCreateProjectModal(false)
     }
 
+    const navigateGroup = () => {
+        if ((user.user().role === "ADMIN") || (user.user().role === "TEACHER")) {
+            navigate(GROUPS_ROUTE)
+        }
+    }
+
     return (
         <Sidebar.Wrapper show={show}>
             <Sidebar.Logo/>
             <Sidebar.BurgerBtn onClick={() => toggleShow(!show)}/>
-            <Sidebar.Person.Wrapper>
+            <Sidebar.Person.Wrapper onClick={() => setShowCreateUserModal(true)}>
                 <Sidebar.Person.Logo><MainTitleText>I</MainTitleText></Sidebar.Person.Logo>
                 <Sidebar.Person.Person>
                     <Sidebar.Person.Info>
@@ -59,19 +67,27 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
                     </Sidebar.Person.Info>
                 </Sidebar.Person.Person>
             </Sidebar.Person.Wrapper>
-            <Sidebar.Info.Text onClick={() => navigate(GROUPS_ROUTE)}>
-                <LightText>{user.role() === "Teacher" ? "Groups" : user.user().group.name}</LightText>
+            <Sidebar.Info.Text onClick={navigateGroup}>
+                <LightText>{user.role() === "Teacher" ? "Groups" : user.user().groupID}</LightText>
             </Sidebar.Info.Text>
             <Sidebar.Info.Text onClick={() => navigate(PROJECTS_ROUTE)}>
                 <LightText>Projects</LightText>
                 <Sidebar.Info.Value><LightText>{projects.projectsList().total}</LightText></Sidebar.Info.Value>
             </Sidebar.Info.Text>
-            <Sidebar.Info.Value onClick={() => handleClick()}><LightText>ADD</LightText></Sidebar.Info.Value>
+            {
+                (user.user().role === "ADMIN") || (user.user().role === "TEACHER") ?
+                    <Sidebar.Info.Value onClick={() => handleClick()}><LightText>ADD</LightText></Sidebar.Info.Value>
+                    :
+                    <></>
+            }
             <Modal setShow={setShowCreateGroupModal} show={showCreateGroupModal}>
-                <CreateGroup setShow={setShowCreateGroupModal} onConfirm={createGroup} />
+                <CreateGroup setShow={setShowCreateGroupModal} onConfirm={createGroup}/>
             </Modal>
             <Modal setShow={setShowCreateProjectModal} show={showCreateProjectModal}>
-                <CreateProject setShow={setShowCreateProjectModal} onConfirm={createProject} />
+                <CreateProject setShow={setShowCreateProjectModal} onConfirm={createProject}/>
+            </Modal>
+            <Modal setShow={setShowCreateUserModal} show={showCreateUserModal}>
+                <ChangeUser setShow={setShowCreateUserModal} onConfirm={createProject}/>
             </Modal>
         </Sidebar.Wrapper>
     );

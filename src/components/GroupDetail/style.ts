@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import {Line} from "../../styles/styled-components";
 import {MainTitleText, SecondaryTitleText} from "../../styles/fonts";
-import {accentColor3, backgroundColor, mainColor, menuColor} from "../../styles/colors";
+import {accentColor2, accentColor3, backgroundColor, mainColor, menuColor} from "../../styles/colors";
 
 const Window = styled.div`
-  width: 90%;
+  //width: 90%;
+  width: 800px;
   height: 800px;
   margin: auto;
 `
@@ -19,6 +20,14 @@ const Count = styled(SecondaryTitleText)`
   color: ${backgroundColor};
   padding: 25px 40px;
   background: ${accentColor3};
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+`
+
+const Btn = styled.button`
+  color: ${backgroundColor};
+  padding: 10px;
+  background: ${accentColor2};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 40px;
 `
@@ -37,4 +46,4 @@ const List = styled.div`
   overflow-y: auto;
 `
 
-export default Object.assign({Header, Title, Count, List}, Window)
+export default Object.assign({Header, Title, Count, List, Btn}, Window)

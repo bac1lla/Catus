@@ -1,17 +1,27 @@
 import {IUser} from "../models/IUser";
-import Api from "../http";
+import Api, {API_URL} from "../http";
+import $api from "../http";
+import axios from 'axios'
+
+interface ILogin {
+    token: string
+    user: IUser
+}
 
 export default class AuthService {
-    static async login(email: string, password: string): Promise<IUser> {
-        return Api.post<IUser>(`/login`, {email, password})
+    static async login(login: string, password: string): Promise<ILogin> {
+        // return Api.post<IUser>(`/login`, {email, password})
+        return axios.post<ILogin>(`${API_URL}/login`, {login, password})
+            .then(response => response.data)
     }
 
-    static async registration(email: string, password: string, name: string, role: string): Promise<IUser> {
-        return Api.post<IUser>(`/login`, {email, password, name, role})
+    static async registration(login: string, password: string, name: string, role: string): Promise<ILogin> {
+        return axios.post<ILogin>(`${API_URL}/register`, {login, password, name, role})
+            .then(response => response.data)
     }
 
     static async logout(): Promise<void> {
-        return Api.delete(`/logout`)
+        return $api.delete(`/logout`)
     }
 
 }
