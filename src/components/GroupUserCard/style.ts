@@ -1,5 +1,12 @@
 import styled from "styled-components";
-import {accentColor2, accentColor3, backgroundColor, mainColor} from "../../styles/colors";
+import {
+    accentColor2,
+    accentColor3,
+    backgroundColor,
+    mainColor,
+    textColorPrimary,
+    textColorSecondary
+} from "../../styles/colors";
 import {LightText} from "../../styles/fonts";
 
 interface ICard {
@@ -20,8 +27,8 @@ const Card = styled.div<ICard>`
 const Image = styled.div`
   background-color: ${accentColor3};
   border-radius: 100%;
-  width: 70px;
-  height: 70px;
+  min-width: 70px;
+  min-height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,6 +40,9 @@ const Image = styled.div`
 `
 const Name = styled(LightText)`
   color: ${mainColor};
+`
+const Group = styled(LightText)`
+  color: ${textColorPrimary};
 `
 interface ITrash {
     show?: boolean
@@ -52,4 +62,4 @@ const Info = styled.div`
   flex-direction: column;
 `
 
-export default Object.assign({Image, Name, Trash, Info}, Card)
+export default Object.assign({Image, Name, Trash, Info, Group}, Card)

@@ -33,7 +33,7 @@ const ProjectViewSidebar: FC = () => {
     const addUsers = async (users: Set<IUser>) => {
         // console.log(users)
         users.forEach((userSet) => {
-            console.log(userSet)
+            // console.log(userSet)
             projects.addMember(user.user().id, projects.project().id, userSet.id)
         })
         setShowAddUsers(false)
@@ -52,7 +52,7 @@ const ProjectViewSidebar: FC = () => {
                 {
                     projects.allUsers().users.map(user =>
                         // <GroupMember key={user.id} group={user.group.name} name={user.name}/>)
-                        <GroupMember key={user.id} groupID={user.groupID} name={user.name}/>)
+                        <GroupMember key={user.id} groupName={user.group?.name || ""} name={user.name}/>)
                 }
             </Members>
             {

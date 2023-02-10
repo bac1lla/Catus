@@ -60,7 +60,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
                         <Sidebar.Person.InfoText>{user.user().login}</Sidebar.Person.InfoText>
                     </Sidebar.Person.Info>
                     <Sidebar.Person.Info>
-                        <Sidebar.Person.InfoText>{user.user().role}</Sidebar.Person.InfoText>
+                        <Sidebar.Person.InfoText>{user.user().role === "ADMIN" ? "Teacher" : "Student"}</Sidebar.Person.InfoText>
                     </Sidebar.Person.Info>
                     <Sidebar.Person.Info>
                         <Sidebar.Person.InfoText>{user.user().name}</Sidebar.Person.InfoText>
@@ -68,11 +68,17 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
                 </Sidebar.Person.Person>
             </Sidebar.Person.Wrapper>
             <Sidebar.Info.Text onClick={navigateGroup}>
-                <LightText>{(user.user().role === "TEACHER") || (user.user().role === "ADMIN") ? "Groups" : user.user().groupID}</LightText>
+                <LightText>{(user.user().role === "TEACHER") || (user.user().role === "ADMIN") ? "Groups" : user.user().group?.name || ""}</LightText>
             </Sidebar.Info.Text>
             <Sidebar.Info.Text onClick={() => navigate(PROJECTS_ROUTE)}>
                 <LightText>Projects</LightText>
-                <Sidebar.Info.Value><LightText>{projects.projectsList().total}</LightText></Sidebar.Info.Value>
+                {
+                    location.pathname !== GROUPS_ROUTE ?
+                        <Sidebar.Info.Value><LightText>{projects.projectsList().total}</LightText></Sidebar.Info.Value>
+                        :
+                        <></>
+
+                }
             </Sidebar.Info.Text>
             {
                 (user.user().role === "ADMIN") || (user.user().role === "TEACHER") ?

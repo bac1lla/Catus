@@ -29,13 +29,13 @@ const Projects: FC<IProjectsProps> = ({showSidebar, toggleShowSidebar}) => {
 
     const deleteProject = async (projectId: number) => {
         // e.stopPropagation()
-        console.log(actualProject)
+        // console.log(actualProject)
         await projects.deleteProject(user.user().id, actualProject)
         setShowModal(false)
     }
 
     const openProject = async (project: IProjectCard) => {
-        console.log("open")
+        // console.log("open")
         await projects.fetchProjectById(user.user().id, project.id)
         navigate(PROJECT_ROUTE + `/${project.id}`)
     }

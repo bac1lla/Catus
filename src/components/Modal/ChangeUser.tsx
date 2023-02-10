@@ -25,7 +25,7 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        groups.fetchGroup(user.user().groupID)
+        // groups.fetchGroup(user.user().group.id || 0)
     }, [])
 
     const changeUser = async () => {
@@ -34,7 +34,7 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
             name: name
         }).then(() =>
             setChange(false)
-        ).catch(e => console.log(false))
+        ).catch(e => console.log(e))
     }
 
     const handelClick = () => {

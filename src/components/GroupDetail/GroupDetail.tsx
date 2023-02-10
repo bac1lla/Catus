@@ -9,7 +9,7 @@ import {observer} from "mobx-react-lite";
 import Window from "./style";
 import AddStudents from "../AddStudents/AddStudents";
 import projects from "../Projects/Projects";
-import { LightText } from '../../styles/fonts';
+import {LightText} from '../../styles/fonts';
 
 interface IGroupDetailProps {
     group: IGroup
@@ -45,7 +45,7 @@ const GroupDetail: FC<IGroupDetailProps> = ({group}) => {
     // }
 
     const deleteUser = () => {
-        user.refreshUser(currentUser.id, {groupId: undefined})
+        user.refreshUser(currentUser.id, {group: null})
         setShowConfirm(false)
         groups.fetchGroup(group.id)
         setLoading(prev => !prev)
@@ -53,14 +53,14 @@ const GroupDetail: FC<IGroupDetailProps> = ({group}) => {
     }
 
     const addUsers = async (users: Set<IUser>) => {
-        console.log("set", users)
+        // console.log("set", users)
         users.forEach((userSet) => {
-            console.log(userSet)
+            // console.log(userSet)
             user.refreshUser(userSet.id, {
                 groupId: group.id
             })
         })
-        console.log("tatata")
+        // console.log("tatata")
         await groups.fetchGroup(group.id)
         setShowAddUsers(false)
         setLoading(prev => !prev)

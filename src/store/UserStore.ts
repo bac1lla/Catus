@@ -17,11 +17,11 @@ export default class UserStore {
             this.setIsLoading(true)
             // const response = await AuthService.login(email, password)
             const response = await AuthService.login(login, password)
-            console.log(response)
+            // console.log(response)
             localStorage.setItem("token", response.token)
             localStorage.setItem("id", response.user.id + "")
             this.setAuth(true)
-            console.log("user", response.user)
+            // console.log("user", response.user)
             this.setUser(response.user)
             // console.log(response.user);
             // this.setRole("Student")
@@ -44,7 +44,10 @@ export default class UserStore {
                 login: "",
                 name: "",
                 title: "",
-                groupID: 0,
+                group: {
+                    id: 0,
+                    name: ""
+                },
                 role: ""
             })
             await AuthService.logout()
@@ -62,7 +65,7 @@ export default class UserStore {
             const response = await AuthService.registration(login, password, name, role.toUpperCase())
             localStorage.setItem('token', response.token)
             localStorage.setItem("id", response.user.id + "")
-            console.log(response)
+            // console.log(response)
             this.setAuth(true)
             this.setUser(response.user)
             // this.setRole(role)
@@ -92,7 +95,7 @@ export default class UserStore {
         try {
             this.setIsLoading(true)
             const response = await UsersService.fetchUser(userId)
-            console.log(response)
+            // console.log(response)
             this.setUser(response)
         } catch (e) {
             console.log(e)
@@ -124,7 +127,10 @@ export default class UserStore {
                 login: "",
                 name: "",
                 title: "",
-                groupID: 0,
+                group: {
+                    id: 0,
+                    name: ""
+                },
                 role: ""
             })
         } catch (e) {
@@ -139,6 +145,8 @@ export default class UserStore {
             this.setIsLoading(true)
             const response = await UsersService.changeUser(userId, body)
             this.setUser(response)
+            localStorage.setItem("token", response?.token + "")
+            // const updatedUser = await AuthService.login()
         } catch (e) {
             console.log(e)
         } finally {
@@ -150,7 +158,7 @@ export default class UserStore {
         try {
             this.setIsLoading(true)
             const response = await UsersService.fetchAllUsers()
-            console.log(response);
+            // console.log(response);
             this.setUsersList(response)
         } catch (e) {
             console.log(e)
@@ -221,7 +229,10 @@ export default class UserStore {
         login: "",
         name: "",
         title: "",
-        groupID: 0,
+        group: {
+            id: 0,
+            name: ""
+        },
         role: ""
     }
     private _usersList: IAllUsers = {

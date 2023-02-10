@@ -38,8 +38,14 @@ const GroupUserCard: FC<IGroupUserCardProps> = ({user, onClick, onDelete, disabl
             <Card.Image>{user.name[0]}</Card.Image>
             <Card.Info>
                 <Card.Name>{user.name}</Card.Name>
-                <Card.Name>{groups.group().name}</Card.Name>
-                <Card.Name>{user.groupID}</Card.Name>
+                {/*<Card.Name>{groups.group().name}</Card.Name>*/}
+                {
+                    user.group ?
+                        <Card.Group>{user.group?.name}</Card.Group>
+                        :
+                        <></>
+                }
+                {/*<Card.Name>{user.group?.id}</Card.Name>*/}
             </Card.Info>
             <Card.Trash src={TrashIcon} onClick={() => onDelete && onDelete(user)} show={onDelete !== undefined}/>
         </Card>

@@ -15,7 +15,7 @@ const CommentsList: FC<ICommentsListProps> = ({taskId}) => {
 
     useEffect(() => {
         fetchComments()
-        console.log("TASKID", taskId)
+        // console.log("TASKID", taskId)
     }, [taskId])
 
     const fetchComments = async () => {
@@ -25,7 +25,7 @@ const CommentsList: FC<ICommentsListProps> = ({taskId}) => {
     return (
         <List>
             {
-                comments.commentsList().comments.map(comment => <Comment comment={comment}/>)
+                comments.commentsList().comments.map(comment => <Comment key={comment.id} comment={comment}/>)
             }
         </List>
     )

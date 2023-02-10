@@ -18,8 +18,6 @@ const Comments: FC<ICommentsProps> = ({task}) => {
     const [message, setMessage] = useState<string>("")
     const params = useParams()
 
-
-
     useEffect(() => {
         // tasks.fetchTask(Number(params.id), task.id)
     }, [task])

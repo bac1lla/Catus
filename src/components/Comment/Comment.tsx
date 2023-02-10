@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {backgroundColor, textColorPrimary} from "../../styles/colors";
 import {IComment} from "../../models/response/CommentsResponse";
 import {Context} from "../../index";
-import {LightText} from '../../styles/fonts';
 
 interface ICommentProps {
     comment: IComment
@@ -14,10 +13,8 @@ const Comment: FC<ICommentProps> = ({comment}) => {
     const {user} = useContext(Context)
 
     return (
-        <Wrapper toMe={user.user().id !== comment.authorId}>
-            {/*<div >*/}
-                <Author>user#{comment.authorId}</Author>
-            {/*</div>*/}
+        <Wrapper toMe={user.user().id !== comment.author?.id}>
+            <Author>{comment.author?.name}</Author>
             <Content>{comment.content}</Content>
         </Wrapper>
     );
@@ -53,5 +50,5 @@ const Author = styled.span`
 const Content = styled.div`
   // 45px - Icon width 
   //width: calc(100% - 45px);
-  
+
 `

@@ -11,7 +11,7 @@ export default class ProjectsStore {
     async fetchAllProjects(userId: number) {
         try {
             const response = await ProjectsService.fetchAllProjects(userId)
-            console.log(response)
+            // console.log(response)
             this.setProjectsList(response)
         } catch (e) {
             console.log(e)
@@ -63,7 +63,7 @@ export default class ProjectsStore {
         try {
             this.setIsLoading(true)
             const response = await ProjectsService.getAllUsersInProject(userId, projectId)
-            console.log(response)
+            // console.log(response)
             this.setAllUsers(response)
         } catch (e) {
             console.log(e)

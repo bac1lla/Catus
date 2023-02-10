@@ -35,9 +35,9 @@ const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color})
 
     const onSave = (newTask: boolean) => {
         if (newTask) {
-            console.log("createNewTask")
+            // console.log("createNewTask")
         } else {
-            console.log("editTask")
+            // console.log("editTask")
         }
     }
 

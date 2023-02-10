@@ -3,8 +3,12 @@ export interface IUser {
     login: string,
     name: string,
     title: string,
-    groupID: number,
-    role: string
+    group: {
+        id: number | undefined,
+        name: string | undefined
+    } | null
+    role: string,
+    token?: string
 }
 
 export interface IUserRequest {
@@ -12,7 +16,11 @@ export interface IUserRequest {
     login: string;
     password: string;
     title: string;
-    groupId?: number;
+    group?: null | {
+        id: number,
+        name: string
+    }
+    groupId?: number
 }
 
 export interface IUserGroup {

@@ -43,9 +43,7 @@ const TaskDetail: FC<IDetailTask> = ({id, onSave, task, setShow, status}) => {
         // console.log("newDate", newDate)
         setDate(newDate);
     };
-    console.log(user.user())
-    // console.log("task", task)
-    // console.log("task", name)
+    // console.log(user.user())
     useEffect(() => {
         // fetchTasks()
         setChange(!task.id)
@@ -58,7 +56,7 @@ const TaskDetail: FC<IDetailTask> = ({id, onSave, task, setShow, status}) => {
             setDate([2023, 1, 1])
             setType(task.type)
         }
-        console.log(user.user().role)
+        // console.log(user.user().role)
 
         return () => {
             setDescription("")
@@ -104,14 +102,13 @@ const TaskDetail: FC<IDetailTask> = ({id, onSave, task, setShow, status}) => {
 
     const handleCLick = async () => {
         if (task.id) {
-            console.log("++++++++++++++++++++++++++++++++++")
             await changeTask()
         } else {
-            console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
             await createTask(status)
         }
         setChange(!change)
     }
+
     return (
         <DetailTask>
             <Row>
@@ -160,14 +157,8 @@ const TaskDetail: FC<IDetailTask> = ({id, onSave, task, setShow, status}) => {
                     <Dropdown choices={statusArr} selected={statusTask} onChange={setStatus} disabled={!change}/>
                     <Label>Date</Label>
                     <DatePicker onChange={handleDateChange} disabled={!change}/>
-                    {/*<Input*/}
-                    {/*    disabled={!change}*/}
-                    {/*    value={date || task.dueDate}*/}
-                    {/*    onChange={(e) => setDate(e.target.value)}*/}
-                    {/*/>*/}
                 </Col>
             </RowChange>
-
             {
                 task.id ?
                     <>

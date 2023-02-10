@@ -45,7 +45,7 @@ const ProjectView: FC = () => {
         // console.log("params", params.id)
         // projects.fetchProjectById(0, Number(params.id))
         getTasks()
-        console.log(separatedTasks)
+        // console.log(separatedTasks)
 
     }, [])
 
@@ -56,7 +56,7 @@ const ProjectView: FC = () => {
 
     const getTasks = async () => {
         const response = await tasks.fetchAllTasks(Number(params.id))
-        console.log("getTasks", response)
+        // console.log("getTasks", response)
         setSeparatedTasks(separateTasks(tasks.tasksList().tasks))
         return response
     }

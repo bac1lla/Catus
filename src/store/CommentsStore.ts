@@ -113,7 +113,7 @@ export default class CommentsStore {
         id: 0,
         content: "",
         taskId: "",
-        authorId: 0
+        author: {} as IUser
     }
     private _commentsList: ICommentsList = {
         comments: [],
