@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/Catus/static/js/main.1aa72731.js",
+    "static/media/logo-nav.svg": "/Catus/static/media/logo-nav.1da7be98f6c290184a927171221dffc1.svg",
+    "static/media/Paper.svg": "/Catus/static/media/Paper.35a5bda2e18d7ede594dea0d03260c63.svg",
+    "static/media/MarkerZhush-purple.svg": "/Catus/static/media/MarkerZhush-purple.b34bc21de3f013644747775e852b7bb3.svg",
+    "static/media/MarkerZhush-green.svg": "/Catus/static/media/MarkerZhush-green.a40fdcd17908008905678062c5a37c6e.svg",
+    "static/media/Marker-input-blue.svg": "/Catus/static/media/Marker-input-blue.432975171c58b50c67f3d52d5b5755cb.svg",
+    "static/media/Marker-input-green.svg": "/Catus/static/media/Marker-input-green.989072e1d7ed942b5e50514def59456b.svg",
+    "static/media/CheckRole.svg": "/Catus/static/media/CheckRole.9d6aaf46c7892f62522b9ac3adf90f7b.svg",
+    "index.html": "/Catus/index.html",
+    "static/media/logOut-navBtn.svg": "/Catus/static/media/logOut-navBtn.d4b512b16e66e92e7eccffe24ae85538.svg",
+    "main.1aa72731.js.map": "/Catus/static/js/main.1aa72731.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.1aa72731.js"
+  ]
+}
