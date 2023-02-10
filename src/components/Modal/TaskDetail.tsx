@@ -1,7 +1,14 @@
 import React, {Dispatch, FC, SetStateAction, useContext, useEffect, useLayoutEffect, useState} from 'react';
 import styled from "styled-components";
 import {TitleText} from "../../styles/fonts";
-import {backgroundColor, textColorSecondary} from "../../styles/colors";
+import {
+    accentColor4,
+    accentColor5,
+    backgroundColor,
+    mainColor,
+    textColorPrimary,
+    textColorSecondary
+} from "../../styles/colors";
 import {ITask, ITaskCard} from "../../models/response/TasksResponse";
 import {observer} from "mobx-react-lite";
 import Comments from "../Comments/Comments";
@@ -112,10 +119,10 @@ const TaskDetail: FC<IDetailTask> = ({id, onSave, task, setShow, status}) => {
                 <span>
                     {
                         ((user.user().role === "USER") || (user.user().role === "ADMIN")) ?
-                        change ?
-                            <Btn onClick={handleCLick}>Save</Btn>
-                            :
-                            <Btn onClick={() => setChange(!change)}>Change</Btn>
+                            change ?
+                                <Btn onClick={handleCLick}>Save</Btn>
+                                :
+                                <Btn onClick={() => setChange(!change)}>Change</Btn>
                             :
                             ""
                     }
@@ -133,7 +140,7 @@ const TaskDetail: FC<IDetailTask> = ({id, onSave, task, setShow, status}) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
-            <Row>
+            <RowChange>
                 <Col>
                     <Label>Description</Label>
                     <TextArea
@@ -159,12 +166,18 @@ const TaskDetail: FC<IDetailTask> = ({id, onSave, task, setShow, status}) => {
                     {/*    onChange={(e) => setDate(e.target.value)}*/}
                     {/*/>*/}
                 </Col>
-            </Row>
-            <Label onClick={() => {
-                console.log(date, name, description)
-            }}>Comments</Label>
-            <Btn onClick={() => console.log(task)}>check</Btn>
-            <Comments task={tasks.task()}/>
+            </RowChange>
+
+            {
+                task.id ?
+                    <>
+                        <Label>Comments</Label>
+                        <Comments task={tasks.task()}/>
+                    </>
+                : <></>
+
+            }
+
         </DetailTask>
     );
 };
@@ -178,35 +191,38 @@ const DetailTask = styled.div`
   gap: 30px;
   justify-content: center;
   width: 900px;
+  height: 90%;
+  overflow: auto;
 
-  @media (max-width: 1300px) {
-    max-width: 800px;
+  @media (max-width: 1000px) {
+    //max-width: 95%;
+    width: 800px;
+    max-width: 90%;
+    //max-width: 90%;
   }
-
+  //
   @media (max-width: 700px) {
-    max-width: 600px;
-  }
-
-  @media (max-width: 576px) {
     max-width: 95%;
+    width: unset;
   }
 `
 
 const Label = styled(TitleText)`
-  color: ${textColorSecondary};
+  color: ${mainColor};
 `
 const Btn = styled.button`
-  background: #B5C29E;
-  border: 2px solid #827A7A;
-  border-radius: 15px;
+  background: ${accentColor5};
+  border: none;
+  border-radius: 10px;
   color: ${backgroundColor};
-  height: 40px;
-  width: 80px;
+  padding: 15px 25px;
+  //height: 40px;
+  //width: 80px;
 `
 const Input = styled.input`
   border: 1px solid #827A7A;
-  border-radius: 50px;
-  height: 57px;
+  border-radius: 10px;
+  height: 40px;
   width: 100%;
 `
 const TextArea = styled.textarea`
@@ -215,6 +231,9 @@ const TextArea = styled.textarea`
   border: 1px solid #827A7A;
   border-radius: 5px;
   resize: none;
+  @media (max-width: 500px) {
+    height: 100px;
+  }
 `
 const Row = styled.div`
   display: flex;
@@ -224,10 +243,24 @@ const Row = styled.div`
   justify-content: space-between;
 `
 
+const RowChange = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+  }
+`
+
 const Col = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `
 

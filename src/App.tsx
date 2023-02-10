@@ -30,15 +30,15 @@ function App() {
     return (
 
         <BrowserRouter>
-        {
-            user.isAuth() ?
-                <>
-                    <GlobalStyles/>
-                    <AppRouter/>
-                </>
-            :
-                <Auth/>
-        }
+            <GlobalStyles/>
+            {
+                user.isAuth() ?
+                    <>
+                        <AppRouter/>
+                    </>
+                    :
+                    <Auth/>
+            }
         </BrowserRouter>
     );
 }

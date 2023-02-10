@@ -1,7 +1,7 @@
 import React, {Dispatch, FC, SetStateAction, useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {TitleText} from "../../styles/fonts";
-import {accentColor2, backgroundColor, textColorSecondary} from "../../styles/colors";
+import {accentColor2, backgroundColor, mainColor, textColorSecondary} from "../../styles/colors";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import ModalStyled from "./style";
@@ -21,10 +21,10 @@ const ChangePassword: FC<IChangePasswordProps> = ({setShow, onConfirm}) => {
     useEffect(() => {
     }, [])
 
-    const changePassword = () => {
-        if (password === passwordRepeat) {
+    const changePassword = async () => {
+        if (password.trim() === passwordRepeat.trim()) {
             setErr(false)
-            user.changeUser(user.user().id, {
+            await user.changeUser(user.user().id, {
                 password: password
             }).then(() => hide())
         } else {
@@ -99,41 +99,23 @@ const Wrapper = styled.div`
 `
 
 const Label = styled(TitleText)`
-  color: ${textColorSecondary};
+  color: ${mainColor};
 `
-const Btn = styled.button`
-  background: #B5C29E;
-  border: 2px solid #827A7A;
-  border-radius: 15px;
-  color: ${backgroundColor};
-`
+
 interface IInput {
     error: boolean
 }
 const Input = styled.input<IInput>`
   border: 1px solid ${({error}) => error ? accentColor2 : "#827A7A"};
-  border-radius: 50px;
-  height: 57px;
+  border-radius: 10px;
+  height: 40px;
   width: 100%;
 `
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 200px;
-  border: 1px solid #827A7A;
-  border-radius: 5px;
-  resize: none;
-`
+
 const Row = styled.div`
   display: flex;
   width: 100%;
   gap: 10px;
   align-items: center;
   justify-content: space-between;
-`
-
-const Col = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
 `

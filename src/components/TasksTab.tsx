@@ -90,8 +90,9 @@ export default observer(TasksTab);
 const TasksTabStyled = styled(Column)`
   padding: 17px 11px;
   background-color: ${textColorSecondary};
-  border-radius: 40px;
-  width: 260px;
+  border-radius: 20px;
+  min-width: 260px;
+  //width: 40%;
   height: 100%;
   gap: 20px;
 `
@@ -114,16 +115,17 @@ const TabName = styled.div<ITabName>`
   height: 42px;
   color: ${backgroundColor};
   background-color: ${({color}) => color ? color : accentColor4};
-  border-radius: 40px;
+  border-radius: 15px;
 `
 const AddGroupTaskBtn = styled.div`
   background-color: ${accentColor3};
   width: 100%;
-  border: 2px solid ${textColorPrimary};
+  //border: 2px solid ${textColorPrimary};
   color: ${backgroundColor};
   border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 35px;
+  height: 40px;
+  box-shadow: 1px 1px 0 0 ${textColorPrimary};
 `

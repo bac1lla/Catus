@@ -20,7 +20,7 @@ const GroupTask: FC<IGroupTaskProps> = ({task, getTask, setTask}) => {
                 <Task.Description>{task.title}</Task.Description>
                 <Task.Row>
                     {/*<Task.Deadline>{`${Array.from(task.dueDate)[0]}`}</Task.Deadline>*/}
-                    <Task.Deadline>{`${task.dueDate[2]}-${task.dueDate[1]}-${task.dueDate[0]}`}</Task.Deadline>
+                    <Task.Deadline>{`${task.dueDate[2]}.${task.dueDate[1]}.${task.dueDate[0]}`}</Task.Deadline>
                     {/*<Task.Deadline>{`${task.dueDate[0]}`}</Task.Deadline>*/}
                     <Task.Comment>
                         {task.commentCount}

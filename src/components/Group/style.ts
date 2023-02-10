@@ -7,19 +7,19 @@ const GroupStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 40px;
+  border-radius: 20px;
   padding: 20px;
 `
 const Name = styled(LightText)`
   color: ${mainColor};
   background: ${textColorSecondary};
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 5px 15px;
   text-transform: uppercase;
 `
 const Count = styled(LightText)`
   background: ${accentColor3};
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 5px 15px;
 `
 

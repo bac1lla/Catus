@@ -17,7 +17,7 @@ const NavBarMenu = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-width: ${WRAPPER_WIDTH};
+  //min-width: ${WRAPPER_WIDTH};
   width: 90%;
 
 `

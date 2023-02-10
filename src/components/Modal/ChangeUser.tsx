@@ -1,7 +1,7 @@
 import React, {Dispatch, FC, SetStateAction, useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {TitleText} from "../../styles/fonts";
-import {backgroundColor, textColorSecondary} from "../../styles/colors";
+import {accentColor5, backgroundColor, mainColor, textColorSecondary} from "../../styles/colors";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import ModalStyled from "./style";
@@ -28,8 +28,8 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
         groups.fetchGroup(user.user().groupID)
     }, [])
 
-    const changeUser = () => {
-        user.changeUser(user.user().id, {
+    const changeUser = async () => {
+        await user.changeUser(user.user().id, {
             login: login,
             name: name
         }).then(() =>
@@ -49,7 +49,7 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
     }
 
     const logout = async () => {
-        user.logout()
+        await user.logout()
         navigate(LOGIN_ROUTE)
     }
 
@@ -151,30 +151,27 @@ const Wrapper = styled.div`
 `
 
 const Label = styled(TitleText)`
-  color: ${textColorSecondary};
+  color: ${mainColor};
 `
 const Btn = styled.button`
-  background: #B5C29E;
-  border: 2px solid #827A7A;
-  border-radius: 15px;
+  background: ${accentColor5};
+  //border: 2px solid #827A7A;
+  border-radius: 10px;
   color: ${backgroundColor};
-  width: 80px;
-  height: 40px;
-  
+  //width: 80px;
+  //height: 40px;
+  padding: 15px 25px;
+  border: none;
 `
 const Input = styled.input`
-  border: 1px solid #827A7A;
-  border-radius: 50px;
-  height: 57px;
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 40px;
   width: 100%;
+  text-align: end;
+  outline: none;
 `
-const TextArea = styled.textarea`
-  width: 100%;
-  height: 200px;
-  border: 1px solid #827A7A;
-  border-radius: 5px;
-  resize: none;
-`
+
 const Row = styled.div`
   display: flex;
   width: 100%;
@@ -183,9 +180,3 @@ const Row = styled.div`
   justify-content: space-between;
 `
 
-const Col = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-`

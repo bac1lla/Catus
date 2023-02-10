@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import {MainTitleText, TitleText} from "../../styles/fonts";
-import {accentColor3, accentColor4, accentColor5, backgroundColor, textColorPrimary} from "../../styles/colors";
+import {
+    accentColor2,
+    accentColor3,
+    accentColor4,
+    accentColor5,
+    backgroundColor,
+    textColorPrimary
+} from "../../styles/colors";
 
 
 interface IModalStyled {
@@ -24,10 +31,12 @@ const Content = styled.div`
   //width: 500px;
   background-color: ${backgroundColor};
   //transform: translateY(-200px);
-  border-radius: 40px;
+  border-radius: 20px;
   padding: 40px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-
+  max-height: 90%;
+  max-width: 95%;
+  overflow-y: auto;
 `
 
 const Header = styled.div`
@@ -65,11 +74,13 @@ interface IBtn {
 
 const Btn = styled.button<IBtn>`
   width: 200px;
-  height: 40px;
-  border: 1px solid ${textColorPrimary};
+  //height: 40px;
+  padding: 15px 25px;
+  border: none;
   color: ${backgroundColor};
   border-radius: 15px;
-  background-color: ${({variant}) => variant === "blue" ? accentColor3 : (variant === "red" ? accentColor5 : accentColor4)};
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: ${({variant}) => variant === "blue" ? accentColor3 : (variant === "red" ? accentColor5 : accentColor2)};
 `
 
 export default Object.assign({Title, Content, Header, Footer, Body, Btn}, ModalStyled)
@@ -90,7 +101,7 @@ export const Container = styled.div<IContainer>`
 
 export const Input = styled.input`
   border: 1px solid #827A7A;
-  border-radius: 50px;
+  border-radius: 10px;
   width: 600px;
   height: 40px;
 `

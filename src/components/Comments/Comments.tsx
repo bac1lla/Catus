@@ -51,25 +51,27 @@ const Wrapper = styled.div`
   width: 100%;
   background: ${menuColor};
   border: 1px solid ${textColorPrimary};
-  border-radius: 50px;
+  border-radius: 20px;
   padding: 30px;
 `
-
-
 
 const Row = styled.div`
   display: flex;
   align-items: center;
 `
 const Input = styled.input`
-  width: 80%;
+  width: 100%;
   background: ${backgroundColor};
-  border: 1px solid ${textColorPrimary};
-  border-radius: 50px;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  height: 40px;
+  outline: none;
 `
 const Btn = styled.button`
   background: ${accentColor3};
-  border: 1px solid ${textColorPrimary};
-  border-radius: 50px;
+  border: none;
+  border-radius: 0 10px 10px 0;
   color: white;
+  padding: 10px 25px;
+  height: 40px;
 `

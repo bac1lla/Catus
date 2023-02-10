@@ -51,7 +51,7 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow}) => {
     // }
 
     const mapUsers = (users: IUser[]) => {
-        return users.map(user => <GroupUserCard user={user} onClick={() => addUser(user)} chosenStudents={chosenStudents}/>)
+        return users.filter(user => user.role === "STUDENT").map(user => <GroupUserCard user={user} onClick={() => addUser(user)} chosenStudents={chosenStudents}/>)
         // return users.map(user => <GroupUserCard user={user} onClick={setUsers}/>)
     }
 
@@ -149,21 +149,9 @@ const Wrapper = styled.div`
   gap: 30px;
   justify-content: center;
   max-width: 900px;
-  width: 900px;
+  width: 95%;
+  margin: auto;
 
-  @media (max-width: 1300px) {
-    max-width: 800px;
-    width: 800px;
-  }
-
-  @media (max-width: 700px) {
-    max-width: 600px;
-    width: 600px;
-  }
-
-  @media (max-width: 576px) {
-    max-width: 95%;
-  }
 `
 
 const Row = styled(Line)`
@@ -246,7 +234,7 @@ const List = styled.div`
   background: ${menuColor};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 40px;
-  width: 100%;
+  width: 90%;
   height: 400px;
   padding: 40px;
   display: flex;

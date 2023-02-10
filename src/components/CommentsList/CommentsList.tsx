@@ -3,6 +3,7 @@ import {Context} from "../../index";
 import {useParams} from "react-router";
 import styled from "styled-components";
 import {observer} from "mobx-react-lite";
+import Comment from "../Comment/Comment";
 
 interface ICommentsListProps {
     taskId: number
@@ -13,13 +14,18 @@ const CommentsList: FC<ICommentsListProps> = ({taskId}) => {
     const params = useParams()
 
     useEffect(() => {
-        comments.fetchCommentsList(Number(params.id), taskId)
+        fetchComments()
+        console.log("TASKID", taskId)
     }, [taskId])
+
+    const fetchComments = async () => {
+        await comments.fetchCommentsList(Number(params.id), taskId)
+    }
 
     return (
         <List>
             {
-                comments.commentsList().comments.map(comment => <p>{comment.content}</p>)
+                comments.commentsList().comments.map(comment => <Comment comment={comment}/>)
             }
         </List>
     )

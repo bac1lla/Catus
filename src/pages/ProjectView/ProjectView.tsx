@@ -6,7 +6,7 @@ import {Context} from "../../index";
 import TasksTab from "../../components/TasksTab";
 import ProjectViewSidebar from "../../components/ProjectViewSidebar";
 import {observer} from "mobx-react-lite";
-import {accentColor2, accentColor3, accentColor4, accentColor5} from "../../styles/colors";
+import {accentColor1, accentColor2, accentColor3, accentColor4, accentColor5, accentColor6} from "../../styles/colors";
 import Modal from "../../components/Modal/Modal";
 import TaskDetail from "../../components/Modal/TaskDetail";
 import {useParams} from "react-router";
@@ -73,12 +73,12 @@ const ProjectView: FC = () => {
             <Project.Wrapper>
                 <Project.ProjectView>
                     <ProjectViewSidebar/>
-                    <div style={{height: "100%", display: "flex", gap: "20px", overflowX: "auto"}}>
+                    <Project.ProjectList>
                             <TasksTab tabName={"OVERDUE"} tasks={separatedTasks["OVERDUE"]} editable={true} color={accentColor2} />
                             <TasksTab tabName={"ACTIVE"} tasks={separatedTasks["ACTIVE"]} editable={true} color={accentColor3} />
-                            <TasksTab tabName={"PLANNED"} tasks={separatedTasks["PLANNED"]} editable={true} color={accentColor4} />
+                            <TasksTab tabName={"PLANNED"} tasks={separatedTasks["PLANNED"]} editable={true} color={accentColor6} />
                             <TasksTab tabName={"FINISHED"} tasks={separatedTasks["FINISHED"]} editable={false} color={accentColor5} />
-                    </div>
+                    </Project.ProjectList>
                 </Project.ProjectView>
             </Project.Wrapper>
 

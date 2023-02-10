@@ -1,25 +1,26 @@
 import styled from "styled-components";
-import {accentColor2, accentColor5, backgroundColor, menuColor} from "../../styles/colors";
+import {accentColor2, accentColor5, backgroundColor, menuColor, textColorPrimary} from "../../styles/colors";
 import {LittleText} from "../../styles/fonts";
 import {Column, Line} from "../../styles/styled-components";
 
 const Task = styled.div`
   background-color: ${backgroundColor};
   padding: 8px 15px;
-  border-radius: 20px;
+  border-radius: 15px;
+  box-shadow: 1px 1px 0 0 ${textColorPrimary};
 `
 const Name = styled(LittleText)`
   color: ${backgroundColor};
   background-color: ${accentColor2};
   padding: 2px 4px;
-  border-radius: 20px;
+  border-radius: 7px;
   width: fit-content;
 `
 const Description = styled(LittleText)`
   color: ${menuColor};
 `
 const Deadline = styled(LittleText)`
-  border-radius: 20px;
+  border-radius: 7px;
   padding: 2px 4px;
   color: ${backgroundColor};
   background-color: ${accentColor5};
@@ -28,7 +29,7 @@ const Comment = styled(LittleText)`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
+  border-radius: 7px;
   color: ${backgroundColor};
   background-color: ${menuColor};
   padding: 2px 4px;

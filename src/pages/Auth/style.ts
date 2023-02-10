@@ -10,11 +10,15 @@ const AuthStyled = styled.div`
   height: 100%;
   justify-content: space-around;
   align-items: center;
-
+  //width: 100%;
   @media (max-width: ${SIZE.laptop}) {
     display: block;
     margin: auto;
     padding: 30px;
+  }
+  
+  @media (max-width: 500px) {
+    background-color: white;
   }
 `
 const AuthLogo = styled.div`
@@ -46,7 +50,11 @@ const AuthPaperImg = styled.img`
   //width: 100%;
   @media (max-width: ${SIZE.laptop}) {
     width: 100%;
-    //display: none;
+  }
+
+  @media (max-width: 500px) {
+    display: none;
+    //background-color: white;
   }
 `
 interface IAuthCheckRole {

@@ -23,6 +23,7 @@ const Icon = styled.div`
   justify-content: center;
   color: ${backgroundColor};
   font-size: 20px;
+
 `
 const Text = styled(LittleText)`
   color: ${mainColor};

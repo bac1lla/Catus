@@ -97,7 +97,7 @@ const PersonLogo = styled.div`
 `
 const PersonInfo = styled.div`
   color: ${textColorPrimary};
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: ${textColorSecondary};
   padding: 5px 12px;
   width: 100%;
@@ -124,7 +124,7 @@ const Info = styled.div`
   background-color: ${menuColor};
   //height: 78px;
   font-size: 30px;
-  border-radius: 20px;
+  border-radius: 15px;
   width: 100%;
   height: 79px;
 `
@@ -137,7 +137,7 @@ const InfoCount = styled.div`
   background-color: ${accentColor2};
   height: 55px;
   color: ${accentColor1};
-  border-radius: 20px;
+  border-radius: 15px;
 `
 
 const BurgerBtn = styled.div`

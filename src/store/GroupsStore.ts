@@ -9,12 +9,13 @@ export default class GroupsStore {
         makeAutoObservable(this)
     }
 
-    async fetchGroup(groupId: number) {
+    async fetchGroup(groupId: number): Promise<IGroup | undefined> {
         try {
             this.setIsLoading(true)
             const response = await GroupsService.fetchGroup(groupId)
             console.log(response);
             this.setGroup(response)
+            return response
         } catch (e) {
             console.log(e)
         } finally {

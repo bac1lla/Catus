@@ -2,7 +2,7 @@ import React, {FC, useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
 import {Column} from "../styles/styled-components";
 import {
-    accentColor2, accentColor4,
+    accentColor2, accentColor3, accentColor4,
     backgroundColor,
     mainColor,
     menuColor,
@@ -52,11 +52,11 @@ const ProjectViewSidebar: FC = () => {
                 {
                     projects.allUsers().users.map(user =>
                         // <GroupMember key={user.id} group={user.group.name} name={user.name}/>)
-                        <GroupMember key={user.id} groupID={user.groupID + ""} name={user.name}/>)
+                        <GroupMember key={user.id} groupID={user.groupID} name={user.name}/>)
                 }
             </Members>
             {
-                ((user.user().role === "STUDENT") || (user.user().role === "ADMIN")) ?
+                ((user.user().role === "TEACHER") || (user.user().role === "ADMIN")) ?
                     <MembersAddBtn onClick={() => setShowAddUsers(true)}>ADD</MembersAddBtn>
                     :
                     <></>
@@ -86,7 +86,7 @@ const SidebarImage = styled(TitleText)`
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 40px;
+  border-radius: 20px;
 `
 const Members = styled(Column)`
   width: 215px;
@@ -98,7 +98,7 @@ const Members = styled(Column)`
   align-items: center;
   //justify-content: center;
   background-color: ${menuColor};
-  border-radius: 20px;
+  border-radius: 10px;
   max-height: 70%;
 `
 const MembersHeader = styled.div`
@@ -113,7 +113,7 @@ const MembersHeader = styled.div`
   width: 100%;
   //z-index: 1;
   padding: 6px 16px;
-  border-radius: 20px;
+  border-radius: 10px;
 `
 const MembersHeaderTitle = styled(LightText)`
 `
@@ -134,9 +134,10 @@ const MembersAddBtn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background-color: ${accentColor4};
+  background-color: ${accentColor2};
   color: ${backgroundColor};
-  border: 2px solid ${textColorPrimary};
-
+  border: none;
+  //border: 2px solid ${textColorPrimary};
+  box-shadow: 1px 1px ${backgroundColor};
 `
 

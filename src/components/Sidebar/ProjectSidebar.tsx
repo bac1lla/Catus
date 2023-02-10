@@ -60,7 +60,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
                         <Sidebar.Person.InfoText>{user.user().login}</Sidebar.Person.InfoText>
                     </Sidebar.Person.Info>
                     <Sidebar.Person.Info>
-                        <Sidebar.Person.InfoText>{user.role()}</Sidebar.Person.InfoText>
+                        <Sidebar.Person.InfoText>{user.user().role}</Sidebar.Person.InfoText>
                     </Sidebar.Person.Info>
                     <Sidebar.Person.Info>
                         <Sidebar.Person.InfoText>{user.user().name}</Sidebar.Person.InfoText>
@@ -68,7 +68,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
                 </Sidebar.Person.Person>
             </Sidebar.Person.Wrapper>
             <Sidebar.Info.Text onClick={navigateGroup}>
-                <LightText>{user.role() === "Teacher" ? "Groups" : user.user().groupID}</LightText>
+                <LightText>{(user.user().role === "TEACHER") || (user.user().role === "ADMIN") ? "Groups" : user.user().groupID}</LightText>
             </Sidebar.Info.Text>
             <Sidebar.Info.Text onClick={() => navigate(PROJECTS_ROUTE)}>
                 <LightText>Projects</LightText>

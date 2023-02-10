@@ -9,7 +9,7 @@ const ProjectCardStyled = styled.div`
   padding: 20px;
   background: ${backgroundColor};
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 40px;
+  border-radius: 20px;
   gap: 11px;
   align-items: center;
   width: 420px;
@@ -26,7 +26,7 @@ const ProjectCardStyled = styled.div`
 const ProjectCardImage = styled.div`
   width: 160px;
   height: 160px;
-  border-radius: 20px;
+  border-radius: 15px;
   background-color: ${accentColor4};
   flex-shrink: 0;
   display: flex;
@@ -42,7 +42,7 @@ const ProjectCardImage = styled.div`
 `
 const ProjectCardRow = styled.div`
   background-color: ${textColorSecondary};
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 2px 0 2px 20px;
   display: flex;
   align-items: center;

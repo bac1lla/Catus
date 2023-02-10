@@ -25,6 +25,11 @@ const Image = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `
 const Name = styled(LightText)`
   color: ${mainColor};

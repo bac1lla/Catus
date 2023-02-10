@@ -9,6 +9,7 @@ import {observer} from "mobx-react-lite";
 import Window from "./style";
 import AddStudents from "../AddStudents/AddStudents";
 import projects from "../Projects/Projects";
+import { LightText } from '../../styles/fonts';
 
 interface IGroupDetailProps {
     group: IGroup
@@ -73,7 +74,7 @@ const GroupDetail: FC<IGroupDetailProps> = ({group}) => {
         <Window>
             <Window.Header>
                 <Window.Title>{group.name}</Window.Title>
-                <Window.Btn onClick={() => setShowAddUsers(true)}>Add users</Window.Btn>
+                <Window.Btn onClick={() => setShowAddUsers(true)}><LightText>Add users</LightText></Window.Btn>
                 <Window.Count>Total: {groups.group().users.length}</Window.Count>
             </Window.Header>
             <Window.List>

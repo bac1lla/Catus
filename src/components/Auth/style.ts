@@ -67,6 +67,7 @@ const AuthTextWrapper = styled.div<IImgProps>`
 
 const AuthTextWrapperGreen = styled(AuthTextWrapper)`
   background-image: url(${ZhushGreen});
+  margin-top: 30px;
 `
 
 const AuthTextWrapperPurple = styled(AuthTextWrapper)`
@@ -144,6 +145,7 @@ const AuthCheck = styled(TextInfo)`
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  margin-top: 30px;
 `
 
 const Auth = {

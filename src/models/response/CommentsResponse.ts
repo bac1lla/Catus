@@ -4,7 +4,7 @@ export interface IComment {
     id: number;
     content: string;
     taskId: string;
-    author: IUser;
+    authorId: number;
 }
 
 export interface ICommentsList {

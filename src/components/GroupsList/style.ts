@@ -16,6 +16,12 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 500px) {
+    //padding: 30px;
+    //gap: 10px;
+    flex-wrap: wrap;
+  }
+  
 `
 const Title = styled(MainTitleText)`
   color: ${mainColor};
@@ -24,9 +30,14 @@ const Search = styled.input`
   height: 40px;
   padding: 5px 15px;
   outline: none;
-  max-width: 450px;
+  max-width: 350px;
   border: 1px solid #827A7A;
-  border-radius: 50px;
+  border-radius: 15px;
+  @media (max-width: 500px) {
+    //padding: 30px;
+    //gap: 10px;
+    //width: 20%;
+  }
 `
 const List = styled.div`
   padding: 10px;
