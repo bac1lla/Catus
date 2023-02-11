@@ -50,7 +50,6 @@ export default class UserStore {
                 },
                 role: ""
             })
-            await AuthService.logout()
         } catch (e) {
             // console.log(e)
             // console.log(e.response?.data?.message)
@@ -70,7 +69,7 @@ export default class UserStore {
             this.setUser(response.user)
             // this.setRole(role)
         } catch (e) {
-            console.log(e)
+            // console.log(e)
             // console.log(e.response?.data?.message)
         } finally {
             this.setIsLoading(false)
@@ -145,7 +144,7 @@ export default class UserStore {
             this.setIsLoading(true)
             const response = await UsersService.changeUser(userId, body)
             this.setUser(response)
-            localStorage.setItem("token", response?.token + "")
+            // localStorage.setItem("token", response?.token + "")
             // const updatedUser = await AuthService.login()
         } catch (e) {
             console.log(e)
@@ -224,6 +223,14 @@ export default class UserStore {
         this._isAuth = bool
     }
 
+    public isError(): boolean {
+        return this._isError
+    }
+
+    private setError(bool: boolean) {
+        this._isError = bool
+    }
+
     private _user: IUser = {
         id: 0,
         login: "",
@@ -242,4 +249,5 @@ export default class UserStore {
     private _role: string = "Teacher"
     private _isAuth: boolean = false
     private _isLoading: boolean = false
+    private _isError: boolean = false
 }
