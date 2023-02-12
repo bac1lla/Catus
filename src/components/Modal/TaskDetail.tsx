@@ -115,7 +115,7 @@ const TaskDetail: FC<IDetailTask> = ({id, onSave, task, setShow, status}) => {
                 <Label>Task</Label>
                 <span>
                     {
-                        ((user.user().role === "USER") || (user.user().role === "ADMIN")) ?
+                        ((user.user().role === "TEACHER") || (user.user().role === "ADMIN")) ?
                             change ?
                                 <Btn onClick={handleCLick}>Save</Btn>
                                 :

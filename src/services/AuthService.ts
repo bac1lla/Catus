@@ -20,8 +20,4 @@ export default class AuthService {
             .then(response => response.data)
     }
 
-    static async logout(): Promise<void> {
-        return $api.delete(`/logout`)
-    }
-
 }

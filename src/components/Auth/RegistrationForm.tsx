@@ -66,8 +66,8 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({user}) => {
                     <Auth.Input.Text>Role:</Auth.Input.Text>
                     <Auth.CheckRole checked={role === "STUDENT"}
                                     onClick={() => setRole("STUDENT")}>Student</Auth.CheckRole>
-                    <Auth.CheckRole checked={role === "ADMIN"}
-                                    onClick={() => setRole("ADMIN")}>Teacher</Auth.CheckRole>
+                    <Auth.CheckRole checked={role === "TEACHER"}
+                                    onClick={() => setRole("TEACHER")}>Teacher</Auth.CheckRole>
                 </Auth.Input.Wrapper.Transparent>
             </Auth.Form>
             <Auth.TitleWrapper.Green>

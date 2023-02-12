@@ -8,11 +8,13 @@ import {IUser} from "../../models/IUser";
 interface IAddStudentsProps {
     onConfirm: (users: Set<IUser>) => void,
     setShow: Dispatch<SetStateAction<boolean>>
+    showLogin?: boolean
 }
 
-const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow}) => {
+const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow, showLogin = false}) => {
 
     const [searchName, setSearchName] = useState<string>("")
+    const [searchGroup, setSearchGroup] = useState<string>("")
     const [chosenStudents, setChosenStudents] = useState<Set<IUser>>(new Set<IUser>())
     const {user} = useContext(Context)
 
@@ -26,8 +28,9 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow}) => {
 
     const mapUsers = (users: IUser[]) => {
         return users
-            .filter(user => user.role === "STUDENT" && user.name.toLowerCase().includes(searchName.toLowerCase().trim()))
-            .map(user => <GroupUserCard key={user.id} user={user} onClick={() => addUser(user)} chosenStudents={chosenStudents} />)
+            .filter(user => user.role === "STUDENT" && user.name.toLowerCase().includes(searchName.toLowerCase().trim()) && user.group?.name?.toLowerCase().includes(searchGroup.toLowerCase().trim()))
+            .map(user => <GroupUserCard key={user.id} user={user} onClick={() => addUser(user)}
+                                        chosenStudents={chosenStudents} showLogin={showLogin}/>)
     }
 
 
@@ -49,6 +52,14 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow}) => {
                 <Wrapper.Search>
                     <Wrapper.Label>Name</Wrapper.Label>
                     <Wrapper.Input value={searchName} onChange={(e) => setSearchName(e.target.value)}/>
+                    {
+                        showLogin ?
+                            <></> :
+                            <>
+                                <Wrapper.Label>Group</Wrapper.Label>
+                                <Wrapper.Input value={searchGroup} onChange={(e) => setSearchGroup(e.target.value)}/>
+                            </>
+                    }
                 </Wrapper.Search>
             </Wrapper.Row>
             <Wrapper.List>

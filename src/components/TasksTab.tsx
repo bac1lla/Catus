@@ -59,7 +59,7 @@ const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color})
                             task={task}
                             setTask={setCurrentTask}
                             getTask={getTask}
-                        />) : "None"
+                        />) : <></>
             }
             </TasksWrapper>
             {

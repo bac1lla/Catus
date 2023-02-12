@@ -20,7 +20,6 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
     const {user, groups} = useContext(Context)
     const [change, setChange] = useState<boolean>(false)
     const [name, setName] = useState<string>("")
-    const [login, setLogin] = useState<string>("")
     const [showChangePassword, setShowChangePassword] = useState<boolean>(false)
     const navigate = useNavigate()
 
@@ -30,7 +29,6 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
 
     const changeUser = async () => {
         await user.changeUser(user.user().id, {
-            login: login,
             name: name
         }).then(() =>
             setChange(false)
@@ -39,7 +37,6 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
 
     const handelClick = () => {
         setName(user.user().name)
-        setLogin(user.user().login)
         setChange(true)
     }
 
@@ -60,15 +57,7 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
             </Row>
             <Row>
                 <Label>Login</Label>
-                {
-                    change ?
-                        <Input
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                        :
-                        <Label>{user.user().login}</Label>
-                }
+                <Label>{user.user().login}</Label>
             </Row>
             <Row>
                 <Label>Password</Label>
@@ -79,17 +68,22 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
                 {
                     change ?
                         <Input
-                            value={login}
-                            onChange={(e) => setLogin(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                         :
                         <Label>{user.user().name}</Label>
                 }
             </Row>
-            <Row>
-                <Label>Group</Label>
-                <Label>{groups.group().name}</Label>
-            </Row>
+            {
+                user.user().role === "STUDENT" ?
+                    <Row>
+                        <Label>Group</Label>
+                        <Label>{groups.group().name}</Label>
+                    </Row> :
+                    <></>
+
+            }
             <ModalStyled.Footer>
                 {
                     change ?

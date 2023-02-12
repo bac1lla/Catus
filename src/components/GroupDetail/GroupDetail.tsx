@@ -80,7 +80,9 @@ const GroupDetail: FC<IGroupDetailProps> = ({group}) => {
             <Window.List>
                 {groups.group().users.map(user => <GroupUserCard key={user.id} user={user}
                                                                  disable={true}
-                                                                 onDelete={openConfirmation}/>)}
+                                                                 onDelete={openConfirmation}
+                                                                 showLogin={true}/>
+                )}
             </Window.List>
             <Modal setShow={setShowConfirm} show={showConfirm}>
                 <Confirm onConfirm={deleteUser}
@@ -88,7 +90,7 @@ const GroupDetail: FC<IGroupDetailProps> = ({group}) => {
                          setShow={setShowConfirm}/>
             </Modal>
             <Modal setShow={setShowAddUsers} show={showAddUsers}>
-                <AddStudents setShow={setShowAddUsers} onConfirm={addUsers}/>
+                <AddStudents setShow={setShowAddUsers} onConfirm={addUsers} showLogin={true}/>
             </Modal>
         </Window>
     );

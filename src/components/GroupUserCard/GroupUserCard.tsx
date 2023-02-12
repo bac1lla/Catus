@@ -12,12 +12,13 @@ interface IGroupUserCardProps {
     onDelete?: (user: IUser) => void,
     disable?: boolean,
     chosenStudents?: Set<IUser>
+    showLogin?: boolean
     // showDelete?: boolean,
     // choose?: boolean
 }
 
 
-const GroupUserCard: FC<IGroupUserCardProps> = ({user, onClick, onDelete, disable= false, chosenStudents}) => {
+const GroupUserCard: FC<IGroupUserCardProps> = ({user, onClick, onDelete, disable= false, chosenStudents, showLogin = false}) => {
 
     const {groups} = useContext(Context)
     const [target, setTarget] = useState<boolean>(false)
@@ -40,10 +41,10 @@ const GroupUserCard: FC<IGroupUserCardProps> = ({user, onClick, onDelete, disabl
                 <Card.Name>{user.name}</Card.Name>
                 {/*<Card.Name>{groups.group().name}</Card.Name>*/}
                 {
-                    user.group ?
-                        <Card.Group>{user.group?.name}</Card.Group>
+                    showLogin ?
+                        <Card.Group>{user.login}</Card.Group>
                         :
-                        <></>
+                        <Card.Group>{user.group?.name}</Card.Group>
                 }
                 {/*<Card.Name>{user.group?.id}</Card.Name>*/}
             </Card.Info>

@@ -1,4 +1,4 @@
-import React, {Dispatch, FC, SetStateAction, useContext, useState} from 'react';
+import React, {Dispatch, FC, SetStateAction, useContext, useEffect, useState} from 'react';
 import {LightText, MainTitleText} from "../../styles/fonts";
 import {Context} from "../../index";
 import Sidebar from './style';
@@ -24,6 +24,10 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
 
     const navigate = useNavigate()
     const location = useLocation()
+
+    useEffect(() => {
+        projects.fetchAllProjects(user.user().id)
+    },[])
 
     const handleClick = () => {
         if (location.pathname === PROJECTS_ROUTE) {
@@ -60,7 +64,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
                         <Sidebar.Person.InfoText>{user.user().login}</Sidebar.Person.InfoText>
                     </Sidebar.Person.Info>
                     <Sidebar.Person.Info>
-                        <Sidebar.Person.InfoText>{user.user().role === "ADMIN" ? "Teacher" : "Student"}</Sidebar.Person.InfoText>
+                        <Sidebar.Person.InfoText>{user.user().role}</Sidebar.Person.InfoText>
                     </Sidebar.Person.Info>
                     <Sidebar.Person.Info>
                         <Sidebar.Person.InfoText>{user.user().name}</Sidebar.Person.InfoText>
@@ -72,13 +76,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
             </Sidebar.Info.Text>
             <Sidebar.Info.Text onClick={() => navigate(PROJECTS_ROUTE)}>
                 <LightText>Projects</LightText>
-                {
-                    location.pathname !== GROUPS_ROUTE ?
-                        <Sidebar.Info.Value><LightText>{projects.projectsList().total}</LightText></Sidebar.Info.Value>
-                        :
-                        <></>
-
-                }
+                <Sidebar.Info.Value><LightText>{projects.projectsList().total}</LightText></Sidebar.Info.Value>
             </Sidebar.Info.Text>
             {
                 (user.user().role === "ADMIN") || (user.user().role === "TEACHER") ?
