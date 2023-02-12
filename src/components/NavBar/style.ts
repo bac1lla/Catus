@@ -23,6 +23,10 @@ const NavBarMenu = styled.div`
 `
 const MenuHeader = styled(MainTitleText)`
   color: ${textColorPrimary};
+  max-width: 40%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `
 const MenuLogo = styled.img`
   width: 77px;

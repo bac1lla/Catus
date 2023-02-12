@@ -50,12 +50,9 @@ const SidebarStyled = styled(Column)<IProjectSidebarStyled>`
   }
 
 `
-const Logo = styled.div`
+const Logo = styled.img`
   width: 91px;
   height: 135px;
-  background-repeat: no-repeat;
-  background-image: url("../../assets/img/logo.svg");
-  //margin-bottom: 10px;
   @media (max-width: ${SIZE.tablet}) {
     display: none;
   }

@@ -19,12 +19,15 @@ const Comments: FC<ICommentsProps> = ({task}) => {
     const params = useParams()
 
     useEffect(() => {
-        // tasks.fetchTask(Number(params.id), task.id)
+        if (task.id) {
+            tasks.fetchTask(Number(params.id), task.id)
+        }
     }, [task])
 
     const sendMessage = async () => {
         await comments.createComment(Number(params.id), task.id, message)
             .then(() => setMessage(""))
+        // .then(() => tasks.fetchAllTasks(Number(params.id)))
     }
 
     return (
@@ -42,7 +45,6 @@ const Comments: FC<ICommentsProps> = ({task}) => {
 };
 
 export default observer(Comments);
-
 
 
 const Wrapper = styled.div`

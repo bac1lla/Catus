@@ -49,9 +49,14 @@ export default class ProjectsService {
             .then(response => response.data)
     }
 
-    static async exitFromProject(userId: number, projectId: number): Promise<void> {
-        return $api.delete(`/projects/${projectId}/users/${userId}`)
+    static async exitFromProject(projectId: number): Promise<void> {
+        return $api.delete(`/projects/${projectId}/users/0`)
             // .then(response => response.data)
+    }
+
+    static async deleteFromProject(userId: number, projectId: number): Promise<void> {
+        return $api.delete(`/projects/${projectId}/users/${userId}`)
+        // .then(response => response.data)
     }
 
 }

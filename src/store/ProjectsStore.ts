@@ -107,8 +107,20 @@ export default class ProjectsStore {
     async exitFromProject(userId: number, projectId: number) {
         try {
             this.setIsLoading(true)
-            await ProjectsService.exitFromProject(userId, projectId)
+            await ProjectsService.exitFromProject(projectId)
             await this.fetchAllProjects(userId)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
+        }
+    }
+
+    async deleteFromProject(userId: number, projectId: number) {
+        try {
+            this.setIsLoading(true)
+            await ProjectsService.deleteFromProject(userId, projectId)
+            await this.fetchAllUsersInProject(userId, projectId)
         } catch (e) {
             console.log(e)
         } finally {

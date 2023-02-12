@@ -14,6 +14,7 @@ export default class UserStore {
 
     async login(login: string, password: string) {
         try {
+            this.setError("")
             this.setIsLoading(true)
             // const response = await AuthService.login(email, password)
             const response = await AuthService.login(login, password)
@@ -27,7 +28,7 @@ export default class UserStore {
             // this.setRole("Student")
             // this.setUser(response)
         } catch (e) {
-            console.log(e)
+            this.setError("Wrong login or password")
         } finally {
             this.setIsLoading(false)
         }
@@ -60,6 +61,7 @@ export default class UserStore {
 
     async registration(login: string, password: string, name: string, role: string) {
         try {
+            this.setError("")
             this.setIsLoading(true)
             const response = await AuthService.registration(login, password, name, role.toUpperCase())
             localStorage.setItem('token', response.token)
@@ -69,6 +71,10 @@ export default class UserStore {
             this.setUser(response.user)
             // this.setRole(role)
         } catch (e) {
+            // @ts-ignore
+            if (e?.response?.status === 409) {
+                this.setError("Login already exists")
+            }
             // console.log(e)
             // console.log(e.response?.data?.message)
         } finally {
@@ -223,11 +229,11 @@ export default class UserStore {
         this._isAuth = bool
     }
 
-    public isError(): boolean {
+    public isError(): string {
         return this._isError
     }
 
-    private setError(bool: boolean) {
+    public setError(bool: string) {
         this._isError = bool
     }
 
@@ -249,5 +255,5 @@ export default class UserStore {
     private _role: string = "Teacher"
     private _isAuth: boolean = false
     private _isLoading: boolean = false
-    private _isError: boolean = false
+    private _isError: string = ""
 }

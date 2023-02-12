@@ -9,6 +9,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import CreateProject from "../CreateProject/CreateProject";
 import {observer} from "mobx-react-lite";
 import ChangeUser from "../Modal/ChangeUser";
+import Logo from "../../assets/img/logo.svg"
 
 interface IProjectSidebarProps {
     show: boolean
@@ -54,7 +55,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
 
     return (
         <Sidebar.Wrapper show={show}>
-            <Sidebar.Logo/>
+            <Sidebar.Logo src={Logo}/>
             <Sidebar.BurgerBtn onClick={() => toggleShow(!show)}/>
             <Sidebar.Person.Wrapper onClick={() => setShowCreateUserModal(true)}>
                 <Sidebar.Person.Logo><MainTitleText>I</MainTitleText></Sidebar.Person.Logo>

@@ -4,6 +4,8 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import GroupUserCard from "../GroupUserCard/GroupUserCard";
 import {IUser} from "../../models/IUser";
+import {Simulate} from "react-dom/test-utils";
+import transitionEnd = Simulate.transitionEnd;
 
 interface IAddStudentsProps {
     onConfirm: (users: Set<IUser>) => void,
@@ -16,10 +18,12 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow, showLogin = fal
     const [searchName, setSearchName] = useState<string>("")
     const [searchGroup, setSearchGroup] = useState<string>("")
     const [chosenStudents, setChosenStudents] = useState<Set<IUser>>(new Set<IUser>())
-    const {user} = useContext(Context)
+    const {user, projects, groups} = useContext(Context)
 
     useEffect(() => {
-        user.fetchAllUsers()
+        if (user.user().role !== "STUDENT") {
+            user.fetchAllUsers()
+        }
     }, [])
 
     // const deleteUser = (newUser: IUser) => {
@@ -28,15 +32,20 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow, showLogin = fal
 
     const mapUsers = (users: IUser[]) => {
         return users
-            .filter(user => user.role === "STUDENT"
-                && user.name.toLowerCase().includes(searchName.toLowerCase().trim())
-                && (user.group?.id ?
-                    user.group.name.toLowerCase().includes(searchGroup.toLowerCase().trim())
-                    : !searchGroup))
+            .filter((newUser, i, arr) => newUser.role === "STUDENT"
+                && newUser.name.toLowerCase().includes(searchName.toLowerCase().trim())
+                && (newUser.group?.id ?
+                    newUser.group.name.toLowerCase().includes(searchGroup.toLowerCase().trim())
+                    : !searchGroup)
+                // && (showLogin ?
+                //     // true
+                //     !user.usersList().users.some(item => (item.id === newUser.id) && ((item.group === null ? true : item.group.id) === (newUser.group === null ? true : newUser.group.id)))
+                //     :
+                //     !user.usersList().users.some(item => item.id === newUser.id))
+            )
             .map(user => <GroupUserCard key={user.id} user={user} onClick={() => addUser(user)}
                                         chosenStudents={chosenStudents} showLogin={showLogin}/>)
     }
-
 
     const addUser = (user: IUser) => {
         // @ts-ignore
@@ -45,7 +54,7 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow, showLogin = fal
 
     const hide = () => {
         onConfirm(chosenStudents);
-        setChosenStudents(new Set())
+        setChosenStudents(new Set([]))
         setShow(false)
     }
 

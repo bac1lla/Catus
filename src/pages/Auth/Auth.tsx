@@ -1,5 +1,4 @@
 import React, {FC, useContext} from 'react';
-import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import RegistrationForm from "../../components/Auth/RegistrationForm";
 import LoginForm from "../../components/Auth/LoginForm";
@@ -7,6 +6,8 @@ import {useLocation} from "react-router-dom";
 import {LOGIN_ROUTE} from "../../routes/consts";
 import Paper from "../../assets/img/Paper.svg"
 import AuthPage from './style';
+import Logo from "./../../assets/img/logo.svg"
+import {Context} from "../../index";
 
 const Auth: FC = () => {
     const {user} = useContext(Context)
@@ -15,7 +16,7 @@ const Auth: FC = () => {
 
     return (
         <AuthPage.Auth>
-            <AuthPage.Logo/>
+            <AuthPage.Logo src={Logo}/>
             <AuthPage.Paper>
                 <AuthPage.PaperImg src={Paper}/>
                 {

@@ -17,8 +17,8 @@ interface IProjectsProps {
 }
 
 const Projects: FC<IProjectsProps> = ({showSidebar, toggleShowSidebar}) => {
-    const {user, projects} = useContext(Context)
 
+    const {user, projects} = useContext(Context)
     const [showModal, setShowModal] = useState<boolean>(false)
     const [actualProject, setActualProject] = useState<number>(0)
     const navigate = useNavigate()
@@ -28,14 +28,11 @@ const Projects: FC<IProjectsProps> = ({showSidebar, toggleShowSidebar}) => {
     }, [])
 
     const deleteProject = async (projectId: number) => {
-        // e.stopPropagation()
-        // console.log(actualProject)
         await projects.deleteProject(user.user().id, actualProject)
         setShowModal(false)
     }
 
     const openProject = async (project: IProjectCard) => {
-        // console.log("open")
         await projects.fetchProjectById(user.user().id, project.id)
         navigate(PROJECT_ROUTE + `/${project.id}`)
     }
@@ -44,7 +41,6 @@ const Projects: FC<IProjectsProps> = ({showSidebar, toggleShowSidebar}) => {
         e.stopPropagation()
         setActualProject(projectId)
         setShowModal(true)
-        // console.log(1)
     }
 
     return (
@@ -55,15 +51,15 @@ const Projects: FC<IProjectsProps> = ({showSidebar, toggleShowSidebar}) => {
                     <MainTitleText>Your projects</MainTitleText>
                 </ProjectsPage.Title>
                 <ProjectsPage.List>
-                {
-                    projects.projectsList().projects.map(project =>
-                        <ProjectCard
-                            openProject={() => openProject(project)}
-                            key={project.id}
-                            project={project}
-                            deleteProject={(e: any) => openModal(e, project.id)}
-                        />)
-                }
+                    {
+                        projects.projectsList().projects.map(project =>
+                            <ProjectCard
+                                openProject={() => openProject(project)}
+                                key={project.id}
+                                project={project}
+                                deleteProject={(e: any) => openModal(e, project.id)}
+                            />)
+                    }
                 </ProjectsPage.List>
             </ProjectsPage.Projects>
             <Modal setShow={setShowModal} show={showModal}>

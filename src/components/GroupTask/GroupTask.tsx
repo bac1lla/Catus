@@ -2,6 +2,7 @@ import React, {Dispatch, FC, SetStateAction} from 'react';
 import CommentsIcon from "../../assets/img/comments-icon.png"
 import Task from "./style";
 import {ITaskCard} from "../../models/response/TasksResponse";
+import {observer} from "mobx-react-lite";
 
 interface IGroupTaskProps {
     getTask: (task: ITaskCard) => void,
@@ -32,4 +33,4 @@ const GroupTask: FC<IGroupTaskProps> = ({task, getTask, setTask}) => {
     );
 };
 
-export default GroupTask;
+export default observer(GroupTask);

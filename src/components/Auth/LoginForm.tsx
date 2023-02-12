@@ -3,6 +3,7 @@ import UserStore from "../../store/UserStore";
 import {useNavigate} from "react-router-dom";
 import {PROJECTS_ROUTE, REGISTRATION_ROUTE} from "../../routes/consts";
 import Auth from './style';
+import {observer} from "mobx-react-lite";
 
 interface ILoginFormProps {
     user: UserStore
@@ -44,6 +45,7 @@ const LoginForm: FC<ILoginFormProps> = ({user}) => {
                         placeholder={"Text goes here..."}/>
                 </Auth.Input.Wrapper.Blue>
             </Auth.Form>
+            <Auth.Error>{user.isError()}</Auth.Error>
             <Auth.TitleWrapper.Green>
                 <Auth.Btn onClick={() => auth()}>
                     <Auth.Title>Log in</Auth.Title>
@@ -57,6 +59,6 @@ const LoginForm: FC<ILoginFormProps> = ({user}) => {
 
 };
 
-export default LoginForm;
+export default observer(LoginForm);
 
 

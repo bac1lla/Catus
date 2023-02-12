@@ -14,8 +14,10 @@ const Member = styled(Line)`
   //width: 183px;
 `
 const Icon = styled.div`
-  width: 34px;
-  height: 34px;
+  min-width: 30px;
+  min-height: 30px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background-color: ${accentColor2};
   display: flex;
@@ -35,8 +37,8 @@ const Col = styled(Column)`
   gap: 6px;
 `
 const Trash = styled.img`
-  width: 32px;
-  height: 27px;
+  width: 15px;
+  height: 15min-px;
   display: inline-block;
 `
 

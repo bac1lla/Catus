@@ -52,7 +52,6 @@ const ProjectCardRow = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-
 `
 const ProjectCardRowWrapper = styled.div`
   display: flex;

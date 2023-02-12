@@ -2,15 +2,19 @@ import React, {FC, useContext, useEffect, useState} from 'react';
 import Member from "./style"
 import {observer} from "mobx-react-lite";
 import TrashIcon from "../../assets/img/trashIcon.png";
+import {Context} from "../../index";
+import {IUser} from "../../models/IUser";
+import {useParams} from "react-router";
 
 
 interface IGroupMemberProps {
     name: string;
     groupName: string;
-    onDelete: () => void
+    onDelete: () => void,
+    member: IUser
 }
 
-const GroupMember: FC<IGroupMemberProps> = ({name, groupName, onDelete}) => {
+const GroupMember: FC<IGroupMemberProps> = ({name, groupName, onDelete , member}) => {
 // const GroupMember: FC<IGroupMemberProps> = ({name,group}) => {
 //     const {groups} = useContext(Context)
     // const [groupName, setGroupName] = useState<string | undefined>(undefined)
@@ -18,19 +22,31 @@ const GroupMember: FC<IGroupMemberProps> = ({name, groupName, onDelete}) => {
     // fetchGroupName()
     // }, [groupID])
 
+    const params = useParams()
+
+    const {projects, user} = useContext(Context)
+
+    const deleteFromProject = async () => {
+        await projects.deleteFromProject(member.id, Number(params.id))
+        await projects.fetchAllUsersInProject(member.id, Number(params.id))
+    }
 
     return (
         <Member>
-            <Member.Icon>{name[0]}</Member.Icon>
+            <Member.Icon>{member.name[0]}</Member.Icon>
             <Member.Col gap={6}>
-                <Member.Text>{name}</Member.Text>
+                <Member.Text>{member.name}</Member.Text>
                 {
                     groupName ?
                         <Member.Text>Group: {groupName}</Member.Text>
                         : <Member.Text>Not in group</Member.Text>
                 }
             </Member.Col>
-            <Member.Trash src={TrashIcon} onClick={onDelete}/>
+            {
+                user.user().role !== "STUDENT" ?
+                    <Member.Trash src={TrashIcon} onClick={deleteFromProject}/>
+                    : <></>
+            }
         </Member>
     );
 };

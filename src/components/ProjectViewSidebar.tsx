@@ -26,7 +26,6 @@ const ProjectViewSidebar: FC = () => {
 
     useEffect(() => {
         projects.fetchAllUsersInProject(user.user().id, Number(params.id))
-
     }, [projects.projectsList()])
 
     const addUsers = async (users: Set<IUser>) => {
@@ -51,7 +50,7 @@ const ProjectViewSidebar: FC = () => {
                 {
                     projects.allUsers().users.map(user =>
                         // <GroupMember key={user.id} group={user.group.name} name={user.name}/>)
-                        <GroupMember key={user.id} groupName={user.group?.name || ""} name={user.name} onDelete={onDelete}/>)
+                        <GroupMember key={user.id} groupName={user.group?.name || ""} name={user.name} onDelete={onDelete} member={user}/>)
                 }
             </Members>
             {
@@ -80,6 +79,9 @@ const ProjectSidebarStyled = styled(Column)`
 const SidebarImage = styled(TitleText)`
   min-width: 215px;
   min-height: 215px;
+  max-width: 215px;
+  overflow: hidden;
+  text-overflow: ellipsis;
   background-color: ${accentColor2};
   color: ${backgroundColor};
   display: flex;

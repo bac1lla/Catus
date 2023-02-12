@@ -115,6 +115,9 @@ const AuthInputWrapperBlue = styled(AuthInputWrapper)`
 const AuthInputText = styled(LightText)`
   text-align: left;
 `
+const AuthError = styled(LightText)`
+  color: red;
+`
 
 const AuthInput = styled.input`
   border: none;
@@ -162,6 +165,7 @@ const Auth = {
     Form: AuthForm,
     Btn: TransparentBtn,
     Title: AuthTitleText,
+    Error: AuthError,
     TitleWrapper: {
         Green: AuthTextWrapperGreen,
         Purple: AuthTextWrapperPurple,

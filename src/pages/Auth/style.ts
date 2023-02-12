@@ -21,14 +21,14 @@ const AuthStyled = styled.div`
     background-color: white;
   }
 `
-const AuthLogo = styled.div`
+const AuthLogo = styled.img`
   width: 270px;
   height: 400px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: url("./../../assets/img/logo.svg");
+  //background-size: cover;
+  //background-repeat: no-repeat;
+  //background-image: url("./../../assets/img/logo.svg");
 
-  @media (max-width: ${SIZE.laptop}) {
+  @media (max-width: 1175px) {
     display: none;
   }
 `

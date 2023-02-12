@@ -20,12 +20,18 @@ interface IGroupUserCardProps {
 
 const GroupUserCard: FC<IGroupUserCardProps> = ({user, onClick, onDelete, disable= false, chosenStudents, showLogin = false}) => {
 
-    const {groups} = useContext(Context)
+    const {groups, projects} = useContext(Context)
     const [target, setTarget] = useState<boolean>(false)
 
-    // useEffect(() => {
-        // setTarget(false)
-    // }, [groups.group()])
+    useEffect(() => {
+        if (chosenStudents?.size === 0) {
+            setTarget(false)
+        }
+    }, [groups.group()])
+
+    useEffect(() => {
+        setTarget(false)
+    }, [projects.allUsers()])
 
     const handleClick = () => {
         onClick && onClick(user)
@@ -33,7 +39,7 @@ const GroupUserCard: FC<IGroupUserCardProps> = ({user, onClick, onDelete, disabl
     }
 
     return (
-        <Card canDelete={onDelete !== undefined} choose={disable ? false : chosenStudents?.has(user)} onClick={handleClick}>
+        <Card canDelete={onDelete !== undefined} choose={disable ? false : target} onClick={handleClick}>
             <Card.Image>{user.name[0]}</Card.Image>
             <Card.Info>
                 <Card.Name>{user.name}</Card.Name>

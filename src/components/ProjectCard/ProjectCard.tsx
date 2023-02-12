@@ -29,14 +29,13 @@ const ProjectCard: FC<IProjectCardProps> = ({project, openProject, deleteProject
                         </Card.Row.Text>
                     </Card.Row.Row>
                     {
-                        ((user.user().role === "USER") || (user.user().role === "ADMIN")) ?
+                        ((user.user().role === "TEACHER") || (user.user().role === "ADMIN")) ?
                             <Card.Trash
                                 src={TrashIcon}
                                 onClick={(e) => deleteProject(e, project)}
                             />
                             :
-                            <>  </>
-
+                            <></>
                     }
                 </Line>
                 <Card.Row.Row>

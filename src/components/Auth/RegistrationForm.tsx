@@ -1,8 +1,10 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import UserStore from "../../store/UserStore";
 import Auth from "./style";
 import {useNavigate} from "react-router-dom";
 import {LOGIN_ROUTE, PROJECTS_ROUTE} from "../../routes/consts";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
 interface IRegistrationFormProps {
     user: UserStore
@@ -17,10 +19,18 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({user}) => {
     const [role, setRole] = useState<string>("STUDENT")
     const navigate = useNavigate()
 
+    useEffect(() => {
+        user.setError("")
+    }, [])
+
     async function registration() {
-        await user.registration(login, password, name, role)
-        if (user.isAuth()) {
-            navigate(PROJECTS_ROUTE)
+        if (passwordCheck !== password) {
+            user.setError("Passwords must match")
+        } else {
+            await user.registration(login, password, name, role)
+            if (user.isAuth()) {
+                navigate(PROJECTS_ROUTE)
+            }
         }
     }
 
@@ -70,12 +80,12 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({user}) => {
                                     onClick={() => setRole("TEACHER")}>Teacher</Auth.CheckRole>
                 </Auth.Input.Wrapper.Transparent>
             </Auth.Form>
+            <Auth.Error>{user.isError()}</Auth.Error>
             <Auth.TitleWrapper.Green>
                 <Auth.Btn onClick={() => registration()}>
                     <Auth.Title>Sign in</Auth.Title>
                 </Auth.Btn>
             </Auth.TitleWrapper.Green>
-
             <Auth.Check onClick={() => navigate(LOGIN_ROUTE)}>
                 Already a cat?
             </Auth.Check>
@@ -83,4 +93,4 @@ const RegistrationForm: FC<IRegistrationFormProps> = ({user}) => {
     );
 };
 
-export default RegistrationForm;
+export default observer(RegistrationForm);
