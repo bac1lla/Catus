@@ -6,7 +6,6 @@ import GroupDetail from "../GroupDetail/GroupDetail";
 import {IGroup, IGroupMin} from "../../models/response/GroupsResponse";
 import {observer} from "mobx-react-lite";
 import Groups from "./style";
-import ProjectsPage from "../Projects/style";
 import { Line } from '../../styles/styled-components';
 
 interface IGroupList {
@@ -23,8 +22,11 @@ const GroupsList: FC<IGroupList> = ({showSidebar, toggleShowSidebar}) => {
 
     useEffect(() => {
         groups.fetchGroupsList()
-        // groups.fetchGroup(currentGroup.id)
     }, [groups.group()])
+
+    // useEffect(() => {
+    //     groups.fetchGroup(currentGroup.id)
+    // }, [currentGroup])
 
     const getGroup = async (group: IGroupMin) => {
         await groups.fetchGroup(group.id)

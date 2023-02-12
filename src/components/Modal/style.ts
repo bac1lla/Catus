@@ -104,6 +104,7 @@ export const Input = styled.input`
   border-radius: 10px;
   width: 600px;
   height: 40px;
+  padding: 5px 15px;
 `
 
 export const Col = styled.div`

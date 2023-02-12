@@ -34,5 +34,10 @@ const Text = styled(LittleText)`
 const Col = styled(Column)`
   gap: 6px;
 `
+const Trash = styled.img`
+  width: 32px;
+  height: 27px;
+  display: inline-block;
+`
 
-export default Object.assign({Icon, Text, Col}, Member)
+export default Object.assign({Icon, Text, Col, Trash}, Member)

@@ -164,6 +164,7 @@ const Input = styled.input`
   width: 100%;
   text-align: end;
   outline: none;
+  padding: 5px 15px;
 `
 
 const Row = styled.div`

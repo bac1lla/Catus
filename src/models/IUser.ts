@@ -4,8 +4,8 @@ export interface IUser {
     name: string,
     title: string,
     group: {
-        id: number | undefined,
-        name: string | undefined
+        id: number,
+        name: string
     } | null
     role: string,
     token?: string

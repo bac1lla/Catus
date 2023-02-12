@@ -49,6 +49,10 @@ const ProjectCardRow = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 27px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
 `
 const ProjectCardRowWrapper = styled.div`
   display: flex;
@@ -58,11 +62,17 @@ const ProjectCardRowWrapper = styled.div`
 `
 const ProjectCardRowText = styled(MainText)`
   color: ${textColorPrimary};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
 `
 const ProjectCardRowValue = styled(ProjectCardRow)`
   background-color: ${textColorPrimary};
   padding: 2px 10px;
   width: unset;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100px;
 `
 const ProjectCardRowInfoText = styled(MainText)`
   color: ${textColorSecondary};

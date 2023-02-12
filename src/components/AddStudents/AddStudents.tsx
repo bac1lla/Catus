@@ -28,7 +28,11 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow, showLogin = fal
 
     const mapUsers = (users: IUser[]) => {
         return users
-            .filter(user => user.role === "STUDENT" && user.name.toLowerCase().includes(searchName.toLowerCase().trim()) && user.group?.name?.toLowerCase().includes(searchGroup.toLowerCase().trim()))
+            .filter(user => user.role === "STUDENT"
+                && user.name.toLowerCase().includes(searchName.toLowerCase().trim())
+                && (user.group?.id ?
+                    user.group.name.toLowerCase().includes(searchGroup.toLowerCase().trim())
+                    : !searchGroup))
             .map(user => <GroupUserCard key={user.id} user={user} onClick={() => addUser(user)}
                                         chosenStudents={chosenStudents} showLogin={showLogin}/>)
     }

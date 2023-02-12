@@ -10,6 +10,7 @@ import {accentColor1, accentColor2, accentColor3, accentColor4, accentColor5, ac
 import Modal from "../../components/Modal/Modal";
 import TaskDetail from "../../components/Modal/TaskDetail";
 import {useParams} from "react-router";
+import Confirm from "../../components/Modal/Confirm";
 
 interface ISeparatedTasks {
     [key: string]: ITaskCard[];
@@ -35,18 +36,12 @@ const separateTasks = (tasks: ITaskCard[]): ISeparatedTasks => {
 
 const ProjectView: FC = () => {
 
-    const {projects, tasks, user} = useContext(Context)
+    const {tasks} = useContext(Context)
     const [separatedTasks, setSeparatedTasks] = useState<ISeparatedTasks>({})
-    const [showModal, setShowModal] = useState(false)
-    // const [update, setUpdate] = useState(true)
     const params = useParams()
 
     useEffect(() => {
-        // console.log("params", params.id)
-        // projects.fetchProjectById(0, Number(params.id))
         getTasks()
-        // console.log(separatedTasks)
-
     }, [])
 
     useEffect(() => {
@@ -60,12 +55,6 @@ const ProjectView: FC = () => {
         setSeparatedTasks(separateTasks(tasks.tasksList().tasks))
         return response
     }
-
-    const createTask = () => {
-
-    }
-
-
 
     return (
         <>

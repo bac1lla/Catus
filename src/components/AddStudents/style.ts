@@ -69,7 +69,7 @@ const Search = styled(Column)`
 `
 const Input = styled.input`
   border: 1px solid ${textColorPrimary};
-  border-radius: 50px;
+  border-radius: 10px;
   height: 40px;
   padding: 5px 15px;
   outline: none;

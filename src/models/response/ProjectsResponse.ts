@@ -6,8 +6,9 @@ export interface IProject {
     description: string;
     status: string;
     createdAt: string;
-    creatorId: string;
+    creator: IUser
     userCount: number;
+    taskCount: number
 }
 
 export interface IAllUsers {
@@ -23,6 +24,6 @@ export interface IProjectCard {
 }
 
 export interface IProjectsList {
-    projects: IProjectCard[];
+    projects: IProject[];
     total: number;
 }

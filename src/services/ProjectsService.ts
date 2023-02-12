@@ -44,8 +44,8 @@ export default class ProjectsService {
             .then(response => response.data)
     }
 
-    static async createNewProject(userId: number, body: Partial<IProjectCard>): Promise<IProjectCard> {
-        return $api.post<IProjectCard>(`/projects`, body)
+    static async createNewProject(userId: number, body: Partial<IProject>): Promise<IProject> {
+        return $api.post<IProject>(`/projects`, body)
             .then(response => response.data)
     }
 

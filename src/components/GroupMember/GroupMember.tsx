@@ -1,15 +1,16 @@
 import React, {FC, useContext, useEffect, useState} from 'react';
 import Member from "./style"
-import {Context} from "../../index";
-import group from "../Group/Group";
 import {observer} from "mobx-react-lite";
+import TrashIcon from "../../assets/img/trashIcon.png";
+
 
 interface IGroupMemberProps {
     name: string;
     groupName: string;
+    onDelete: () => void
 }
 
-const GroupMember: FC<IGroupMemberProps> = ({name, groupName}) => {
+const GroupMember: FC<IGroupMemberProps> = ({name, groupName, onDelete}) => {
 // const GroupMember: FC<IGroupMemberProps> = ({name,group}) => {
 //     const {groups} = useContext(Context)
     // const [groupName, setGroupName] = useState<string | undefined>(undefined)
@@ -26,9 +27,10 @@ const GroupMember: FC<IGroupMemberProps> = ({name, groupName}) => {
                 {
                     groupName ?
                         <Member.Text>Group: {groupName}</Member.Text>
-                        : <></>
+                        : <Member.Text>Not in group</Member.Text>
                 }
             </Member.Col>
+            <Member.Trash src={TrashIcon} onClick={onDelete}/>
         </Member>
     );
 };

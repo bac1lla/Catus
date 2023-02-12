@@ -4,25 +4,22 @@ import {LightText, MainTitleText} from "../../styles/fonts";
 
 interface ICreateProjectProps {
     setShow: Dispatch<SetStateAction<boolean>>;
-    onConfirm: (name: string, description: string) => void
+    onConfirm: (name: string) => void
 }
 
 const CreateProject: FC<ICreateProjectProps> = ({setShow, onConfirm}) => {
 
     const [name, setName] = useState<string>("")
-    const [description, setDescription] = useState<string>("")
 
     return (
         <Container>
             <MainTitleText>Create Project</MainTitleText>
             <LightText>Name:</LightText>
             <Input value={name} onChange={e => setName(e.target.value)}/>
-            <LightText>Description:</LightText>
-            <Input value={description} onChange={e => setDescription(e.target.value)}/>
             <ModalStyled.Footer>
                 <ModalStyled.Btn
                     variant ={"green"}
-                    onClick={() => onConfirm(name, description)}
+                    onClick={() => onConfirm(name)}
                 >
                     Confirm
                 </ModalStyled.Btn>

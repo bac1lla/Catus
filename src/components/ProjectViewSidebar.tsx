@@ -25,20 +25,19 @@ const ProjectViewSidebar: FC = () => {
     const params = useParams()
 
     useEffect(() => {
-        // user.fetchUser(Number(localStorage.getItem("id")))
         projects.fetchAllUsersInProject(user.user().id, Number(params.id))
 
     }, [projects.projectsList()])
 
     const addUsers = async (users: Set<IUser>) => {
-        // console.log(users)
         users.forEach((userSet) => {
-            // console.log(userSet)
             projects.addMember(user.user().id, projects.project().id, userSet.id)
         })
         setShowAddUsers(false)
-        // for(let i = 0; i < users.size; i++) {
-        // }
+    }
+
+    const onDelete = () => {
+
     }
 
     return (
@@ -52,7 +51,7 @@ const ProjectViewSidebar: FC = () => {
                 {
                     projects.allUsers().users.map(user =>
                         // <GroupMember key={user.id} group={user.group.name} name={user.name}/>)
-                        <GroupMember key={user.id} groupName={user.group?.name || ""} name={user.name}/>)
+                        <GroupMember key={user.id} groupName={user.group?.name || ""} name={user.name} onDelete={onDelete}/>)
                 }
             </Members>
             {

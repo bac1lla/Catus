@@ -21,7 +21,6 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
     const [showCreateGroupModal, setShowCreateGroupModal] = useState<boolean>(false)
     const [showCreateProjectModal, setShowCreateProjectModal] = useState<boolean>(false)
     const [showCreateUserModal, setShowCreateUserModal] = useState<boolean>(false)
-
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -42,8 +41,8 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
         setShowCreateGroupModal(false)
     }
 
-    const createProject = async (name: string, description: string) => {
-        await projects.createNewProject(user.user().id, name, description)
+    const createProject = async (name: string) => {
+        await projects.createNewProject(user.user().id, name)
         setShowCreateProjectModal(false)
     }
 
@@ -72,7 +71,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
                 </Sidebar.Person.Person>
             </Sidebar.Person.Wrapper>
             <Sidebar.Info.Text onClick={navigateGroup}>
-                <LightText>{(user.user().role === "TEACHER") || (user.user().role === "ADMIN") ? "Groups" : user.user().group?.name || ""}</LightText>
+                <LightText>{(user.user().role === "TEACHER") || (user.user().role === "ADMIN") ? "Groups" : user.user().group?.name || "Not in group"}</LightText>
             </Sidebar.Info.Text>
             <Sidebar.Info.Text onClick={() => navigate(PROJECTS_ROUTE)}>
                 <LightText>Projects</LightText>

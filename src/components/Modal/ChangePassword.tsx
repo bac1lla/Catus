@@ -110,6 +110,7 @@ const Input = styled.input<IInput>`
   border-radius: 10px;
   height: 40px;
   width: 100%;
+  padding: 5px 15px;
 `
 
 const Row = styled.div`

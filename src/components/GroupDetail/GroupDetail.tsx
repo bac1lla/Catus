@@ -23,26 +23,15 @@ const GroupDetail: FC<IGroupDetailProps> = ({group}) => {
     const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
-        groups.fetchGroup(group.id)
+        if (group.id) {
+            groups.fetchGroup(group.id)
+        }
     }, [group, loading])
 
     const openConfirmation = (user: IUser) => {
         setCurrentUser(user)
         setShowConfirm(true)
     }
-
-    // useEffect(() => {
-    //     // groups.fetchGroup(group.id)
-    // }, [loading])
-
-    // const deleteUser = async () => {
-    //     await groups.deleteUserFromGroup(group.id, currentUser.id)
-    //     setShowConfirm(false)
-    // }
-
-    // const deleteUser = (newUser: IUser) => {
-    //     user.refreshUser(newUser.id, {groupId: undefined})
-    // }
 
     const deleteUser = () => {
         user.refreshUser(currentUser.id, {group: null})
@@ -53,23 +42,17 @@ const GroupDetail: FC<IGroupDetailProps> = ({group}) => {
     }
 
     const addUsers = async (users: Set<IUser>) => {
-        // console.log("set", users)
         users.forEach((userSet) => {
-            // console.log(userSet)
             user.refreshUser(userSet.id, {
                 groupId: group.id
             })
         })
-        // console.log("tatata")
-        await groups.fetchGroup(group.id)
+        if (group.id) {
+            groups.fetchGroup(group.id)
+        }
         setShowAddUsers(false)
         setLoading(prev => !prev)
-
-        // for(let i = 0; i < users.size; i++) {
-        // }
     }
-
-    // @ts-ignore
     return (
         <Window>
             <Window.Header>
