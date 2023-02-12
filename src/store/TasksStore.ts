@@ -34,6 +34,18 @@ export default class TasksStore {
         }
     }
 
+    async changeStatus(projectId: number, taskId: number, body: Partial<ITask>) {
+        try {
+            this.setIsLoading(true)
+            const response = await TasksService.changeStatus(projectId, taskId, body)
+            this.setTask(response)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            this.setIsLoading(false)
+        }
+    }
+
     async deleteTask(projectId: number, taskId: number) {
         try {
             this.setIsLoading(true)

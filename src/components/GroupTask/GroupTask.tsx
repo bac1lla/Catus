@@ -1,8 +1,9 @@
-import React, {Dispatch, FC, SetStateAction} from 'react';
+import React, {Dispatch, FC, SetStateAction, useContext} from 'react';
 import CommentsIcon from "../../assets/img/comments-icon.png"
 import Task from "./style";
 import {ITaskCard} from "../../models/response/TasksResponse";
 import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
 interface IGroupTaskProps {
     getTask: (task: ITaskCard) => void,
@@ -10,8 +11,14 @@ interface IGroupTaskProps {
 }
 
 const GroupTask: FC<IGroupTaskProps> = ({task, getTask}) => {
+    const {user} = useContext(Context)
+
     return (
         <Task
+            draggable={user.user().role !== "STUDENT"}
+            onDragStart={(e) => {
+                e.dataTransfer.setData("taskId", task.id + "");
+            }}
             onClick={() => {getTask(task);}}
         >
             <Task.Col>

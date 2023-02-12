@@ -14,6 +14,11 @@ export default class TasksService {
             .then(response => response.data)
     }
 
+    static async changeStatus(projectId: number, taskId: number, body: Partial<ITask>): Promise<ITask> {
+        return $api.patch<ITask>(`/projects/${projectId}/tasks/${taskId}`, body)
+            .then(response => response.data)
+    }
+
     static async deleteTask(projectId: number, taskId: number): Promise<void> {
         return $api.delete(`/projects/${projectId}/tasks/${taskId}`)
             .then(response => response.data)

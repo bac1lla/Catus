@@ -64,7 +64,6 @@ const ProjectView: FC = () => {
                     </Project.ProjectList>
                 </Project.ProjectView>
             </Project.Wrapper>
-
         </>
     );
 };

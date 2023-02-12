@@ -43,6 +43,7 @@ const Input = styled.input`
   border-radius: 10px;
   height: 40px;
   width: 100%;
+  padding: 5px 15px;
 `
 const TextArea = styled.textarea`
   width: 100%;
@@ -50,6 +51,7 @@ const TextArea = styled.textarea`
   border: 1px solid #827A7A;
   border-radius: 5px;
   resize: none;
+  padding: 5px 15px;
   @media (max-width: 500px) {
     height: 100px;
   }

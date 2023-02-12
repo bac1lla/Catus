@@ -36,7 +36,15 @@ const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color})
     }
 
     return (
-        <TasksTabStyled>
+        <TasksTabStyled
+            onDrop={(e) => {
+                const taskId = e.dataTransfer.getData("taskId");
+                Store.tasks.refreshTask(Number(params.id), Number(taskId), {
+                    status: tabName
+                })
+            }}
+            onDragOver={(e) => e.preventDefault()}
+        >
             <TabName color={color}><SecondaryTitleText>{tabName}</SecondaryTitleText></TabName>
             <TasksWrapper>
             {
