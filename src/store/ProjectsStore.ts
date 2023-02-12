@@ -1,6 +1,7 @@
 import {IProjectsList, IAllUsers, IProject} from "../models/response/ProjectsResponse";
 import ProjectsService from "../services/ProjectsService";
 import {makeAutoObservable} from "mobx";
+import {IUser} from "../models/IUser";
 
 export default class ProjectsStore {
 
@@ -87,10 +88,10 @@ export default class ProjectsStore {
         }
     }
 
-    async createNewProject(userId: number, title: string, description: string) {
+    async createNewProject(userId: number, title: string) {
         try {
             this.setIsLoading(true)
-            const response = await ProjectsService.createNewProject(userId, {title: title, description: description})
+            const response = await ProjectsService.createNewProject(userId, {title: title})
             const newProjectsList = [...this.projectsList().projects, response]
             this.setProjectsList({
                 projects: newProjectsList,
@@ -152,9 +153,10 @@ export default class ProjectsStore {
         title: "",
         description: "",
         status: "",
-        createdAt: "",
-        creatorId: "",
-        userCount: 0
+        creator: {} as IUser,
+        userCount: 0,
+        taskCount: 0,
+        createdAt: ""
     }
     private _projectsList: IProjectsList = {
         projects: [],
