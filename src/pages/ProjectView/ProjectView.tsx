@@ -1,16 +1,13 @@
-import React, {FC, ReactNode, useContext, useEffect, useState} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import NavBar from "../../components/NavBar/NavBar";
 import Project from './style';
 import {ITaskCard} from "../../models/response/TasksResponse";
 import {Context} from "../../index";
-import TasksTab from "../../components/TasksTab";
-import ProjectViewSidebar from "../../components/ProjectViewSidebar";
+import TasksTab from "../../components/TasksTab/TasksTab";
+import ProjectViewSidebar from "../../components/ProjectViewSidebar/ProjectViewSidebar";
 import {observer} from "mobx-react-lite";
-import {accentColor1, accentColor2, accentColor3, accentColor4, accentColor5, accentColor6} from "../../styles/colors";
-import Modal from "../../components/Modal/Modal";
-import TaskDetail from "../../components/Modal/TaskDetail";
+import {accentColor2, accentColor3, accentColor5, accentColor6} from "../../styles/colors";
 import {useParams} from "react-router";
-import Confirm from "../../components/Modal/Confirm";
 
 interface ISeparatedTasks {
     [key: string]: ITaskCard[];
@@ -27,9 +24,6 @@ const separateTasks = (tasks: ITaskCard[]): ISeparatedTasks => {
         separatedTasks[tasks[i].status].push(tasks[i])
     }
 
-    // for (let i = 0; i < tasks.length; i++) {
-    //
-    // }
     return separatedTasks
 }
 

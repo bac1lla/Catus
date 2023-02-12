@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {Column} from "../../styles/styled-components";
-import {LightText, LittleText, MainTitleText, TextInfo} from "../../styles/fonts";
+import {LightText, MainTitleText, TextInfo} from "../../styles/fonts";
 import {SIZE} from "../../styles/consts";
 import ZhushPurple from "../../assets/img/MarkerZhush-purple.svg";
 import ZhushGreenInput from "../../assets/img/Marker-input-green.svg";
@@ -62,7 +62,7 @@ const AuthTextWrapper = styled.div<IImgProps>`
     height: 70px;
     width: 70%;
   }
-  
+
 `
 
 const AuthTextWrapperGreen = styled(AuthTextWrapper)`

@@ -7,22 +7,18 @@ import {observer} from "mobx-react-lite";
 interface IGroupTaskProps {
     getTask: (task: ITaskCard) => void,
     task: ITaskCard,
-    setTask: Dispatch<SetStateAction<ITaskCard>>
 }
 
-const GroupTask: FC<IGroupTaskProps> = ({task, getTask, setTask}) => {
-    // console.log(typeof task.dueDate)
+const GroupTask: FC<IGroupTaskProps> = ({task, getTask}) => {
     return (
         <Task
-            onClick={() => {setTask(task);getTask(task);}}
+            onClick={() => {getTask(task);}}
         >
             <Task.Col>
                 <Task.Name>{task.type}</Task.Name>
                 <Task.Description>{task.title}</Task.Description>
                 <Task.Row>
-                    {/*<Task.Deadline>{`${Array.from(task.dueDate)[0]}`}</Task.Deadline>*/}
                     <Task.Deadline>{`${task.dueDate[2]}.${task.dueDate[1]}.${task.dueDate[0]}`}</Task.Deadline>
-                    {/*<Task.Deadline>{`${task.dueDate[0]}`}</Task.Deadline>*/}
                     <Task.Comment>
                         {task.commentCount}
                         <img src={CommentsIcon} alt=""/>

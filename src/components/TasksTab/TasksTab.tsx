@@ -1,14 +1,13 @@
 import React, {FC, useContext, useState} from 'react';
 import styled from "styled-components";
-import {SecondaryTitleText} from "../styles/fonts";
-import {Column} from "../styles/styled-components";
-import {accentColor3, accentColor4, backgroundColor, textColorPrimary, textColorSecondary} from "../styles/colors";
-import GroupTask from "./GroupTask/GroupTask";
-import {ITask, ITaskCard} from "../models/response/TasksResponse";
-import Modal from "./Modal/Modal";
-import TaskDetail from "./Modal/TaskDetail";
-import TaskCreate from './TaskCreate/TaskCreate';
-import {Context} from "../index";
+import {SecondaryTitleText} from "../../styles/fonts";
+import {Column} from "../../styles/styled-components";
+import {accentColor3, accentColor4, backgroundColor, textColorPrimary, textColorSecondary} from "../../styles/colors";
+import GroupTask from "../GroupTask/GroupTask";
+import {ITaskCard} from "../../models/response/TasksResponse";
+import Modal from "../Modal/Modal";
+import TaskDetail from "../TaskDetail/TaskDetail";
+import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import {useParams} from "react-router";
 
@@ -20,32 +19,21 @@ interface ITasksTabProps {
 }
 
 const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color}) => {
-    const [showTaskCreate, setShowTaskCreate] = useState<boolean>(false)
     const [showTaskDetail, setShowTaskDetail] = useState<boolean>(false)
-
     const [currentTask, setCurrentTask] = useState<ITaskCard>({} as ITaskCard)
     const Store = useContext(Context)
     const params = useParams()
 
     const getTask = async (task: ITaskCard) => {
-        await Store.tasks.fetchTask(Number(params.id), task.id)
         setCurrentTask(task)
+        await Store.tasks.fetchTask(Number(params.id), task.id)
         setShowTaskDetail(true)
-    }
-
-    const onSave = (newTask: boolean) => {
-        if (newTask) {
-            // console.log("createNewTask")
-        } else {
-            // console.log("editTask")
-        }
     }
 
     const createTask = () => {
         setCurrentTask({} as ITaskCard)
         setShowTaskDetail(true)
     }
-
 
     return (
         <TasksTabStyled>
@@ -57,30 +45,21 @@ const TasksTab: FC<ITasksTabProps> = ({tabName, tasks, editable = true , color})
                         <GroupTask
                             key={task.id}
                             task={task}
-                            setTask={setCurrentTask}
                             getTask={getTask}
                         />) : <></>
             }
             </TasksWrapper>
             {
-                editable && <AddGroupTaskBtn onClick={createTask}>Add</AddGroupTaskBtn>
+                editable && Store.user.user().role !== "STUDENT" ?
+                <AddGroupTaskBtn onClick={createTask}>Add</AddGroupTaskBtn> : <></>
             }
-            {/*<Modal show={showTaskCreate} setShow={setShowTaskCreate}>*/}
-            {/*    <TaskCreate*/}
-            {/*        // task={currentTask}*/}
-            {/*        // onSave={}*/}
-            {/*    />*/}
-            {/*</Modal>*/}
             <Modal show={showTaskDetail} setShow={setShowTaskDetail}>
                 <TaskDetail
                     setShow={setShowTaskDetail}
                     task={currentTask}
-                    onSave={onSave}
                     status={tabName}
-                    id={currentTask.id}
                 />
             </Modal>
-
         </TasksTabStyled>
     );
 };

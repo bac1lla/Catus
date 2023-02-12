@@ -4,8 +4,6 @@ import {observer} from "mobx-react-lite";
 import {Context} from "../../index";
 import GroupUserCard from "../GroupUserCard/GroupUserCard";
 import {IUser} from "../../models/IUser";
-import {Simulate} from "react-dom/test-utils";
-import transitionEnd = Simulate.transitionEnd;
 
 interface IAddStudentsProps {
     onConfirm: (users: Set<IUser>) => void,
@@ -18,7 +16,7 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow, showLogin = fal
     const [searchName, setSearchName] = useState<string>("")
     const [searchGroup, setSearchGroup] = useState<string>("")
     const [chosenStudents, setChosenStudents] = useState<Set<IUser>>(new Set<IUser>())
-    const {user, projects, groups} = useContext(Context)
+    const {user} = useContext(Context)
 
     useEffect(() => {
         if (user.user().role !== "STUDENT") {
@@ -26,17 +24,13 @@ const AddStudents: FC<IAddStudentsProps> = ({onConfirm, setShow, showLogin = fal
         }
     }, [])
 
-    // const deleteUser = (newUser: IUser) => {
-    //     user.refreshUser(newUser.id, {groupId: undefined})
-    // }
-
     const mapUsers = (users: IUser[]) => {
         return users
             .filter((newUser, i, arr) => newUser.role === "STUDENT"
-                && newUser.name.toLowerCase().includes(searchName.toLowerCase().trim())
-                && (newUser.group?.id ?
-                    newUser.group.name.toLowerCase().includes(searchGroup.toLowerCase().trim())
-                    : !searchGroup)
+                    && newUser.name.toLowerCase().includes(searchName.toLowerCase().trim())
+                    && (newUser.group?.id ?
+                        newUser.group.name.toLowerCase().includes(searchGroup.toLowerCase().trim())
+                        : !searchGroup)
                 // && (showLogin ?
                 //     // true
                 //     !user.usersList().users.some(item => (item.id === newUser.id) && ((item.group === null ? true : item.group.id) === (newUser.group === null ? true : newUser.group.id)))

@@ -8,7 +8,7 @@ import {GROUPS_ROUTE, PROJECTS_ROUTE} from "../../routes/consts";
 import {useLocation, useNavigate} from "react-router-dom";
 import CreateProject from "../CreateProject/CreateProject";
 import {observer} from "mobx-react-lite";
-import ChangeUser from "../Modal/ChangeUser";
+import ChangeUser from "../ChangeUser/ChangeUser";
 import Logo from "../../assets/img/logo.svg"
 
 interface IProjectSidebarProps {
@@ -27,7 +27,7 @@ const ProjectSidebar: FC<IProjectSidebarProps> = ({show, toggleShow}) => {
 
     useEffect(() => {
         projects.fetchAllProjects(user.user().id)
-    },[])
+    }, [])
 
     const handleClick = () => {
         if (location.pathname === PROJECTS_ROUTE) {

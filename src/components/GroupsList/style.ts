@@ -21,7 +21,7 @@ const Header = styled.div`
     //gap: 10px;
     flex-wrap: wrap;
   }
-  
+
 `
 const Title = styled(MainTitleText)`
   color: ${mainColor};
@@ -52,9 +52,11 @@ const List = styled.div`
     gap: 10px;
   }
 `
+
 interface IBurgerBtn {
     show: boolean
 }
+
 const BurgerBtn = styled.div<IBurgerBtn>`
   height: 85px;
   width: 85px;

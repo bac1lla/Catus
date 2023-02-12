@@ -1,5 +1,5 @@
 import React, {Dispatch, FC, SetStateAction} from 'react';
-import ModalStyled, { Container } from "./style";
+import ModalStyled, {Container} from "./style";
 
 interface IConfirm {
     onConfirm: any;
@@ -15,13 +15,13 @@ const Confirm: FC<IConfirm> = ({title, onConfirm, setShow}) => {
             </ModalStyled.Title>
             <ModalStyled.Footer>
                 <ModalStyled.Btn
-                    variant ={"green"}
+                    variant={"green"}
                     onClick={() => onConfirm()}
                 >
                     Confirm
                 </ModalStyled.Btn>
                 <ModalStyled.Btn
-                    variant ={"blue"}
+                    variant={"blue"}
                     onClick={() => setShow(false)}
                 >
                     Cancel

@@ -38,7 +38,7 @@ const Col = styled(Column)`
 `
 const Trash = styled.img`
   width: 15px;
-  height: 15min-px;
+  height: 15 min-px;
   display: inline-block;
 `
 

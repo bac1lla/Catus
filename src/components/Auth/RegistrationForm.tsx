@@ -1,10 +1,9 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import UserStore from "../../store/UserStore";
 import Auth from "./style";
 import {useNavigate} from "react-router-dom";
 import {LOGIN_ROUTE, PROJECTS_ROUTE} from "../../routes/consts";
 import {observer} from "mobx-react-lite";
-import {Context} from "../../index";
 
 interface IRegistrationFormProps {
     user: UserStore

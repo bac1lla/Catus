@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import {MainTitleText, TitleText} from "../../styles/fonts";
+import {TitleText} from "../../styles/fonts";
 import {
     accentColor2,
     accentColor3,
-    accentColor4,
     accentColor5,
-    backgroundColor,
-    textColorPrimary
+    backgroundColor
 } from "../../styles/colors";
 
 

@@ -1,7 +1,7 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, useContext} from 'react';
 import {Line} from "../../styles/styled-components";
 import TrashIcon from "../../assets/img/trashIcon.png"
-import {IProject, IProjectCard} from "../../models/response/ProjectsResponse";
+import {IProject} from "../../models/response/ProjectsResponse";
 import Card from './style';
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
@@ -42,7 +42,6 @@ const ProjectCard: FC<IProjectCardProps> = ({project, openProject, deleteProject
                     <Card.Row.Wrapper>
                         <Card.Row.Text>Tasks</Card.Row.Text>
                         <Card.Row.Value><Card.Row.Info>
-                            {/*{tasks.tasksList().total}*/}
                             {project.taskCount}
                         </Card.Row.Info></Card.Row.Value>
                     </Card.Row.Wrapper>

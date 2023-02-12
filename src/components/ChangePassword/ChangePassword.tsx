@@ -1,25 +1,19 @@
-import React, {Dispatch, FC, SetStateAction, useContext, useEffect, useState} from 'react';
-import styled from "styled-components";
-import {TitleText} from "../../styles/fonts";
-import {accentColor2, backgroundColor, mainColor, textColorSecondary} from "../../styles/colors";
+import React, {Dispatch, FC, SetStateAction, useContext, useState} from 'react';
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
-import ModalStyled from "./style";
+import ModalStyled from "../Modal/style";
+import Wrapper from "./style";
 
 interface IChangePasswordProps {
     setShow: Dispatch<SetStateAction<boolean>>;
-    onConfirm?: (name: string, description: string) => void
 }
 
-const ChangePassword: FC<IChangePasswordProps> = ({setShow, onConfirm}) => {
+const ChangePassword: FC<IChangePasswordProps> = ({setShow}) => {
 
     const {user} = useContext(Context)
     const [password, setPassword] = useState<string>("")
     const [passwordRepeat, setPasswordRepeat] = useState<string>("")
     const [err, setErr] = useState<boolean>(false)
-
-    useEffect(() => {
-    }, [])
 
     const changePassword = async () => {
         if (password.trim() === passwordRepeat.trim()) {
@@ -27,6 +21,8 @@ const ChangePassword: FC<IChangePasswordProps> = ({setShow, onConfirm}) => {
             await user.changeUser(user.user().id, {
                 password: password
             }).then(() => hide())
+            setPassword("")
+            setPasswordRepeat("")
         } else {
             setErr(true)
         }
@@ -36,26 +32,24 @@ const ChangePassword: FC<IChangePasswordProps> = ({setShow, onConfirm}) => {
         setShow(false)
     }
 
-
     return (
         <Wrapper>
-
-            <Row>
-                <Label>Password</Label>
-                <Input
+            <Wrapper.Row>
+                <Wrapper.Label>Password</Wrapper.Label>
+                <Wrapper.Input
                     error={err}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-            </Row>
-            <Row>
-                <Label>Repeat password</Label>
-                <Input
+            </Wrapper.Row>
+            <Wrapper.Row>
+                <Wrapper.Label>Repeat password</Wrapper.Label>
+                <Wrapper.Input
                     error={err}
                     value={passwordRepeat}
                     onChange={(e) => setPasswordRepeat(e.target.value)}
                 />
-            </Row>
+            </Wrapper.Row>
             <ModalStyled.Footer>
 
                 <ModalStyled.Btn
@@ -76,47 +70,3 @@ const ChangePassword: FC<IChangePasswordProps> = ({setShow, onConfirm}) => {
 };
 
 export default observer(ChangePassword);
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: center;
-  width: 900px;
-
-  @media (max-width: 1300px) {
-    max-width: 800px;
-  }
-
-  @media (max-width: 700px) {
-    max-width: 600px;
-  }
-
-  @media (max-width: 576px) {
-    max-width: 95%;
-  }
-`
-
-const Label = styled(TitleText)`
-  color: ${mainColor};
-`
-
-interface IInput {
-    error: boolean
-}
-const Input = styled.input<IInput>`
-  border: 1px solid ${({error}) => error ? accentColor2 : "#827A7A"};
-  border-radius: 10px;
-  height: 40px;
-  width: 100%;
-  padding: 5px 15px;
-`
-
-const Row = styled.div`
-  display: flex;
-  width: 100%;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-`

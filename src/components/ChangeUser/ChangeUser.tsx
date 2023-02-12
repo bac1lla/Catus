@@ -1,12 +1,10 @@
 import React, {Dispatch, FC, SetStateAction, useContext, useEffect, useState} from 'react';
-import styled from "styled-components";
-import {TitleText} from "../../styles/fonts";
-import {accentColor5, backgroundColor, mainColor, textColorSecondary} from "../../styles/colors";
+import Wrapper from "./style"
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
-import ModalStyled from "./style";
-import Modal from "./Modal";
-import ChangePassword from "./ChangePassword";
+import ModalStyled from "../Modal/style";
+import Modal from "../Modal/Modal";
+import ChangePassword from "../ChangePassword/ChangePassword";
 import {LOGIN_ROUTE} from "../../routes/consts";
 import {useNavigate} from "react-router-dom";
 
@@ -24,7 +22,6 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        // groups.fetchGroup(user.user().group.id || 0)
     }, [])
 
     const changeUser = async () => {
@@ -52,35 +49,35 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
 
     return (
         <Wrapper>
-            <Row>
-                <Btn onClick={logout}>Log out</Btn>
-            </Row>
-            <Row>
-                <Label>Login</Label>
-                <Label>{user.user().login}</Label>
-            </Row>
-            <Row>
-                <Label>Password</Label>
-                <Btn onClick={() => setShowChangePassword(true)}>Change password</Btn>
-            </Row>
-            <Row>
-                <Label>Name</Label>
+            <Wrapper.Row>
+                <Wrapper.Btn onClick={logout}>Log out</Wrapper.Btn>
+            </Wrapper.Row>
+            <Wrapper.Row>
+                <Wrapper.Label>Login</Wrapper.Label>
+                <Wrapper.Label>{user.user().login}</Wrapper.Label>
+            </Wrapper.Row>
+            <Wrapper.Row>
+                <Wrapper.Label>Password</Wrapper.Label>
+                <Wrapper.Btn onClick={() => setShowChangePassword(true)}>Change password</Wrapper.Btn>
+            </Wrapper.Row>
+            <Wrapper.Row>
+                <Wrapper.Label>Name</Wrapper.Label>
                 {
                     change ?
-                        <Input
+                        <Wrapper.Input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
                         :
-                        <Label>{user.user().name}</Label>
+                        <Wrapper.Label>{user.user().name}</Wrapper.Label>
                 }
-            </Row>
+            </Wrapper.Row>
             {
                 user.user().role === "STUDENT" ?
-                    <Row>
-                        <Label>Group</Label>
-                        <Label>{groups.group().name}</Label>
-                    </Row> :
+                    <Wrapper.Row>
+                        <Wrapper.Label>Group</Wrapper.Label>
+                        <Wrapper.Label>{user.user().group?.name ? user.user().group?.name : "Not in group"}</Wrapper.Label>
+                    </Wrapper.Row> :
                     <></>
 
             }
@@ -101,12 +98,6 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
                             Change
                         </ModalStyled.Btn>
                 }
-                {/*<ModalStyled.Btn*/}
-                {/*    variant={"green"}*/}
-                {/*    onClick={() => onConfirm(name, name)}*/}
-                {/*>*/}
-                {/*    Change*/}
-                {/*</ModalStyled.Btn>*/}
                 <ModalStyled.Btn
                     variant={"blue"}
                     onClick={hide}
@@ -122,56 +113,4 @@ const ChangeUser: FC<IChangeUserProps> = ({setShow, onConfirm}) => {
 };
 
 export default observer(ChangeUser);
-
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: center;
-  width: 900px;
-
-  @media (max-width: 1300px) {
-    max-width: 800px;
-  }
-
-  @media (max-width: 700px) {
-    max-width: 600px;
-  }
-
-  @media (max-width: 576px) {
-    max-width: 95%;
-  }
-`
-
-const Label = styled(TitleText)`
-  color: ${mainColor};
-`
-const Btn = styled.button`
-  background: ${accentColor5};
-  //border: 2px solid #827A7A;
-  border-radius: 10px;
-  color: ${backgroundColor};
-  //width: 80px;
-  //height: 40px;
-  padding: 15px 25px;
-  border: none;
-`
-const Input = styled.input`
-  border: 1px solid black;
-  border-radius: 10px;
-  height: 40px;
-  width: 100%;
-  text-align: end;
-  outline: none;
-  padding: 5px 15px;
-`
-
-const Row = styled.div`
-  display: flex;
-  width: 100%;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-`
 

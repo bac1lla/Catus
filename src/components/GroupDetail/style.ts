@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import {Line} from "../../styles/styled-components";
-import {LightText, MainTitleText, SecondaryTitleText} from "../../styles/fonts";
+import {LightText, MainTitleText} from "../../styles/fonts";
 import {
     accentColor2,
     accentColor3,
     backgroundColor,
     mainColor,
     menuColor,
-    textColorSecondary
 } from "../../styles/colors";
 
 const Window = styled.div`
@@ -63,11 +62,11 @@ const Btn = styled.button`
   padding: 15px 20px;
   //height: 60px;
   //width: 130px;
-  
+
   @media (max-width: 500px) {
     padding: 5px 10px;
   }
-  
+
 `
 const List = styled.div`
   background: ${menuColor};

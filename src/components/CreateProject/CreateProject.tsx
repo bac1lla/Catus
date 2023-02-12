@@ -18,13 +18,13 @@ const CreateProject: FC<ICreateProjectProps> = ({setShow, onConfirm}) => {
             <Input value={name} onChange={e => setName(e.target.value)}/>
             <ModalStyled.Footer>
                 <ModalStyled.Btn
-                    variant ={"green"}
+                    variant={"green"}
                     onClick={() => onConfirm(name)}
                 >
                     Confirm
                 </ModalStyled.Btn>
                 <ModalStyled.Btn
-                    variant ={"blue"}
+                    variant={"blue"}
                     onClick={() => setShow(false)}
                 >
                     Cancel

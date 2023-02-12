@@ -1,13 +1,14 @@
 import React, {FC, useContext, useEffect} from "react";
 import {Context} from "../../index";
 import {useParams} from "react-router";
-import styled from "styled-components";
 import {observer} from "mobx-react-lite";
 import Comment from "../Comment/Comment";
+import List from "./style";
 
 interface ICommentsListProps {
     taskId: number
 }
+
 const CommentsList: FC<ICommentsListProps> = ({taskId}) => {
 
     const {comments} = useContext(Context)
@@ -15,7 +16,6 @@ const CommentsList: FC<ICommentsListProps> = ({taskId}) => {
 
     useEffect(() => {
         fetchComments()
-        // console.log("TASKID", taskId)
     }, [taskId])
 
     const fetchComments = async () => {
@@ -32,11 +32,3 @@ const CommentsList: FC<ICommentsListProps> = ({taskId}) => {
 }
 
 export default observer(CommentsList)
-
-const List = styled.div`
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`

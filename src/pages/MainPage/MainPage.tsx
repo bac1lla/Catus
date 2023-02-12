@@ -7,26 +7,26 @@ import Projects from "../../components/Projects/Projects";
 import GroupList from "../../components/GroupsList/GroupsList";
 
 const MainPage = () => {
-    const [show, toggleShow] = useState<boolean>(false)
+        const [show, toggleShow] = useState<boolean>(false)
 
-    const location = useLocation()
+        const location = useLocation()
 
-    const locations = {
-        [PROJECTS_ROUTE]: <Projects showSidebar={show} toggleShowSidebar={toggleShow}/>,
-        [GROUPS_ROUTE]:  <GroupList showSidebar={show} toggleShowSidebar={toggleShow}/>
+        const locations = {
+            [PROJECTS_ROUTE]: <Projects showSidebar={show} toggleShowSidebar={toggleShow}/>,
+            [GROUPS_ROUTE]: <GroupList showSidebar={show} toggleShowSidebar={toggleShow}/>
+        }
+
+        return (
+            <Main>
+                <ProjectSidebar show={show} toggleShow={toggleShow}/>
+                <Main.Content>
+                    {
+                        locations[location.pathname]
+                    }
+                </Main.Content>
+            </Main>
+        );
     }
+;
 
-    return (
-        <Main>
-            <ProjectSidebar show={show} toggleShow={toggleShow}/>
-            <Main.Content>
-                {
-                    locations[location.pathname]
-                }
-            </Main.Content>
-        </Main>
-    );
-}
-    ;
-
-    export default MainPage;
+export default MainPage;

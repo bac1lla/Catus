@@ -4,8 +4,7 @@ import {
     accentColor3,
     backgroundColor,
     mainColor,
-    textColorPrimary,
-    textColorSecondary
+    textColorPrimary
 } from "../../styles/colors";
 import {LightText} from "../../styles/fonts";
 

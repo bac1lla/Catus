@@ -8,7 +8,6 @@ import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import Window from "./style";
 import AddStudents from "../AddStudents/AddStudents";
-import projects from "../Projects/Projects";
 import {LightText} from '../../styles/fonts';
 
 interface IGroupDetailProps {

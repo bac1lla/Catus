@@ -1,11 +1,10 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, useContext} from 'react';
 import Member from "./style"
 import {observer} from "mobx-react-lite";
 import TrashIcon from "../../assets/img/trashIcon.png";
 import {Context} from "../../index";
 import {IUser} from "../../models/IUser";
 import {useParams} from "react-router";
-
 
 interface IGroupMemberProps {
     name: string;
@@ -14,16 +13,8 @@ interface IGroupMemberProps {
     member: IUser
 }
 
-const GroupMember: FC<IGroupMemberProps> = ({name, groupName, onDelete , member}) => {
-// const GroupMember: FC<IGroupMemberProps> = ({name,group}) => {
-//     const {groups} = useContext(Context)
-    // const [groupName, setGroupName] = useState<string | undefined>(undefined)
-    // useEffect(() => {
-    // fetchGroupName()
-    // }, [groupID])
-
+const GroupMember: FC<IGroupMemberProps> = ({name, groupName, onDelete, member}) => {
     const params = useParams()
-
     const {projects, user} = useContext(Context)
 
     const deleteFromProject = async () => {

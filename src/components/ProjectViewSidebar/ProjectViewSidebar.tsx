@@ -1,21 +1,21 @@
 import React, {FC, useContext, useEffect, useState} from 'react';
 import styled from "styled-components";
-import {Column} from "../styles/styled-components";
+import {Column} from "../../styles/styled-components";
 import {
-    accentColor2, accentColor3, accentColor4,
+    accentColor2,
     backgroundColor,
     mainColor,
     menuColor,
     textColorPrimary,
     textColorSecondary
-} from "../styles/colors";
-import {LightText, TitleText} from "../styles/fonts";
-import GroupMember from "./GroupMember/GroupMember";
-import {Context} from "../index";
+} from "../../styles/colors";
+import {LightText, TitleText} from "../../styles/fonts";
+import GroupMember from "../GroupMember/GroupMember";
+import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
-import Modal from "./Modal/Modal";
-import AddStudents from "./AddStudents/AddStudents";
-import {IUser} from "../models/IUser";
+import Modal from "../Modal/Modal";
+import AddStudents from "../AddStudents/AddStudents";
+import {IUser} from "../../models/IUser";
 import {useParams} from "react-router";
 
 const ProjectViewSidebar: FC = () => {
@@ -50,7 +50,8 @@ const ProjectViewSidebar: FC = () => {
                 {
                     projects.allUsers().users.map(user =>
                         // <GroupMember key={user.id} group={user.group.name} name={user.name}/>)
-                        <GroupMember key={user.id} groupName={user.group?.name || ""} name={user.name} onDelete={onDelete} member={user}/>)
+                        <GroupMember key={user.id} groupName={user.group?.name || ""} name={user.name}
+                                     onDelete={onDelete} member={user}/>)
                 }
             </Members>
             {
@@ -138,7 +139,7 @@ const MembersAddBtn = styled.button`
   background-color: ${accentColor2};
   color: ${backgroundColor};
   border: none;
-  //border: 2px solid ${textColorPrimary};
+    //border: 2px solid ${textColorPrimary};
   box-shadow: 1px 1px ${backgroundColor};
 `
 

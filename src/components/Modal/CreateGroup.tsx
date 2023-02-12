@@ -1,6 +1,6 @@
 import React, {Dispatch, FC, SetStateAction, useState} from 'react';
-import { MainTitleText } from '../../styles/fonts';
-import ModalStyled, { Container, Input } from './style';
+import {MainTitleText} from '../../styles/fonts';
+import ModalStyled, {Container, Input} from './style';
 
 interface ICreateGroup {
     setShow: Dispatch<SetStateAction<boolean>>;
@@ -17,13 +17,13 @@ const CreateGroup: FC<ICreateGroup> = ({setShow, onConfirm}) => {
             <Input value={text} onChange={e => setText(e.target.value)}/>
             <ModalStyled.Footer>
                 <ModalStyled.Btn
-                    variant ={"green"}
+                    variant={"green"}
                     onClick={() => onConfirm(text)}
                 >
                     Confirm
                 </ModalStyled.Btn>
                 <ModalStyled.Btn
-                    variant ={"blue"}
+                    variant={"blue"}
                     onClick={() => setShow(false)}
                 >
                     Cancel
